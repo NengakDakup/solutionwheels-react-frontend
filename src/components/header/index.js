@@ -7,6 +7,8 @@ import ProfileDropDown from '../dropdowns/profileDropdown'
 import { AddIcon, NotificationIcon } from '../icons'
 import ProfileImage from '../../assets/icons/boy.svg'
 import DownArrow from '../../assets/icons/chevron-arrow-down.svg'
+import AskQuestion from '../content/AskQuestion'
+import DisplayStatus from '../loaders/DisplayStatus'
 
 class Header extends Component {
     constructor(){
@@ -14,6 +16,7 @@ class Header extends Component {
         this.state = {
             NotificationDropdownActive: false,
             ProfileDropDownActive: false,
+            AskQuestionActive: false
         }
 
         this.toggleDropDown = this.toggleDropDown.bind(this)
@@ -24,9 +27,13 @@ class Header extends Component {
             this.setState({
                 NotificationDropdownActive: !this.state.NotificationDropdownActive
             })
-        } else {
+        } else if(type === 'profile') {
             this.setState({
                 ProfileDropDownActive: !this.state.ProfileDropDownActive
+            })
+        } else if (type === 'ask') {
+            this.setState({
+                AskQuestionActive: !this.state.AskQuestionActive
             })
         }
         
@@ -34,11 +41,12 @@ class Header extends Component {
 
     render(){
         const { NotificationDropdownActive, ProfileDropDownActive } = this.state;
+        const { data } = this.props;
         const Nav = () => {
-            if(this.props.data.userDetails.loggedIn) {
+            if(data.userDetails.loggedIn) {
                 return (
                     <ul className="header-nav-ul">
-                        <li className="header-nav-item">
+                        <li className="header-nav-item" onClick={ () => this.toggleDropDown('ask')}>
                             <AddIcon />
                         </li>
                         <li className="header-nav-item" onClick={() => {this.toggleDropDown('notification')}}>
@@ -50,7 +58,10 @@ class Header extends Component {
                         <NotificationDropdown active={NotificationDropdownActive} toggleDropDown={this.toggleDropDown} />
                         <li className="header-nav-item" onClick={() => {this.toggleDropDown('profile')}}>
                             <img src={ProfileImage} alt="users profile" />
-                            <p className="header-display-name">Dakup 
+                            <p className="header-display-name">
+                                { 
+                                    data.userDetails.username.slice(data.userDetails.username.lastIndexOf(' '), data.userDetails.username.length)
+                                } 
                                 <span>
                                     <img src={DownArrow} alt="down arrow" className="header-down-arrow"/>
                                 </span>
@@ -70,10 +81,12 @@ class Header extends Component {
         }
         return(
             <div className="header">
+                <DisplayStatus />
+                { this.state.AskQuestionActive && <AskQuestion toggleDropDown={this.toggleDropDown} />}
                 <div className="header-logo">
-                    <Link to="/" className="header-logo-link">
+                    <a href="/" className="header-logo-link">
                         SOLUTION WHEELS
-                    </Link>
+                    </a>
                 </div>
                 <HeaderSearch />
                 <div className="header-navigation">

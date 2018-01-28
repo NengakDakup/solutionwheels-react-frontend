@@ -13,7 +13,11 @@ class LeftSide extends Component {
                             Programming 
                         </Link>
                     </li>
-                    <li>Security</li>
+                    <li>
+                        <Link to="">
+                            Security
+                        </Link>
+                    </li>
                     <li>Educational</li>
                     <li>Business</li>
                     <li>Nature</li>

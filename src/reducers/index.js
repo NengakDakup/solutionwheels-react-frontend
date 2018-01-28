@@ -6,11 +6,7 @@ const initState = {
         userId: '2i8y9',
         userToken: '897tyhg87t8b878'
     },
-    Questions: [
-        {
-            name: 'hiljoijoijoi'
-        }
-    ]
+    feed: []
 }
 
 const rootReducer = (state = initState, action) => {
@@ -20,14 +16,18 @@ const rootReducer = (state = initState, action) => {
                 ...state,
                 userDetails: {
                     ...state.userDetails,
-                    loggedIn: !state.userDetails.loggedIn
+                    loggedIn: !state.userDetails.loggedIn,
                 }
             }
-            break;
-    
+        case 'LOAD_QUESTIONS':
+            return {
+                ...state,
+                feed: [
+                    ...action.payload
+                ]
+            }
         default:
             return state;
-            break;
     }
 }
 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { logOut } from '../../actions/logOutAction'
+import { logOut, loadQuestions } from '../../actions'
 
 import Header from '../../components/header'
 import WelcomeDiv from '../../components/welcome'
@@ -14,18 +14,24 @@ class Home extends Component {
         this.props.logOut();
     }
 
+    loadQuestions = (payload) => {
+        this.props.loadQuestions(payload);
+    }
+
     render(){
         const {data} = this.props; 
+        
         return(
             <div className="body">
                 <Header data={data} />
                 <WelcomeDiv />
                 <div className="content">
                     <LeftSide />
-                    <MainContent />
+                    <MainContent data={data} loadQuestions={this.loadQuestions} />
                     <RightSide />
                 </div>
                 <button onClick={this.logOut}>logout</button>
+                <button onClick={ () => this.loadQuestions(data.feed)}>loadQuestions</button>
             </div>
         )
     }
@@ -40,7 +46,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logOut: () => { dispatch(logOut(null)) } 
+        logOut: () => { dispatch(logOut(null)) },
+        loadQuestions: (payload) => { dispatch(loadQuestions(payload)) } 
     }
 }
 

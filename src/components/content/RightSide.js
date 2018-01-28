@@ -7,7 +7,16 @@ class RightSide extends Component {
     render(){
         return (
             <div className="right-side">
-                this is the right side
+                <div className="main-content-item">
+                    <ul>
+                        <li>Some item</li>
+                        <li>Some item</li>
+                        <li>Some item</li>
+                        <li>Some item</li>
+                        <li>Some item</li>
+                        <li>Some item</li>
+                    </ul>
+                </div>
             </div>
         )
     }
