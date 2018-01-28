@@ -29,6 +29,30 @@ a:hover {
   }
 }
 
+.bar-loader-frame {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #F8F8F8;
+  z-index: 5000;
+}
+
+.loader-bar {
+  background-color: #3061AD;
+  width: 40%;
+  height: 100%;
+  animation-fill-mode: both;
+  animation: slide .85s infinite linear;
+}
+
+@keyframes slide {
+  to {
+    transform: translateX(250%);
+  }
+}
+
 .body {
   width: 100%;
   height: auto;
@@ -584,11 +608,23 @@ p.seperator::before {
   font-size: 14px;
   color: #25262B;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .input-error {
   border-color: rgb(177, 53, 53);
+}
+
+.input-error::placeholder {
+  color: rgb(177, 53, 53);
+}
+
+.error-msg {
+  text-align: left;
+  padding-left: 5%;
+  font-weight: bold;
+  display: block;
+  font-size: 11px;
   color: rgb(177, 53, 53);
 }
 

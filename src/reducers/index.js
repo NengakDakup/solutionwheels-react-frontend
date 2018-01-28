@@ -1,10 +1,9 @@
 const initState = {
     userDetails: {
-        loggedIn: false,
+        loggedIn: localStorage.getItem('user_token')? true : false,
         username: 'Dakup Nengak',
         userAvatar: 'path/to/image.png',
-        userId: '2i8y9',
-        userToken: '897tyhg87t8b878'
+        userId: '2i8y9'
     },
     feed: []
 }
@@ -17,9 +16,9 @@ const rootReducer = (state = initState, action) => {
                 userDetails: {
                     loggedIn: true,
                     username: action.payload.username,
-                    userAvatar: action.payload.userAvatar,
-                    userId: action.payload.userId,
-                    userToken: action.payload.token
+                    // userAvatar: action.payload.userAvatar,
+                    // userId: action.payload.userId,
+                    // userToken: action.payload.token
                 }
             }
         case 'LOG_OUT':

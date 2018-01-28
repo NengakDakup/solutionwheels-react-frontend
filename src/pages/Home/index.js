@@ -7,10 +7,12 @@ import WelcomeDiv from '../../components/welcome'
 import LeftSide from '../../components/content/LeftSide'
 import RightSide from '../../components/content/RightSide'
 import MainContent from '../../components/content/MainContent'
+import TopHorizontalLoader from '../../components/loaders/TopHorizontalLoader'
 
 class Home extends Component {
 
     logOut = () => {
+        localStorage.removeItem('user_token');
         this.props.logOut();
     }
 
@@ -23,8 +25,9 @@ class Home extends Component {
         
         return(
             <div className="body">
+                <TopHorizontalLoader />
                 <Header data={data} />
-                <WelcomeDiv />
+                { !data.userDetails.loggedIn && <WelcomeDiv />}
                 <div className="content">
                     <LeftSide />
                     <MainContent data={data} loadQuestions={this.loadQuestions} />
