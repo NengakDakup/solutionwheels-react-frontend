@@ -1,5 +1,12 @@
 import * as types from './ActionTypes'
 
+export const logIn = (payload) => {
+    return {
+        type: types.LOG_IN,
+        payload: payload
+    }
+}
+
 export const logOut = (payload) => {
     return {
         type: types.LOG_OUT,

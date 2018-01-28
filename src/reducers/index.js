@@ -1,8 +1,8 @@
 const initState = {
     userDetails: {
-        loggedIn: true,
+        loggedIn: false,
         username: 'Dakup Nengak',
-        userImage: 'path/to/image.png',
+        userAvatar: 'path/to/image.png',
         userId: '2i8y9',
         userToken: '897tyhg87t8b878'
     },
@@ -11,6 +11,17 @@ const initState = {
 
 const rootReducer = (state = initState, action) => {
     switch (action.type) {
+        case 'LOG_IN':
+            return {
+                ...state,
+                userDetails: {
+                    loggedIn: true,
+                    username: action.payload.username,
+                    userAvatar: action.payload.userAvatar,
+                    userId: action.payload.userId,
+                    userToken: action.payload.token
+                }
+            }
         case 'LOG_OUT':
             return {
                 ...state,

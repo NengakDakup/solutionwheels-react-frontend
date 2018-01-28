@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { FacebookIcon, GoogleIcon } from '../icons'
 import { Link } from 'react-router-dom'
 
 import Facebook from '../../assets/icons/facebook.svg'

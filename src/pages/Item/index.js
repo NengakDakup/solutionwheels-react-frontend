@@ -5,8 +5,8 @@ import { logOut } from '../../actions'
 import Header from '../../components/header'
 import LeftSide from '../../components/content/LeftSide'
 import RightSide from '../../components/content/RightSide'
-import MainContent from '../../components/content/MainContent'
-import SingleItem from '../../components/content/SingleItem'
+// import MainContent from '../../components/content/MainContent'
+// import SingleItem from '../../components/content/SingleItem'
 import MainContentItem from '../../components/content/MainContentItem'
 
 class Item extends Component{

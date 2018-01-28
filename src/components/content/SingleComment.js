@@ -10,7 +10,7 @@ class SingleComment extends Component {
                 </p>
                 <p className="single-comment-details">
                     <span>
-                        <a href="/profile">Username  .</a>
+                        <Link to="/profile">Username  .</Link>
                     </span>
                     <span>  15 Mins Ago</span>
                 </p>

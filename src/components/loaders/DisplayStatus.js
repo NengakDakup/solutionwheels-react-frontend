@@ -4,7 +4,7 @@ import { PulseLoader } from 'react-spinners'
 class DisplayStatus extends Component {
     render() {
         return (
-            <div class="display-status">
+            <div className="display-status">
                 <PulseLoader color='#fff'/>
             </div>
         )
