@@ -1,5 +1,12 @@
 import * as types from './ActionTypes'
 
+export const addQuestion = (payload) => {
+    return {
+      type: types.ADD_QUESTION,
+      payload: payload
+    };
+}
+
 export const logIn = (payload) => {
     return {
         type: types.LOG_IN,

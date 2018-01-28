@@ -1,11 +1,14 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 
+import { connect } from 'react-redux'
+import { addQuestion } from '../../actions'
 import server from '../../config/config'
 import validateQuestionInput from '../../validation/questionValidator'
 
 import image from '../../assets/icons/boy.svg';
 import { CloseBtn } from '../icons';
+import { BtnLoader } from '../icons'
 
 class AskQuestion extends Component{
     constructor(props){
@@ -24,6 +27,7 @@ class AskQuestion extends Component{
         this.handleChange = this.handleChange.bind(this);
         this.validateInput = this.validateInput.bind(this);
         this.displayError = this.displayError.bind(this);
+        this.sendToBackend = this.sendToBackend.bind(this);
     }
 
     handleChange(e, type){
@@ -35,15 +39,23 @@ class AskQuestion extends Component{
       })
     }
 
-    displayError(errors){
-      console.log(errors)
+    displayError(error){
+      this.setState({
+        ...error
+      })
     }
 
     validateInput(){
-      const data = {name: this.state.question.title, body: this.state.question.body};
+      this.setState({
+        loading: true
+      });
+      const data = {title: this.state.question.title, body: this.state.question.body};
       const {errors, isValid} = validateQuestionInput(data);
       if (!isValid) {
-          this.displayError(errors);
+        this.setState({
+          loading: false
+        });
+        this.displayError({errors});
       } else {
           this.sendToBackend();
       }
@@ -54,10 +66,30 @@ class AskQuestion extends Component{
         question_title: this.state.question.title,
         body: this.state.question.body
       })
+      .then(res => {
+          this.setState({
+              loading: false,
+              errors: {}
+          })
+          // update the redux state
+          this.props.addQuestion(res.data);
+          console.log(res.data);
+      })
+      .catch(err => {
+          if(err.response.data) {
+              this.displayError(err.response.data);
+          }
+      })
+      .finally(() => {
+          this.setState({
+              loading: false
+          });
+      });
     }
 
     render(){
         const { toggleDropDown, data } = this.props;
+        const { title, body } = this.state.errors;
         return (
             <div className="ask-question-outer">
                 <div className="ask-question-wrap">
@@ -73,10 +105,12 @@ class AskQuestion extends Component{
                     </div>
                     <div className="ask-question-section">
                         <p className="title">Question Title</p>
+                        {title && <span className="error-msg">{title}</span>}
                         <input onChange={(e) => this.handleChange(e, 'title')} type="text" className="ask-question-input-title" placeholder="start your question with what, how, why, etc"/>
                     </div>
                     <div className="ask-question-section">
                         <p className="title">Explain More?</p>
+                        {body && <span className="error-msg">{body}</span>}
                         <textarea onChange={(e) => this.handleChange(e, 'body')} className="ask-question-input-title" placeholder="This is optional...You can add some explanation if you want to..."/>
                     </div>
                     <div className="ask-question-section">
@@ -85,7 +119,9 @@ class AskQuestion extends Component{
                     </div>
                     <div className="ask-question-bottom">
                       <button onClick={ () => toggleDropDown('ask')}>close</button>
-                      <button onClick={ () => this.validateInput()}>Submit</button>
+                      <button onClick={ () => this.validateInput()}>
+                        {this.state.loading? <BtnLoader /> : 'Submit'}
+                      </button>
                     </div>
 
                 </div>
@@ -94,4 +130,10 @@ class AskQuestion extends Component{
     }
 }
 
-export default AskQuestion
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addQuestion: (payload) => { dispatch(addQuestion(payload)) },
+    }
+}
+
+export default connect(null, mapDispatchToProps)(AskQuestion);

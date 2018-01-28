@@ -1,5 +1,5 @@
-const server = "https://solutionwheels.herokuapp.com";
-let temp = 'https://solutionwheels.herokuapp.com';
+const temp = "http://localhost:5000";
+const server = 'https://solutionwheels.herokuapp.com';
 
 
 export default server;

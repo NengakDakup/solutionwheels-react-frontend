@@ -18,6 +18,14 @@ const initState = {
 
 const rootReducer = (state = initState, action) => {
     switch (action.type) {
+        case 'ADD_QUESTION':
+          return {
+            ...state,
+            feed: [
+              action.payload,
+              ...state.feed
+            ]
+          }
         case 'LOG_IN':
             return {
                 ...state,
@@ -50,8 +58,8 @@ const rootReducer = (state = initState, action) => {
             const old = state.feed[index];
             old.likes = action.payload.likes;
             console.log(old);
-            
-            
+
+
             return {
                 ...state,
                 feed: [

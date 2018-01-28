@@ -18,7 +18,7 @@ function validateRegisterInput(data) {
     if (!Validator.isEmail(data.email)){
         errors.email = 'Invalid Email';
     }
- 
+
     if(Validator.isEmpty(data.name)) {
         errors.name = 'Name field is required';
     }

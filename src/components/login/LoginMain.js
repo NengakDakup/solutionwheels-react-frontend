@@ -43,7 +43,6 @@ class LoginMain extends Component {
         const data = {email: this.state.email, password: this.state.password};
         const {errors, isValid} = validateLoginInput(data);
         if (!isValid) {
-            console.log(errors);
             this.displayError({errors});
         } else {
             this.sendToBackend();
@@ -104,7 +103,7 @@ class LoginMain extends Component {
                             <img src={Google} alt="google" width="20px" />
                         </a>
                     </div>
-                    
+
                 </div>
                     <p className="seperator"><span className="or">OR</span></p>
                 <div>
@@ -117,7 +116,7 @@ class LoginMain extends Component {
                 </div>
                 <div>
                     <button type="submit" onClick={() => this.validateInput()} value="Log In" className="sign-up-home-submit-btn" >
-                        {this.state.loading? <BtnLoader /> : 'Log In'} 
+                        {this.state.loading? <BtnLoader /> : 'Log In'}
                     </button>
                 </div>
                 <p className="already">Dont have an Account? <Link to="/signup">Sign up Here</Link></p>
