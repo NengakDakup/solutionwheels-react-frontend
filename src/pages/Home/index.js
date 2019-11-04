@@ -3,6 +3,10 @@ import { connect } from 'react-redux'
 import { logOut } from '../../actions/logOutAction'
 
 import Header from '../../components/header'
+import WelcomeDiv from '../../components/welcome'
+import LeftSide from '../../components/content/LeftSide'
+import RightSide from '../../components/content/RightSide'
+import MainContent from '../../components/content/MainContent'
 
 class Home extends Component {
 
@@ -15,6 +19,12 @@ class Home extends Component {
         return(
             <div className="body">
                 <Header data={data} />
+                <WelcomeDiv />
+                <div className="content">
+                    <LeftSide />
+                    <MainContent />
+                    <RightSide />
+                </div>
                 <button onClick={this.logOut}>logout</button>
             </div>
         )

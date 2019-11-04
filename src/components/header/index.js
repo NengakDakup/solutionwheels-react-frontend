@@ -34,7 +34,7 @@ class Header extends Component {
 
     render(){
         const { NotificationDropdownActive, ProfileDropDownActive } = this.state;
-        const nav = () => {
+        const Nav = () => {
             if(this.props.data.userDetails.loggedIn) {
                 return (
                     <ul className="header-nav-ul">
@@ -47,7 +47,7 @@ class Header extends Component {
                                 <p>35</p>
                             </div>
                         </li>
-                        <NotificationDropdown active={NotificationDropdownActive} />
+                        <NotificationDropdown active={NotificationDropdownActive} toggleDropDown={this.toggleDropDown} />
                         <li className="header-nav-item" onClick={() => {this.toggleDropDown('profile')}}>
                             <img src={ProfileImage} alt="users profile" />
                             <p className="header-display-name">Dakup 
@@ -56,7 +56,7 @@ class Header extends Component {
                                 </span>
                             </p>
                         </li>
-                        <ProfileDropDown active={ProfileDropDownActive} />
+                        <ProfileDropDown active={ProfileDropDownActive} toggleDropDown={this.toggleDropDown} />
                     </ul>
                 )
             } else {
@@ -75,11 +75,9 @@ class Header extends Component {
                         SOLUTION WHEELS
                     </Link>
                 </div>
-                <div className="header-search">
-                    <HeaderSearch />
-                </div>
+                <HeaderSearch />
                 <div className="header-navigation">
-                    { nav() }
+                    <Nav />
                 </div>
             </div>
         )
