@@ -353,6 +353,18 @@ div.notification-item-right {
   font-size: 14px;
 }
 
+.login-signup-buttons {
+  display: inline;
+}
+
+.login-signup-buttons a {
+  border: 1px solid #3061AD;
+  background-color: transparent;
+  width: 75px;
+  height: 45px;
+  border-radius: 25px;
+}
+
 .welcome-div {
   width: 100%;
   min-height: 550px;

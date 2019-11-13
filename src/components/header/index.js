@@ -6,6 +6,7 @@ import NotificationDropdown from '../dropdowns/notificationDropdown'
 import ProfileDropDown from '../dropdowns/profileDropdown'
 import { AddIcon, NotificationIcon } from '../icons'
 import ProfileImage from '../../assets/icons/boy.svg'
+import LogoMain from '../../assets/logo-main.png'
 import DownArrow from '../../assets/icons/chevron-arrow-down.svg'
 import AskQuestion from '../content/AskQuestion'
 import DisplayStatus from '../loaders/DisplayStatus'
@@ -72,9 +73,9 @@ class Header extends Component {
                 )
             } else {
                 return (
-                    <div>
-                        <button>Log In</button>
-                        <button>Sign Up</button>
+                    <div className="login-signup-buttons">
+                        <Link to="/login" className="login-btn">Log In</Link>
+                        <Link to="/signup" className="signup-btn">Sign Up</Link>
                     </div>
                 )
             }
@@ -85,7 +86,7 @@ class Header extends Component {
                 { this.state.AskQuestionActive && <AskQuestion toggleDropDown={this.toggleDropDown} />}
                 <div className="header-logo">
                     <a href="/" className="header-logo-link">
-                        SOLUTION WHEELS
+                        <img src={LogoMain} alt="solution wheels" />
                     </a>
                 </div>
                 <HeaderSearch />

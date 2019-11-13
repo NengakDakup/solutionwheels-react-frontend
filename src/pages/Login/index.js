@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import SignUpHome from '../../components/login/SignupHome'
+import LoginMain from '../../components/login/LoginMain'
 
 class Login extends Component {
     render(){
@@ -7,7 +7,7 @@ class Login extends Component {
             <div className="signup-body">
                 {/* <Header data={null} /> */}
                 <div className="signup-wrap">
-                    <SignUpHome />
+                    <LoginMain />
                 </div>
             </div>
         )

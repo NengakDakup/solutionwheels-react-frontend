@@ -1,15 +1,13 @@
 import React, {Component} from 'react'
-import SignUpHome from '../../components/login/SignupHome'
-import Header from '../../components/header'
+import SignUpMain from '../../components/login/SignUpMain'
 
 class SignUp extends Component {
     render(){
         return (
             
             <div className="signup-body">
-                {/* <Header data={null} /> */}
                 <div className="signup-wrap">
-                    <SignUpHome />
+                    <SignUpMain />
                 </div>
             </div>
         )
