@@ -97,7 +97,7 @@ class MainContentItem extends Component {
                     <ShareBtn data={data} />
                 </div>
                 { this.state.displayAnswerBox && <AddAnswer /> }
-                {displayComments && <Answers /> }
+                {displayComments && <Answers data={data} /> }
             </div>
         )
     }
