@@ -7,13 +7,13 @@ import WelcomeDiv from '../../components/welcome'
 import LeftSide from '../../components/content/LeftSide'
 import RightSide from '../../components/content/RightSide'
 import MainContent from '../../components/content/MainContent'
-import TopHorizontalLoader from '../../components/loaders/TopHorizontalLoader'
 
 class Home extends Component {
 
     logOut = () => {
         localStorage.removeItem('user_token');
         this.props.logOut();
+        this.props.history.push('/login');
     }
 
     loadQuestions = (payload) => {
@@ -25,7 +25,6 @@ class Home extends Component {
         
         return(
             <div className="body">
-                <TopHorizontalLoader />
                 <Header data={data} />
                 { !data.userDetails.loggedIn && <WelcomeDiv />}
                 <div className="content">
@@ -50,7 +49,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         logOut: () => { dispatch(logOut(null)) },
-        loadQuestions: (payload) => { dispatch(loadQuestions(payload)) } 
+        loadQuestions: (payload) => { dispatch(loadQuestions(payload)) },
     }
 }
 

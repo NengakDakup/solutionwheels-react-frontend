@@ -20,3 +20,10 @@ export const loadQuestions = (payload) => {
         payload: payload
     }
 }
+
+export const likeQuestion = (payload) => {
+    return {
+        type: types.LIKE_QUESTION,
+        payload: payload
+    }
+}

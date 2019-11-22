@@ -4,6 +4,7 @@ class AskQuestion extends Component{
     constructor(props){
         super(props)
         this.state = {
+            loading: false,
             display: false,
             question: {
                 title: null,

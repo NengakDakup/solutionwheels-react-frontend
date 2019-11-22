@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import axios from 'axios'
+
+import server from '../../config/config'
 import { logOut } from '../../actions'
 
 import Header from '../../components/header'
@@ -10,18 +13,46 @@ import RightSide from '../../components/content/RightSide'
 import MainContentItem from '../../components/content/MainContentItem'
 
 class Item extends Component{
-    render(){
+    constructor(){
+        super()
+        this.state = {
+            loading: true,
+            question: []
+        }
+    }
+
+    componentWillMount(){
         const {data} = this.props;
+        const {title} = this.props.match.params;
+        if(data.feed.length < 1) {
+            axios.get(server + '/api/question/slug/' + title)
+                .then(response => {
+                    this.setState({
+                        loading: false,
+                        question: response.data
+                    })
+                })
+                .catch(err => console.log(err))
+        } else {
+            const item = data.feed.find(question => question.slug === title);
+            this.setState({
+                loading: false,
+                question: item
+            })
+        }
         
-        
-        const {title} = this.props.match.params; 
+    }
+
+    render(){ 
+        const {data} = this.props;
+        const {question} = this.state;
         return(
             <div className="body">
                 <Header data={data} />
                 <div className="content">
                     <LeftSide />
                     <div className="main-content">
-                        <MainContentItem data={data.feed[0]} displayComments={true} />
+                        {this.state.loading? 'Loading...' : <MainContentItem data={question} displayComments={true} />}
                     </div>
                     <RightSide />
                 </div>

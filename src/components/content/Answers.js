@@ -6,7 +6,7 @@ import AddAnswer from './AddAnswer'
 class Answers extends Component {
     render(){
         return (
-            <div>
+            <div className="answers-wrapper">
             <SingleAnswer />
             <SingleAnswer />
             <SingleAnswer />

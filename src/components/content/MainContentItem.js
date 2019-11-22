@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 import AddAnswer from './AddAnswer'
-import Comments from './Comments'
 import Answers from './Answers'
 
 import ProfileImage from '../../assets/icons/boy.svg'
 import { AnswerIcon, LikeIcon, ShareIcon, ProgressIcon, AnsweredIcon } from '../icons'
+import LikeBtn from '../buttons/Like'
+import AnswerBtn from '../buttons/Answer'
+import ShareBtn from '../buttons/Share'
 
 
 class MainContentItem extends Component {
@@ -47,28 +49,28 @@ class MainContentItem extends Component {
             <div className="main-content-item">
                 <div className="user-details">
                     <div className="question-type">
-                        <p>Question  .  <Link to={`/category/${data.category_id}`}>{data.category_id}</Link></p>
+                        <p>Question  .  <Link to={`/category/${data.category}`}>{data.category}</Link></p>
                     </div>
                     <div className="question-title">
                         <span>
-                            <Link to={`/item/${data.title}`}>
-                                {data.title}
+                            <Link to={`/question/${data.slug}`}>
+                                {data.question_title}
                             </Link>
                         </span>
                     </div>
                     <div className="question-user-details">
                         <div className="question-user-image">
-                            <Link>
+                            <Link to={`/user/${data.user._id}`}>
                                 <img src={ProfileImage} alt="user avatar" />
                             </Link>
                         </div>
                         <div className="question-user-name">
                             <span>
-                                <Link>
-                                    {data.user_id}
+                                <Link to={`/user/${data.user._id}`}>
+                                    {data.user.name}
                                 </Link>
                             </span>
-                            <span>{data.created_at}</span>
+                            <span>{data.date}</span>
                         </div>
                     </div>
                 </div>
@@ -77,31 +79,24 @@ class MainContentItem extends Component {
                         data.body && <div className="question-text">{data.body}</div>
                     }
                     <div className="question-stats">
-                        <span className={data.best_answer_id? 'answered-question' : 'in-progress'}>
-                            {data.best_answer_id ? <span><AnsweredIcon /> Solved</span> : <span><ProgressIcon /> In Progress</span>}
+                        <span className={data.best_answer? 'answered-question' : 'in-progress'}>
+                            {data.best_answer ? <span><AnsweredIcon /> Solved</span> : <span><ProgressIcon /> In Progress</span>}
                             
                         </span>
                         <span>.</span>
                         <span className="answer-count">
                             <Link>
-                                {data.no_of_answers} {data.no_of_answers >= 2 ? 'Answers' : 'Answer'}
+                                {data.answers.length === 0? 'No' : data.answers.length} {data.answers.length >= 2 ? 'Answers' : 'Answer'}
                             </Link>
                         </span>
                     </div>
                 </div>
                 <div className="bottom-actions">
-                    <div className="bottom-actions-answer" onClick={() => this.addAnswer()}>
-                        <span><AnswerIcon /> Answer </span>
-                    </div>
-                    <div className="bottom-actions-like" onClick={() => this.likePost(data.id)}>
-                        <span><LikeIcon /> Like . <span> {data.likes}</span></span>
-                    </div>
-                    <div className="bottom-actions-share" onClick={() => this.sharePost(data.id)}>
-                        <span><ShareIcon /> Share</span>
-                    </div>
+                    <AnswerBtn addAnswer={this.addAnswer} />
+                    <LikeBtn likes={data.likes} ques_id={data._id} />
+                    <ShareBtn data={data} />
                 </div>
                 { this.state.displayAnswerBox && <AddAnswer /> }
-                {displayComments && <Comments /> }
                 {displayComments && <Answers /> }
             </div>
         )

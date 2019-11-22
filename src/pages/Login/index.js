@@ -10,6 +10,7 @@ class Login extends Component {
 
     logIn = (payload) => {
         this.props.logIn(payload);
+        //set timeout then show a successfully loged in toast
         this.props.history.push('/')
     }
 

@@ -4,7 +4,16 @@ class SingleAnswer extends Component {
     render(){
         return (
             <div className="main-content-item">
-                SingleAnswer
+                <p>SingleAnswer</p>
+                <p>SingleAnswer</p>
+                <p>SingleAnswer</p>
+                <p>SingleAnswer</p>
+                <p>SingleAnswer</p>
+                <p>SingleAnswer</p>
+                <p>SingleAnswer</p>
+                <p>SingleAnswer</p>
+                <p>SingleAnswer</p>
+                <p>SingleAnswer</p>
             </div>
         )
     }

@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 
+import addTokenToHeader from '../../utils/addTokenToHeader'
+
 import HeaderSearch from './headerSearch'
 import NotificationDropdown from '../dropdowns/notificationDropdown'
 import ProfileDropDown from '../dropdowns/profileDropdown'
@@ -10,6 +12,8 @@ import LogoMain from '../../assets/logo-main.png'
 import DownArrow from '../../assets/icons/chevron-arrow-down.svg'
 import AskQuestion from '../content/AskQuestion'
 import DisplayStatus from '../loaders/DisplayStatus'
+// import TopHorizontalLoader from '../../components/loaders/TopHorizontalLoader'
+
 
 class Header extends Component {
     constructor(){
@@ -21,6 +25,10 @@ class Header extends Component {
         }
 
         this.toggleDropDown = this.toggleDropDown.bind(this)
+    }
+
+    componentWillMount(){
+        addTokenToHeader(localStorage.getItem('user_token'));
     }
 
     toggleDropDown(type){
@@ -47,6 +55,7 @@ class Header extends Component {
             if(data.userDetails.loggedIn) {
                 return (
                     <ul className="header-nav-ul">
+                        {/* <TopHorizontalLoader /> */}
                         <li className="header-nav-item" onClick={ () => this.toggleDropDown('ask')}>
                             <AddIcon />
                         </li>

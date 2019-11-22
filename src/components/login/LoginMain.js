@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import server from '../../config/config'
+import jwt_decode from 'jwt-decode'
 
 import validateLoginInput from '../../validation/loginValidator'
 
@@ -61,19 +62,19 @@ class LoginMain extends Component {
             this.setState({
                 errors: {}
             })
-            console.log(res.data)
             //jwt-decode module to decode the token
-            const user = {
-                username: 'Dakup Nengak',
-
-            }
+            const user = jwt_decode(res.data.token);
+            // save the token in the local storage
+            localStorage.setItem('user_token', res.data.token);
             this.props.logIn(user); //send the action to redux
-            localStorage.setItem('user_token', res.data);
-            console.log(this.props)
             //this.props.history.push('/');
-        }) // set the data to local storage and redux, then load home page
+        })
         .catch(err => {
-            this.displayError(err.response.data);
+            if(err.response.data) {
+                this.displayError(err.response.data);
+            }
+            console.log(this.state)
+            //this.displayError(err.response.data);
         })
         .finally(() => {
             this.setState({

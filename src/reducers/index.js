@@ -1,9 +1,17 @@
+import jwt_decode from 'jwt-decode'
+
+let user = {};
+if (localStorage.getItem('user_token')) {
+    user = jwt_decode(localStorage.getItem('user_token'));
+}
+
+
 const initState = {
     userDetails: {
         loggedIn: localStorage.getItem('user_token')? true : false,
-        username: 'Dakup Nengak',
-        userAvatar: 'path/to/image.png',
-        userId: '2i8y9'
+        username: user.name,
+        userAvatar: user.avatar,
+        userId: user.id
     },
     feed: []
 }
@@ -15,9 +23,9 @@ const rootReducer = (state = initState, action) => {
                 ...state,
                 userDetails: {
                     loggedIn: true,
-                    username: action.payload.username,
-                    // userAvatar: action.payload.userAvatar,
-                    // userId: action.payload.userId,
+                    username: action.payload.name,
+                    userAvatar: action.payload.avatar,
+                    userId: action.payload.id,
                     // userToken: action.payload.token
                 }
             }
@@ -34,6 +42,21 @@ const rootReducer = (state = initState, action) => {
                 ...state,
                 feed: [
                     ...action.payload
+                ]
+            }
+        case 'LIKE_QUESTION':
+            const index = state.feed.findIndex(it => it._id === action.payload._id);
+            console.log(state.feed[index]);
+            const old = state.feed[index];
+            old.likes = action.payload.likes;
+            console.log(old);
+            
+            
+            return {
+                ...state,
+                feed: [
+                    ...state.feed,
+                    state.feed[index] = action.payload
                 ]
             }
         default:

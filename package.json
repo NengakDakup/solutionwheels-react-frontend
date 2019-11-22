@@ -4,11 +4,16 @@
   "private": true,
   "dependencies": {
     "@emotion/core": "^10.0.22",
+    "animate.css": "^3.7.2",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "draft-js": "^0.11.2",
+    "jquery": "^3.4.1",
+    "jwt-decode": "^2.2.0",
     "react": "^16.11.0",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.11.0",
+    "react-draft-wysiwyg": "^1.13.2",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
@@ -39,5 +44,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/"
+  "proxy": "https://solutionwheels.herokuapp.com"
 }

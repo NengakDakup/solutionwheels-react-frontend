@@ -49,7 +49,8 @@ a:hover {
 
 @keyframes slide {
   to {
-    transform: translateX(250%);
+    transform: translateX(500%);
+    width: 20%;
   }
 }
 
@@ -615,10 +616,6 @@ p.seperator::before {
   border-color: rgb(177, 53, 53);
 }
 
-.input-error::placeholder {
-  color: rgb(177, 53, 53);
-}
-
 .error-msg {
   text-align: left;
   padding-left: 5%;
@@ -914,20 +911,28 @@ p.already > a {
 }
 
 .bottom-actions div {
-  width: 110px;
+  min-width: 110px;
+  height: 40px;
   text-align: center;
   cursor: pointer;
   transition: all ease-out .25s;
   border-radius: 83px;
   padding: 10px 15px;
+  transition: .5s;
 }
 
 .bottom-actions div:hover {
   background-color: #efefef;
 }
 
+.bottom-actions div:active {
+  background-color: #9c9392;
+  color: #fff;
+}
+
 .bottom-actions div span {
   display: inline-flex;
+  font-size: 13px;
 }
 
 .bottom-actions div span > svg {
