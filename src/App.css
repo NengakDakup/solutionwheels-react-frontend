@@ -89,14 +89,35 @@ a:hover {
 
 .ask-question-wrap {
   position: fixed;
-  top: 50%;
+  top: 20%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   height: 350px;
-  width: 50%;;
+  width: 600px;
+  border-radius: 2px;
+  border: 1px solid #726e6b;
+  padding: 10px;
   background-color: #fff;
   opacity: unset;
   display: block;
+}
+
+.ask-question-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0px 10px;
+  height: 50px;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  background-color: #fafafa;
+  border-bottom: 1px solid #d7dee2;
+}
+
+.ask-question-x {
+  position: absolute;
+  right: 10px;
 }
 
 .ask-question-outer::after {
