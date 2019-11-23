@@ -19,9 +19,9 @@ class AskQuestion extends Component{
             <div className="ask-question-outer">
                 <div className="ask-question-wrap">
                     <div className="ask-question-top">
-                        <p>Ask Question</p>
-                        <p>Explain</p>
-                        <p>Add Image</p>
+                        <p className="ask-question-top-item ask-question-top-item-active"><span>Question Title</span></p>
+                        <p className="ask-question-top-item"><span>Explain</span></p>
+                        <p className="ask-question-top-item"><span>Add Image</span></p>
                         <button onClick={ () => toggleDropDown('ask')} className="ask-question-x">Close</button>
                     </div>
                     <p>Hellooooo!...</p>

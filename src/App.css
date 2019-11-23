@@ -106,7 +106,7 @@ a:hover {
   position: fixed;
   top: 0;
   left: 0;
-  padding: 0px 10px;
+  padding: 0px;
   height: 50px;
   width: 100%;
   display: inline-flex;
@@ -118,6 +118,23 @@ a:hover {
 .ask-question-x {
   position: absolute;
   right: 10px;
+}
+
+.ask-question-top-item {
+  color: #3061AD;
+  padding: 0px 5px;
+  height: 100%;
+  margin: 0px;
+  display: inline-flex;
+  align-items: center; 
+}
+
+.ask-question-top-item-active {
+  border-bottom: 2px solid #3061AD;
+}
+
+.ask-question-top-item > span {
+
 }
 
 .ask-question-outer::after {
