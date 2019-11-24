@@ -92,7 +92,7 @@ class Header extends Component {
         return(
             <div className="header">
                 <DisplayStatus />
-                { this.state.AskQuestionActive && <AskQuestion toggleDropDown={this.toggleDropDown} />}
+                { this.state.AskQuestionActive && <AskQuestion data={data} toggleDropDown={this.toggleDropDown} />}
                 <div className="header-logo">
                     <a href="/" className="header-logo-link">
                         <img src={LogoMain} alt="solution wheels" />

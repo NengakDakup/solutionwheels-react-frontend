@@ -97,6 +97,7 @@ a:hover {
   border-radius: 2px;
   border: 1px solid #726e6b;
   padding: 10px;
+  padding-top: 50px;
   background-color: #fff;
   opacity: unset;
   display: block;
@@ -118,11 +119,15 @@ a:hover {
 .ask-question-x {
   position: absolute;
   right: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .ask-question-top-item {
-  color: #3061AD;
-  padding: 0px 5px;
+  font-size: 14px;
+  color: inherit;
+  padding: 0px 15px;
   height: 100%;
   margin: 0px;
   display: inline-flex;
@@ -130,11 +135,17 @@ a:hover {
 }
 
 .ask-question-top-item-active {
+  color: #3061AD;
   border-bottom: 2px solid #3061AD;
 }
 
 .ask-question-top-item > span {
 
+}
+
+.ask-question-user {
+  display: inline-flex;
+  align-items: center;
 }
 
 .ask-question-outer::after {
