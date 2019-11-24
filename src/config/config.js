@@ -1,4 +1,4 @@
-const server = "http://localhost:5000";
+const server = "https://solutionwheels.herokuapp.com";
 let temp = 'https://solutionwheels.herokuapp.com';
 
 
