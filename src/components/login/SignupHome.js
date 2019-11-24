@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
+import server from '../../config/config'
 import validateLoginInput from '../../validation/registerValidator'
 
 import Facebook from '../../assets/icons/facebook.svg'
@@ -52,7 +53,7 @@ class SignUpHome extends Component {
         this.setState({
             loading: true
         });
-        axios.post('http://localhost:5000/api/auth/register', {
+        axios.post(server + '/api/auth/register', {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password
@@ -89,7 +90,7 @@ class SignUpHome extends Component {
                             <img src={Google} alt="google" width="20px" />
                         </a>
                     </div>
-                    
+
                 </div>
                     <p className="seperator"><span className="or">OR</span></p>
                 <div>
@@ -106,7 +107,7 @@ class SignUpHome extends Component {
                 </div>
                 <div>
                     <button type="submit" onClick={() => this.validateInput()} value="Sign Up" className="sign-up-home-submit-btn" >
-                        {this.state.loading? <BtnLoader /> : 'Sign Up'} 
+                        {this.state.loading? <BtnLoader /> : 'Sign Up'}
                     </button>
                 </div>
                 <p className="already">Already have an Account? <Link to="/login">Log in Here</Link></p>

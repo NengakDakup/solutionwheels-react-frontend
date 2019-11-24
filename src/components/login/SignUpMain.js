@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
+import server from '../../config/config'
 import validateLoginInput from '../../validation/registerValidator'
 
 import LogoMain from '../../assets/logo-main.png'
@@ -33,7 +34,6 @@ class SignUpMain extends Component {
     }
 
     displayError(error){
-        console.log(error)
         this.setState({
             ...error
         })
@@ -43,7 +43,6 @@ class SignUpMain extends Component {
         const data = {name: this.state.name, email: this.state.email, password: this.state.password};
         const {errors, isValid} = validateLoginInput(data);
         if (!isValid) {
-            console.log(errors);
             this.displayError({errors});
         } else {
             this.sendToBackend();
@@ -54,7 +53,7 @@ class SignUpMain extends Component {
         this.setState({
             loading: true
         });
-        axios.post('http://localhost:5000/api/auth/register', {
+        axios.post(server + '/api/auth/register', {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password
@@ -95,7 +94,7 @@ class SignUpMain extends Component {
                             <img src={Google} alt="google" width="20px" />
                         </a>
                     </div>
-                    
+
                 </div>
                     <p className="seperator"><span className="or">OR</span></p>
                 <div>
@@ -112,7 +111,7 @@ class SignUpMain extends Component {
                 </div>
                 <div>
                     <button type="submit" onClick={() => this.validateInput()} value="Sign Up" className="sign-up-home-submit-btn" >
-                        {this.state.loading? <BtnLoader /> : 'Sign Up'} 
+                        {this.state.loading? <BtnLoader /> : 'Sign Up'}
                     </button>
                 </div>
                 <p className="already">Already have an Account? <Link to="/login">Log in Here</Link></p>
