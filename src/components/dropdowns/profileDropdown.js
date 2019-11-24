@@ -7,11 +7,11 @@ class ProfileDropDown extends Component {
 
     componentDidMount() {
         document.addEventListener("mousedown", this.handleClickOutside);
-        
+
     }
     componentWillUnmount() {
       document.removeEventListener("mousedown", this.handleClickOutside);
-      
+
     }
 
     handleClickOutside = (event) => {
@@ -24,7 +24,7 @@ class ProfileDropDown extends Component {
         //const className = `header-notification-drop header-profile-drop ${this.props.active && "active-display"}`;
         if(this.props.active){
             return (
-                <div className="header-notification-drop header-profile-drop active-display" ref={this.container}>
+                <div className="header-profile-drop active-display" ref={this.container}>
                     <ul>
                         <li>
                             <Link>Ask Question</Link>
@@ -41,7 +41,7 @@ class ProfileDropDown extends Component {
         } else {
             return null;
         }
-        
+
     }
 }
 

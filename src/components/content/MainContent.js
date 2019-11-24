@@ -46,7 +46,7 @@ class MainContent extends Component {
     filterFeed = () => {
         const { activeCategory } = this.state;
         const { feed } = this.props.data;
-        
+
 
         switch (activeCategory) {
             case 'Recent Questions':
@@ -64,20 +64,20 @@ class MainContent extends Component {
             case 'Most Answers':
                 let localeFeed = feed;
                 let newFeed = [];
-
+                if(localeFeed.length < 1) return;
                 //loop through each item in the localefeed array
                 for (let i = 0; i <= localeFeed.length; i++) {
                     //get the element with the highest number of answers
                     let max = localeFeed.reduce((cur, prev) => cur.answers.length > prev.answers.length? cur : prev);
                     //push it to a new array
                     newFeed.push(max);
-                    
+
                     //filter localefeed so the previous max will be removed
                     localeFeed = localeFeed.filter((it) => {
                         return max.id !== it.id
                     })
 
-                    
+
                 }
 
                 this.setState({
@@ -94,26 +94,26 @@ class MainContent extends Component {
             default:
                 break;
         }
-        
+
 
     }
 
-    
+
     render(){
-        
+
         const {activeCategory, filteredFeed} = this.state;
         const items = filteredFeed.map((it, key) => {
             return <MainContentItem data={it} key={key} />
         })
-        
+
         return (
             <div className="main-content">
                 <PostFilter activeCategory={activeCategory} filterCategory={this.filterCategory} />
-                
+
                 <center>
                     {this.state.loading && <MainContentLoader />}
                 </center>
-                
+
                 { items }
             </div>
         )
