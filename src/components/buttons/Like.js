@@ -5,6 +5,7 @@ import jwt_decode from 'jwt-decode'
 import server from '../../config/config'
 import { connect } from 'react-redux'
 import { likeQuestion } from '../../actions'
+import DisplayStatus from '../loaders/DisplayStatus'
 
 import { LikeIcon, LikedIcon } from '../icons'
 
@@ -58,7 +59,7 @@ class LikeBtn extends Component {
                 this.setState({
                     loading: false
                 })
-                if (err.response) return console.log(err.response.data);
+                if (err.response) return console.log(err.response.data)
                 console.log(err);
                 //if its unauthorized
                 //revert the changes
@@ -77,7 +78,7 @@ class LikeBtn extends Component {
             <div className="bottom-actions-like" onClick={() => this.likeQuestion()}>
                 {text}
             </div>
-            
+
         )
     }
 }
@@ -85,7 +86,7 @@ class LikeBtn extends Component {
 // //fetch what you want from the store
 // const mapStateToProps = (state) => {
 //     return {
-//         data: state 
+//         data: state
 //     }
 // }
 

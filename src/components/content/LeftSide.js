@@ -3,20 +3,25 @@ import { Link } from 'react-router-dom'
 
 class LeftSide extends Component {
 
-    
+
     render(){
         return (
             <div className="left-side">
                 <ul>
                     <li className="is-active">
-                        <Link to="">
-                            Programming 
-                        </Link>
+                      <Link to="">
+                          General
+                      </Link>
+                    </li>
+                    <li className="">
+                      <Link to="">
+                          Programming
+                      </Link>
                     </li>
                     <li>
-                        <Link to="">
-                            Security
-                        </Link>
+                      <Link to="">
+                          Security
+                      </Link>
                     </li>
                     <li>Educational</li>
                     <li>Business</li>

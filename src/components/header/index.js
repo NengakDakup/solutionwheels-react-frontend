@@ -11,7 +11,7 @@ import ProfileImage from '../../assets/icons/boy.svg'
 import LogoMain from '../../assets/logo-main.png'
 import DownArrow from '../../assets/icons/chevron-arrow-down.svg'
 import AskQuestion from '../content/AskQuestion'
-import DisplayStatus from '../loaders/DisplayStatus'
+//import DisplayStatus from '../loaders/DisplayStatus'
 // import TopHorizontalLoader from '../../components/loaders/TopHorizontalLoader'
 
 
@@ -45,7 +45,7 @@ class Header extends Component {
                 AskQuestionActive: !this.state.AskQuestionActive
             })
         }
-        
+
     }
 
     render(){
@@ -69,9 +69,9 @@ class Header extends Component {
                         <li className="header-nav-item" onClick={() => {this.toggleDropDown('profile')}}>
                             <img src={ProfileImage} alt="users profile" />
                             <p className="header-display-name">
-                                { 
+                                {
                                     data.userDetails.username.slice(data.userDetails.username.lastIndexOf(' '), data.userDetails.username.length)
-                                } 
+                                }
                                 <span>
                                     <img src={DownArrow} alt="down arrow" className="header-down-arrow"/>
                                 </span>
@@ -91,7 +91,6 @@ class Header extends Component {
         }
         return(
             <div className="header">
-                <DisplayStatus />
                 { this.state.AskQuestionActive && <AskQuestion data={data} toggleDropDown={this.toggleDropDown} />}
                 <div className="header-logo">
                     <a href="/" className="header-logo-link">

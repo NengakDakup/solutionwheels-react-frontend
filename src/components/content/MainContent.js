@@ -7,12 +7,14 @@ import PostFilter from './PostFilter'
 import MainContentItem from './MainContentItem'
 import MainContentLoader from '../loaders/MainContentLoader';
 
+import {NetworkErrorIcon} from '../icons'
+
 class MainContent extends Component {
     constructor(props){
         super(props)
         this.state = {
             loading: true,
-            loadinStatus: 'Loading...',
+            networkError: true,
             activeCategory: 'Recent Questions',
             filteredFeed: []
         }
@@ -26,13 +28,17 @@ class MainContent extends Component {
             this.props.loadQuestions(response.data);
             this.setState({
                 filteredFeed: [...response.data],
-                loading: false
+                loading: false,
+                networkError: false
             })
         })
         .catch((err) => {
+          if(err.toString() === 'Error: Network Error') {
             this.setState({
-                loadingStatus: err
+                networkError: true,
+                loading: false
             })
+          }
         })
     }
 
@@ -112,6 +118,7 @@ class MainContent extends Component {
 
                 <center>
                     {this.state.loading && <MainContentLoader />}
+                    {this.state.networkError && <NetworkErrorIcon />}
                 </center>
 
                 { items }
