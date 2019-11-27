@@ -1424,4 +1424,8 @@ div.notification-item-right {
   .main-content-skeleton {
     width: 90%;
   }
+
+  .question-title {
+    font-size: 16px;
+  }
 }

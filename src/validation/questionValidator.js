@@ -11,14 +11,14 @@ function validateRegisterInput(data) {
     }
 
     if(!isEmpty(data.body)){
-      if (!Validator.isLength(data.title, {min: 6, max: 30})){
-          errors.title = 'Question title must be between 6 and 30 characters';
+      if (!Validator.isLength(data.title, {min: 20, max: 200})){
+          errors.title = 'Question title must be between 20 and 200 characters';
       }
     }
 
     if(!isEmpty(data.body)){
-      if (!Validator.isLength(data.body, {min: 4, max: 3000})){
-          errors.body = 'Explanation must not be less than 4 Characters';
+      if (!Validator.isLength(data.body, {min: 40, max: 3000})){
+          errors.body = 'Explanation must not be less than 40 Characters';
       }
     }
 
