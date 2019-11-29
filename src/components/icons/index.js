@@ -110,7 +110,10 @@ export function AnswerIcon(){
 
 export function LikeIcon(){
     const styles = {
-        fill: '#D75A4A'
+        fill: '#ffffff',
+        stroke: 'red',
+        strokeOpacity: 1,
+        bordercolor: '#666666'
     }
     return (
         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"

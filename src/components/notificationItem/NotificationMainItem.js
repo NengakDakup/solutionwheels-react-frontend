@@ -4,7 +4,7 @@ import ProfileImage from '../../assets/icons/boy.svg'
 
 class NotificationMainItem extends Component {
     render(){
-        const read = "read-notification-item";
+        // const read = "read-notification-item";
         return (
             <li className="notification-item">
                 <Link to="/">

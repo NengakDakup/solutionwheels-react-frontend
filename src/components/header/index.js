@@ -61,9 +61,7 @@ class Header extends Component {
                         </li>
                         <li className="header-nav-item" onClick={() => {this.toggleDropDown('notification')}}>
                             <NotificationIcon />
-                            <div className="notifiable-count">
-                                <p>35</p>
-                            </div>
+                            <div className="notifiable-count"></div>
                         </li>
                         <NotificationDropdown active={NotificationDropdownActive} toggleDropDown={this.toggleDropDown} />
                         <li className="header-nav-item" onClick={() => {this.toggleDropDown('profile')}}>

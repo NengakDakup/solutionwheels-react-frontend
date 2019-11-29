@@ -314,16 +314,21 @@ li.header-nav-item:hover {
   top: 0;
   right: 0;
   color: #fff;
-  background-color: red;
+  background-color: #3b66b0;
   font-weight: bolder;
   font-size: 11px;
   display: flex;
+  width: 16px;
+  height: 16px;
+  /* display: inline-flex; */
   align-items: center;
   text-align: center;
+  justify-content: center;
 }
 
 .notifiable-count > p {
   text-align: center;
+  font-weight: 600;
   margin: 0px;
   padding: 0px;
 }
@@ -1301,9 +1306,9 @@ div.notification-item-right {
     display: inline-flex;
     align-items: center;
     overflow-x: scroll;
-    padding: 7px 0px;
+    padding: 1px 0px;
     width: 100%;
-    background: #ebe4f5;
+    background: #eae9e9;
     position: fixed;
     top: 60px;
     left: 0;
@@ -1406,6 +1411,10 @@ div.notification-item-right {
   .header-navigation ul.header-nav-ul li.header-nav-item > svg {
     height: 25px;
     width: auto;
+  }
+
+  .header-display-name {
+    display: none;
   }
 
   .header-notification-drop {
