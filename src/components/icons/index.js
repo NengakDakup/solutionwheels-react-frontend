@@ -110,7 +110,7 @@ export function AnswerIcon(){
 
 export function LikeIcon(){
     const styles = {
-        fill: '#ffffff',
+        
         stroke: 'red',
         strokeOpacity: 1,
         bordercolor: '#666666'

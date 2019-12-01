@@ -9,7 +9,8 @@ class AnswerBtn extends Component {
     render(){
         return (
             <div className="bottom-actions-answer" onClick={() => this.addAnswer()}>
-                <span><AnswerIcon /> Answer </span>
+                <span><AnswerIcon /></span>
+                <span>Answer</span>
             </div>
         )
     }

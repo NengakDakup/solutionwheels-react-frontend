@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { logOut } from '../../actions'
 
 class ProfileDropDown extends Component {
 
@@ -20,20 +22,29 @@ class ProfileDropDown extends Component {
           }
     }
 
+    logOut = () => {
+        localStorage.removeItem('user_token');
+        this.props.logOut();
+        //console.log(this.props)//.history.push('/login');
+    }
+
     render(){
         //const className = `header-notification-drop header-profile-drop ${this.props.active && "active-display"}`;
         if(this.props.active){
             return (
                 <div className="header-profile-drop active-display" ref={this.container}>
                     <ul>
-                        <li>
-                            <Link>Ask Question</Link>
+                        <li onClick={ () => {
+                            this.props.toggleDropDown('profile')
+                            this.props.toggleDropDown('ask');
+                        }} >
+                            <a href="#">Ask Question</a>
                         </li>
                         <li>
-                            <Link>View Profile</Link>
+                            <Link to="/profile">View Profile</Link>
                         </li>
-                        <li>
-                            <Link>Log Out</Link>
+                        <li onClick={ () => this.logOut()}>
+                            <a href="#">Log Out</a>
                         </li>
                     </ul>
                 </div>
@@ -45,4 +56,11 @@ class ProfileDropDown extends Component {
     }
 }
 
-export default ProfileDropDown
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logOut: () => { dispatch(logOut(null)) },
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ProfileDropDown)
+

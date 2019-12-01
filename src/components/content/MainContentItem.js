@@ -5,7 +5,8 @@ import AddAnswer from './AddAnswer'
 import Answers from './Answers'
 
 import ProfileImage from '../../assets/icons/boy.svg'
-import { AnswerIcon, LikeIcon, ShareIcon, ProgressIcon, AnsweredIcon } from '../icons'
+import LacasaImage from '../../assets/posts/dd.png'
+import { ProgressIcon, AnsweredIcon } from '../icons'
 import LikeBtn from '../buttons/Like'
 import AnswerBtn from '../buttons/Answer'
 import ShareBtn from '../buttons/Share'
@@ -19,7 +20,6 @@ class MainContentItem extends Component {
         }
 
         this.addAnswer = this.addAnswer.bind(this)
-        this.likePost = this.likePost.bind(this)
         this.sharePost = this.sharePost.bind(this)
     }
 
@@ -35,11 +35,8 @@ class MainContentItem extends Component {
         })
     }
 
-    likePost(id){
-        alert(`LIKE_POST ${id}`);
-    }
-
     sharePost(id){
+        //navigator share or modal 
         alert(`SHARE_POST_ID ${id}`);
     }
 
@@ -74,6 +71,9 @@ class MainContentItem extends Component {
                         </div>
                     </div>
                 </div>
+                {/* <div className="question-image">
+                    <img src={LacasaImage} alt='sample post media' />
+                </div> */}
                 <div className="qestion-details">
                     {
                         data.body && <div className="question-text">{data.body}</div>
@@ -83,10 +83,10 @@ class MainContentItem extends Component {
                             {data.best_answer ? <span><AnsweredIcon /> Solved</span> : <span><ProgressIcon /> In Progress</span>}
                             
                         </span>
-                        <span>.</span>
+                        <span class="dot-seperator">.</span>
                         <span className="answer-count">
                             <Link>
-                                {data.answers.length === 0? 'No' : data.answers.length} {data.answers.length >= 2 ? 'Answers' : 'Answer'}
+                                {data.answers.length === 0? 'No' : data.answers.length} {data.answers.length >= 2 ? 'Answers Yet' : 'Answer Yet'}
                             </Link>
                         </span>
                     </div>

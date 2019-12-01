@@ -27,6 +27,8 @@ class Item extends Component{
         if(data.feed.length < 1) {
             axios.get(server + '/api/question/slug/' + title)
                 .then(response => {
+                    console.log(response);
+                    
                     this.setState({
                         loading: false,
                         question: response.data

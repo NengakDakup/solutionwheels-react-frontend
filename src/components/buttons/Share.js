@@ -9,7 +9,8 @@ class ShareBtn extends Component {
     render(){
         return (
             <div className="bottom-actions-share" onClick={() => this.sharePost()}>
-                <span><ShareIcon /> Share</span>
+                <span><ShareIcon /></span>
+                <span>Share</span>
             </div>
         )
     }

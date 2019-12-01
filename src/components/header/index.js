@@ -65,7 +65,7 @@ class Header extends Component {
                         </li>
                         <NotificationDropdown active={NotificationDropdownActive} toggleDropDown={this.toggleDropDown} />
                         <li className="header-nav-item" onClick={() => {this.toggleDropDown('profile')}}>
-                            <img src={ProfileImage} alt="users profile" />
+                            <img src={ProfileImage} alt={data.userDetails.username} />
                             <p className="header-display-name">
                                 {
                                     data.userDetails.username.slice(data.userDetails.username.lastIndexOf(' '), data.userDetails.username.length)

@@ -86,7 +86,7 @@ a:hover {
   padding: 0px 5px;
   border: 1px solid #444;
   height: 7%;
-  max-width: 200px;
+  width: auto;
   box-shadow: 0 1px 1px rgba(0,0,0,0.2);
   z-index: 2000;
   animation: slide-up .1s both;
@@ -101,6 +101,7 @@ a:hover {
 .display-status p {
   font-weight: bold;
   font-size: 12px;
+  margin-left: 6px; 
 }
 
 .ask-question-wrap {
@@ -932,6 +933,7 @@ p.already > a {
   margin-bottom: 10px;
   padding: 16px;
   padding-top: 5px;
+  padding-bottom: 4px;
   text-align: justify;
 }
 
@@ -985,27 +987,49 @@ p.already > a {
   color: #949494;
 }
 
+.question-image {
+  width: fit-content;
+  height: fit-content;
+  position: relative;
+  margin-bottom: 1em;
+}
+
+.question-image > img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 3px;
+  cursor: -webkit-zoom-in;;
+}
+
 .question-details {
   font-size: 15px;
   line-height: 1.4;
 }
 
 .question-stats {
-  font-size: 12px;
+  font-size: 11px;
   display: inline-flex;
   align-items: center;
-  margin: 15px 0px;
+  margin: 12px 0px;
 }
 
 .question-stats span {
   height: 100%;
   display: flex;
   align-items: center;
-  margin-right: 20px;
   font-weight: 700;
 }
 
-.question-stats span.in-progress {
+.dot-seperator {
+  margin: 0px 15px;
+}
+
+.question-stats {
+  color: #949494;
+}
+
+/* .question-stats span.in-progress {
   color: orange;
 }
 
@@ -1023,7 +1047,7 @@ p.already > a {
 
 .question-stats span.answer-count {
   color: #3061AD;
-}
+} */
 
 .bottom-actions {
   display: inline-flex;
@@ -1032,28 +1056,37 @@ p.already > a {
 }
 
 .bottom-actions div {
-  min-width: 110px;
-  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 33px;
   text-align: center;
   cursor: pointer;
   transition: all ease-out .25s;
   border-radius: 83px;
   padding: 10px 15px;
   transition: .5s;
+  margin-right: 5px;
 }
 
-.bottom-actions div:hover {
-  background-color: #efefef;
+.bottom-actions div.bottom-actions-share:hover, div.bottom-actions-answer:hover {
+  background-color: rgba(0,0,0,0.02)!important;
 }
 
-.bottom-actions div:active {
-  background-color: #9c9392;
-  color: #fff;
+.bottom-actions > div.bottom-actions-like:hover {
+  background-color: #f5ebeb;
+}
+
+.bottom-actions div.liked {
+  background-color: #f5ebeb;
 }
 
 .bottom-actions div span {
   display: inline-flex;
-  font-size: 13px;
+  align-items: center;
+  font-size: 14px!important;
+  font-weight: 600!important;
+  color: #453434!important;
 }
 
 .bottom-actions div span > svg {
@@ -1436,5 +1469,11 @@ div.notification-item-right {
 
   .question-title {
     font-size: 16px;
+    margin-right: 5px;
+    word-spacing: 0px;
+  }
+
+  .bottom-actions div {
+    flex: 1;
   }
 }

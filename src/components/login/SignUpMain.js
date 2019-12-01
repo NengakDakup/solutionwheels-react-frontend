@@ -63,10 +63,11 @@ class SignUpMain extends Component {
                 errors: {}
             })
             console.log(data);
-            //this.props.logIn(data); //send the action to redux
+            this.props.signUp(); //send the action to redux / handle redirections and toasts
         }) // set the data to local storage and redux, then load home page
         .catch(err => {
-            this.displayError(err.response.data);
+            if (err.response) this.displayError(err.response.data);
+            console.log(err);
         })
         .finally(() => {
             this.setState({

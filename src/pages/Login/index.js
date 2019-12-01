@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { logIn } from '../../actions'
 
 import LoginMain from '../../components/login/LoginMain'
-import TopHorizontalLoader from '../../components/loaders/TopHorizontalLoader'
 
 class Login extends Component {
 
@@ -18,8 +17,6 @@ class Login extends Component {
         return (
             
             <div className="signup-body">
-                <TopHorizontalLoader />
-                {/* <Header data={null} /> */}
                 <div className="signup-wrap">
                     <LoginMain logIn={this.logIn} />
                 </div>
