@@ -7,6 +7,20 @@ export const addQuestion = (payload) => {
     };
 }
 
+export const displayToast = (payload) => {
+    return {
+        type: types.DISPLAY_TOAST,
+        payload: payload
+    }
+}
+
+export const hideToast = (payload) => {
+    return {
+        type: types.HIDE_TOAST,
+        payload: payload
+    }
+}
+
 export const logIn = (payload) => {
     return {
         type: types.LOG_IN,

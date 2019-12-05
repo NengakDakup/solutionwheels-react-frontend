@@ -6,21 +6,25 @@ import Answers from './Answers'
 
 import ProfileImage from '../../assets/icons/boy.svg'
 import LacasaImage from '../../assets/posts/dd.png'
-import { ProgressIcon, AnsweredIcon } from '../icons'
+import { ProgressIcon, AnsweredIcon, ThreeDotsIcon } from '../icons'
 import LikeBtn from '../buttons/Like'
 import AnswerBtn from '../buttons/Answer'
 import ShareBtn from '../buttons/Share'
+import PostDropdown from '../dropdowns/postDropdown'
+import DisplayToast from '../loaders/DisplayToast'
 
 
 class MainContentItem extends Component {
     constructor(props){
         super(props)
         this.state = {
-            displayAnswerBox: false 
+            displayAnswerBox: false,
+            displayPostDropdown: false
         }
 
         this.addAnswer = this.addAnswer.bind(this)
         this.sharePost = this.sharePost.bind(this)
+        this.displayPostDropdown = this.displayPostDropdown.bind(this)
     }
 
     componentDidMount(){
@@ -40,10 +44,22 @@ class MainContentItem extends Component {
         alert(`SHARE_POST_ID ${id}`);
     }
 
+    displayPostDropdown(){
+        this.setState({
+            displayPostDropdown: !this.state.displayPostDropdown
+        })
+    }
+
     render(){
-        const { data, displayComments } = this.props;
+        const { data } = this.props;
         return (
             <div className="main-content-item">
+                <div className="top-actions">
+                    <button className="top-action-btn" onClick={() => this.displayPostDropdown()}>
+                        <ThreeDotsIcon />
+                    </button>
+                    {this.state.displayPostDropdown && <PostDropdown id={data._id} displayPostDropdown={this.displayPostDropdown} /> }
+                </div>
                 <div className="user-details">
                     <div className="question-type">
                         <p>Question  .  <Link to={`/category/${data.category}`}>{data.category}</Link></p>
@@ -54,6 +70,7 @@ class MainContentItem extends Component {
                                 {data.question_title}
                             </Link>
                         </span>
+                        
                     </div>
                     <div className="question-user-details">
                         <div className="question-user-image">
@@ -86,7 +103,7 @@ class MainContentItem extends Component {
                         <span class="dot-seperator">.</span>
                         <span className="answer-count">
                             <Link>
-                                {data.answers.length === 0? 'No' : data.answers.length} {data.answers.length >= 2 ? 'Answers Yet' : 'Answer Yet'}
+                                {data.answers.length === 0? 'No' : data.answers.length} {data.answers.length >= 2 ? 'Answers' : 'Answer Yet'}
                             </Link>
                         </span>
                     </div>
@@ -97,7 +114,6 @@ class MainContentItem extends Component {
                     <ShareBtn data={data} />
                 </div>
                 { this.state.displayAnswerBox && <AddAnswer /> }
-                {displayComments && <Answers data={data} /> }
             </div>
         )
     }

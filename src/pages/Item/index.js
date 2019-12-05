@@ -54,7 +54,7 @@ class Item extends Component{
                 <div className="content">
                     <LeftSide />
                     <div className="main-content">
-                        {this.state.loading? 'Loading...' : <MainContentItem data={question} displayComments={true} />}
+                        {this.state.loading? 'Loading...' : <MainContentItem data={question} />}
                     </div>
                     <RightSide />
                 </div>

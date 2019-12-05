@@ -32,8 +32,6 @@ class Home extends Component {
                     <MainContent data={data} loadQuestions={this.loadQuestions} />
                     <RightSide />
                 </div>
-                <button onClick={this.logOut}>logout</button>
-                <button onClick={ () => this.loadQuestions(data.feed)}>loadQuestions</button>
             </div>
         )
     }

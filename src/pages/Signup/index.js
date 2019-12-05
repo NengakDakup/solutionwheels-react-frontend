@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 
-import DisplayStatus from '../../components/loaders/DisplayStatus'
 import SignUpMain from '../../components/login/SignUpMain'
 
 class SignUp extends Component {
@@ -27,7 +26,6 @@ class SignUp extends Component {
             <div className="signup-body">
                 <div className="signup-wrap">
                     <SignUpMain signUp={this.redirectToLoginPage} />
-                    {this.state.msg && <DisplayStatus type="success" message="Account succesfully created! Login to continue" />}
                 </div>
             </div>
         )

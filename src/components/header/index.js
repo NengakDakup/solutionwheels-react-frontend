@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import addTokenToHeader from '../../utils/addTokenToHeader'
 
@@ -11,7 +12,7 @@ import ProfileImage from '../../assets/icons/boy.svg'
 import LogoMain from '../../assets/logo-main.png'
 import DownArrow from '../../assets/icons/chevron-arrow-down.svg'
 import AskQuestion from '../content/AskQuestion'
-//import DisplayStatus from '../loaders/DisplayStatus'
+import DisplayToast from '../loaders/DisplayToast'
 // import TopHorizontalLoader from '../../components/loaders/TopHorizontalLoader'
 
 
@@ -51,6 +52,8 @@ class Header extends Component {
     render(){
         const { NotificationDropdownActive, ProfileDropDownActive } = this.state;
         const { data } = this.props;
+        
+        
         const Nav = () => {
             if(data.userDetails.loggedIn) {
                 return (
@@ -89,6 +92,7 @@ class Header extends Component {
         }
         return(
             <div className="header">
+                { this.props.data.toast.display && <DisplayToast type={this.props.data.toast.type} message={this.props.data.toast.message} /> }
                 { this.state.AskQuestionActive && <AskQuestion data={data} toggleDropDown={this.toggleDropDown} />}
                 <div className="header-logo">
                     <a href="/" className="header-logo-link">
@@ -104,4 +108,19 @@ class Header extends Component {
     }
 }
 
-export default Header
+//fetch what you want from the store
+const mapStateToProps = (state) => {
+    return {
+        data: state
+    }
+}
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         likeQuestion: (payload) => { dispatch(likeQuestion(payload)) },
+//         displayToast: (payload) => { dispatch(displayToast(payload)) }
+//     }
+// }
+
+export default connect(mapStateToProps, null)(Header);
+

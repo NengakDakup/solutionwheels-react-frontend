@@ -9,12 +9,14 @@ import LogoMain from '../../assets/logo-main.png'
 import Facebook from '../../assets/icons/facebook.svg'
 import Google from '../../assets/icons/google.svg'
 import { BtnLoader } from '../icons'
+import AlertSuccess from '../loaders/AlertSuccess'
 
 class SignUpMain extends Component {
     constructor(props){
         super(props)
         this.state = {
             loading: false,
+            status: 'pending',
             name: '',
             email: '',
             password: '',
@@ -60,10 +62,11 @@ class SignUpMain extends Component {
         })
         .then(data => {
             this.setState({
+                status: 'success',
                 errors: {}
             })
-            console.log(data);
-            this.props.signUp(); //send the action to redux / handle redirections and toasts
+            //console.log(data);
+            //this.props.signUp(); //send the action to redux / handle redirections and toasts
         }) // set the data to local storage and redux, then load home page
         .catch(err => {
             if (err.response) this.displayError(err.response.data);
@@ -98,6 +101,7 @@ class SignUpMain extends Component {
 
                 </div>
                     <p className="seperator"><span className="or">OR</span></p>
+                    {this.state.status === 'success' && <AlertSuccess />}
                 <div>
                     {name && <span className="error-msg">{name}</span>}
                     <input type="text" onChange={(e) => this.updateValue(e, 'name')} placeholder="Full Name" className={ name ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' }/>

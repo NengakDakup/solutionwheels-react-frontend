@@ -4,8 +4,7 @@ import jwt_decode from 'jwt-decode'
 
 import server from '../../config/config'
 import { connect } from 'react-redux'
-import { likeQuestion } from '../../actions'
-import DisplayStatus from '../loaders/DisplayStatus'
+import { likeQuestion, displayToast } from '../../actions'
 
 import { LikeIcon, LikedIcon } from '../icons'
 
@@ -18,7 +17,7 @@ class LikeBtn extends Component {
             likes: this.props.likes.length
         }
 
-        this.likeQuestiont = this.likeQuestion.bind(this);
+        this.likeQuestion = this.likeQuestion.bind(this);
         this.sendToBackend = this.sendToBackend.bind(this);
     }
 
@@ -59,7 +58,7 @@ class LikeBtn extends Component {
                 this.setState({
                     loading: false
                 })
-                if (err.response) return console.log(err.response.data)
+                if (err.response) return this.props.displayToast({type: 'error', message: err.response.data})
                 console.log(err);
                 //if its unauthorized
                 //revert the changes
@@ -93,6 +92,7 @@ class LikeBtn extends Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         likeQuestion: (payload) => { dispatch(likeQuestion(payload)) },
+        displayToast: (payload) => { dispatch(displayToast(payload)) }
     }
 }
 

@@ -66,7 +66,6 @@ class LoginMain extends Component {
             // save the token in the local storage
             localStorage.setItem('user_token', res.data.token);
             this.props.logIn(user); //send the action to redux
-            console.log(this.props);
         })
         .catch(err => {
             if(err.response.data) {

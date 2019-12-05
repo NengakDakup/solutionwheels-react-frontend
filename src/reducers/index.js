@@ -13,6 +13,11 @@ const initState = {
         userAvatar: user.avatar,
         userId: user.id
     },
+    toast: {
+        display: false,
+        message: null,
+        type: null
+    },
     feed: []
 }
 
@@ -26,6 +31,24 @@ const rootReducer = (state = initState, action) => {
               ...state.feed
             ]
           }
+        case 'DISPLAY_TOAST':
+            return {
+                ...state,
+                toast: {
+                    display: true,
+                    message: action.payload.message,
+                    type: action.payload.type
+                }
+            }
+        case 'HIDE_TOAST':
+            return {
+                ...state,
+                toast: {
+                    display: false,
+                    message: null,
+                    type: null
+                }
+            }
         case 'LOG_IN':
             return {
                 ...state,

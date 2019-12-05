@@ -93,7 +93,7 @@ class MainContent extends Component {
             case 'Hottest':
                 this.setState({
                     filteredFeed: feed.filter((it) => {
-                        return it.answers.length >= 5
+                        return it.likes.length >= 5
                     })
                 })
                 break;

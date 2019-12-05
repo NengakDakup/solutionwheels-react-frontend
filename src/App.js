@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Route} from 'react-router-dom'
-import jwt_decode from 'jwt-decode'
+// import jwt_decode from 'jwt-decode'
 
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -9,6 +9,7 @@ import Search from './pages/Search'
 import Item from './pages/Item'
 import Notifications from './pages/Notifications';
 import './App.css';
+import './animate.min.css'
 
 
 function App() {
