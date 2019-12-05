@@ -41,7 +41,7 @@ class LikeBtn extends Component {
     }
 
     sendToBackend(){
-        const {ques_id} = this.props;
+        const { ques_id } = this.props;
         axios.post(server + '/api/question/like/' + ques_id, {})
             .then(response => {
                 if(response.status === 200) {
@@ -69,7 +69,6 @@ class LikeBtn extends Component {
             })
     }
     //check if current users id is in the array of likes
-    //
     render(){
         const {liked, likes, loading} = this.state;
         const text = loading? <span>...</span> : <span>{liked? <LikedIcon /> : <LikeIcon />} {liked? 'Liked': 'Like'} . {likes}</span>;

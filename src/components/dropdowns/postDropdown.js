@@ -56,7 +56,7 @@ class PostDropdown extends Component {
         return (
             <div className="post-dropdown animated linear fadeIn faster" ref={this.container}>
                 <ul>
-                    <li>Delete Post</li>
+                    <li>Hide Post</li>
                     <li onClick={() => this.reportPost()}>
                         <span>
                             Report Post 

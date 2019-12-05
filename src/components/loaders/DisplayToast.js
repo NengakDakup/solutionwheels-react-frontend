@@ -5,8 +5,6 @@ import { hideToast } from '../../actions'
 import { SuccessIcon, ErrorIcon } from '../icons'
 
 class DisplayToast extends Component {
-  // error?success
-  // message
     constructor(props){
       super(props)
       this.state = {
@@ -18,7 +16,7 @@ class DisplayToast extends Component {
     hide = () => {
       setTimeout(() => {
         this.props.hideToast();
-      }, 1500)
+      }, 3000)
     }
 
     render() {

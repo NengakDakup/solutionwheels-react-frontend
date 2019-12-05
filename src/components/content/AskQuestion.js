@@ -8,7 +8,7 @@ import validateQuestionInput from '../../validation/questionValidator'
 
 import image from '../../assets/icons/boy.svg';
 import { CloseBtn } from '../icons';
-import { BtnLoader } from '../icons'
+import { BtnLoaderSmall } from '../icons'
 
 class AskQuestion extends Component{
     constructor(props){
@@ -109,39 +109,9 @@ class AskQuestion extends Component{
                         <input onChange={(e) => this.handleChange(e, 'title')} type="text" className="ask-question-input-title" placeholder="start your question with what, how, why, etc"/>
                     </div>
                     <div className="ask-question-section">
-                        <p className="title">Question Category</p>
-                        {title && <span className="error-msg">{title}</span>}
-                        <input onChange={(e) => this.handleChange(e, 'title')} type="text" className="ask-question-input-title" placeholder="start your question with what, how, why, etc"/>
-                    </div>
-                    <div className="ask-question-section">
-                        <p className="title">Question Title</p>
-                        {title && <span className="error-msg">{title}</span>}
-                        <input onChange={(e) => this.handleChange(e, 'title')} type="text" className="ask-question-input-title" placeholder="start your question with what, how, why, etc"/>
-                    </div>
-                    <div className="ask-question-section">
-                        <p className="title">Question Title</p>
-                        {title && <span className="error-msg">{title}</span>}
-                        <input onChange={(e) => this.handleChange(e, 'title')} type="text" className="ask-question-input-title" placeholder="start your question with what, how, why, etc"/>
-                    </div>
-                    <div className="ask-question-section">
-                        <p className="title">Question Title</p>
-                        {title && <span className="error-msg">{title}</span>}
-                        <input onChange={(e) => this.handleChange(e, 'title')} type="text" className="ask-question-input-title" placeholder="start your question with what, how, why, etc"/>
-                    </div>
-                    <div className="ask-question-section">
-                        <p className="title">Question Title</p>
-                        {title && <span className="error-msg">{title}</span>}
-                        <input onChange={(e) => this.handleChange(e, 'title')} type="text" className="ask-question-input-title" placeholder="start your question with what, how, why, etc"/>
-                    </div>
-                    <div className="ask-question-section">
-                        <p className="title">Question Title</p>
-                        {title && <span className="error-msg">{title}</span>}
-                        <input onChange={(e) => this.handleChange(e, 'title')} type="text" className="ask-question-input-title" placeholder="start your question with what, how, why, etc"/>
-                    </div>
-                    <div className="ask-question-section">
                         <p className="title">Explain More?</p>
                         {body && <span className="error-msg">{body}</span>}
-                        <textarea onChange={(e) => this.handleChange(e, 'body')} className="ask-question-input-title" placeholder="This is optional...You can add some explanation if you want to..."/>
+                        <textarea onChange={(e) => this.handleChange(e, 'body')} className="ask-question-input-text" placeholder="This is optional...You can add some explanation if you want to..."/>
                     </div>
                     <div className="ask-question-section">
                         <p className="title">Add an Image</p>
@@ -150,7 +120,7 @@ class AskQuestion extends Component{
                     <div className="ask-question-bottom">
                       <button onClick={ () => toggleDropDown('ask')}>close</button>
                       <button onClick={ () => this.validateInput()}>
-                        {this.state.loading? <BtnLoader /> : 'Submit'}
+                        {this.state.loading? <BtnLoaderSmall /> : 'Submit'}
                       </button>
                     </div>
 

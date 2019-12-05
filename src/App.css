@@ -128,8 +128,7 @@ a:hover {
   width: 600px;
   border-radius: 2px;
   border: 1px solid #726e6b;
-  padding: 10px;
-  padding-top: 50px;
+  padding: 0px;
   background-color: #fff;
   opacity: unset;
   display: block;
@@ -138,7 +137,8 @@ a:hover {
 }
 
 .ask-question-top {
-  position: fixed;
+  position: sticky;
+  position: -webkit-sticky;
   top: 0;
   left: 0;
   padding: 0px;
@@ -151,8 +151,9 @@ a:hover {
 }
 
 .ask-question-bottom {
-  position: fixed;
-  bottom: 0;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 100%;
   left: 0;
   padding: 0px;
   height: 50px;
@@ -212,6 +213,15 @@ a:hover {
   width: 100%;
   padding: 2px 10px;
   height: 41px;
+  border-radius: 5px;
+  border: 1px solid #111;
+  font-size: 17px;
+}
+
+.ask-question-input-text {
+  width: 100%;
+  padding: 2px 10px;
+  height: 55px;
   border-radius: 5px;
   border: 1px solid #111;
   font-size: 17px;

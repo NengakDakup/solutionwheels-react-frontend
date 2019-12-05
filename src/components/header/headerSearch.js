@@ -13,6 +13,7 @@ class HeaderSearch extends Component {
         this.state = {
             displayDropdown: false,
             search: '',
+            error: null,
             results: {
                 users: [],
                 questions: []
@@ -49,7 +50,7 @@ class HeaderSearch extends Component {
                 this.setState({
                     results: response.data
                 })
-            })
+            }).catch(err => console.log(err))
     }
     render(){
         return(
