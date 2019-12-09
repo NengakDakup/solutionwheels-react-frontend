@@ -10,7 +10,7 @@ function validateRegisterInput(data) {
         errors.title = 'Question title is required';
     }
 
-    if(!isEmpty(data.body)){
+    if(!isEmpty(data.title)){
       if (!Validator.isLength(data.title, {min: 20, max: 200})){
           errors.title = 'Question title must be between 20 and 200 characters';
       }

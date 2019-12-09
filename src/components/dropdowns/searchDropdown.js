@@ -27,18 +27,20 @@ class SearchDropdown extends Component {
                     <p><strong>Users</strong></p>
                     {this.props.data.users.length < 1 && <span>No Users Found</span>}
                     {this.props.data.users.map((user,index) => {
+                        if (index >= 6) return null;
                         return (
-                            <Link to={`/user/${user._id}`}>
-                                <li key={index}>{user.name}</li>
+                            <Link to={`/user/${user._id}`} key={index}>
+                                <li>{user.name}</li>
                             </Link>
                         )
                     })}
                     <p><strong>Questions</strong></p>
                     {this.props.data.questions.length < 1 && <span>No Questions Found</span>}
                     {this.props.data.questions.map((question,index) => {
+                        if (index >= 6) return null;
                         return (
-                            <Link to={`/question/${question.slug}`}>
-                                <li key={index}>{question.question_title}</li>
+                            <Link to={`/question/${question.slug}`} key={index}>
+                                <li>{question.question_title}</li>
                             </Link>
                         )
                     })}

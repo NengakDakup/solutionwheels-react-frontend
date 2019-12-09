@@ -11,6 +11,7 @@ import RightSide from '../../components/content/RightSide'
 // import MainContent from '../../components/content/MainContent'
 // import SingleItem from '../../components/content/SingleItem'
 import MainContentItem from '../../components/content/MainContentItem'
+import MainContentLoader from '../../components/loaders/MainContentLoader'
 
 class Item extends Component{
     constructor(){
@@ -54,7 +55,7 @@ class Item extends Component{
                 <div className="content">
                     <LeftSide />
                     <div className="main-content">
-                        {this.state.loading? 'Loading...' : <MainContentItem data={question} />}
+                        {this.state.loading? <MainContentLoader /> : <MainContentItem data={question} />}
                     </div>
                     <RightSide />
                 </div>

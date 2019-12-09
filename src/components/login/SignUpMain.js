@@ -62,6 +62,9 @@ class SignUpMain extends Component {
         })
         .then(data => {
             this.setState({
+                name: '',
+                email: '',
+                password: '',
                 status: 'success',
                 errors: {}
             })

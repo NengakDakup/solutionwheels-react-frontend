@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
 import AddAnswer from './AddAnswer'
 import Answers from './Answers'
 
 import ProfileImage from '../../assets/icons/boy.svg'
-import LacasaImage from '../../assets/posts/dd.png'
 import { ProgressIcon, AnsweredIcon, ThreeDotsIcon } from '../icons'
 import LikeBtn from '../buttons/Like'
 import AnswerBtn from '../buttons/Answer'
 import ShareBtn from '../buttons/Share'
 import PostDropdown from '../dropdowns/postDropdown'
-import DisplayToast from '../loaders/DisplayToast'
 
 
 class MainContentItem extends Component {
@@ -84,13 +83,17 @@ class MainContentItem extends Component {
                                     {data.user.name}
                                 </Link>
                             </span>
-                            <span>{data.date}</span>
+                            <span>{moment(data.date).fromNow()}</span>
                         </div>
                     </div>
                 </div>
-                {/* <div className="question-image">
-                    <img src={LacasaImage} alt='sample post media' />
-                </div> */}
+                {
+                    (data.image && data.image !== 'null')  && 
+
+                    <div className="question-image">
+                        <img src={data.image} alt={data.question_title} />
+                    </div>
+                }
                 <div className="qestion-details">
                     {
                         data.body && <div className="question-text">{data.body}</div>
@@ -100,11 +103,9 @@ class MainContentItem extends Component {
                             {data.best_answer ? <span><AnsweredIcon /> Solved</span> : <span><ProgressIcon /> In Progress</span>}
                             
                         </span>
-                        <span class="dot-seperator">.</span>
+                        <span className="dot-seperator">.</span>
                         <span className="answer-count">
-                            <Link>
-                                {data.answers.length === 0? 'No' : data.answers.length} {data.answers.length >= 2 ? 'Answers' : 'Answer Yet'}
-                            </Link>
+                            {data.answers.length === 0? 'No' : data.answers.length} {data.answers.length >= 2 ? 'Answers' : 'Answer Yet'}
                         </span>
                     </div>
                 </div>

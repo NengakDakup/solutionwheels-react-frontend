@@ -8,7 +8,7 @@ import validateQuestionInput from '../../validation/questionValidator'
 
 import image from '../../assets/icons/boy.svg';
 import { CloseBtn } from '../icons';
-import { BtnLoaderSmall } from '../icons'
+import { BtnLoaderSmallWhite } from '../icons'
 
 class AskQuestion extends Component{
     constructor(props){
@@ -16,11 +16,13 @@ class AskQuestion extends Component{
         this.state = {
             loading: false,
             display: false,
+            imagePreviewURL: '',
             errors: {},
             question: {
                 title: null,
                 body: null,
-                image: null
+                image: null,
+                category: null
             }
         }
 
@@ -31,12 +33,30 @@ class AskQuestion extends Component{
     }
 
     handleChange(e, type){
-      this.setState({
-        question : {
-          ...this.state.question,
-          [type]: e.target.value
+      e.preventDefault();
+      if(type === 'image') {
+        // image preview feature
+        const reader = new FileReader();
+        const image = e.target.files[0];
+        reader.readAsDataURL(image);
+
+        reader.onloadend = () => {
+          this.setState({
+            imagePreviewURL: reader.result,
+            question: {
+              ...this.state.question,
+              [type]: image
+            }
+          })
         }
-      })
+      } else {
+        this.setState({
+          question : {
+            ...this.state.question,
+            [type]: e.target.value
+          }
+        })
+      }      
     }
 
     displayError(error){
@@ -45,7 +65,8 @@ class AskQuestion extends Component{
       })
     }
 
-    validateInput(){
+    validateInput(e){
+      e.preventDefault();
       this.setState({
         loading: true
       });
@@ -62,29 +83,51 @@ class AskQuestion extends Component{
     }
 
     sendToBackend(){
-      axios.post(server + '/api/question/create', {
-        question_title: this.state.question.title,
-        body: this.state.question.body
-      })
+      const formData = new FormData();
+      formData.append('image', this.state.question.image);
+      const config = {
+          headers: {
+              'content-type': 'multipart/form-data'
+          }
+      }
+      // first of all, upload the image
+      axios.post(server + '/api/upload/question', formData, config)
       .then(res => {
-          this.setState({
+          let imagePath = null;
+          //image is succesfully uploaded
+          if (res.data.upload) {
+            imagePath = server + '/uploads/' + res.data.upload.filename;
+          }
+          //upload the details now
+          axios.post(server + '/api/question/create', {
+            question_title: this.state.question.title,
+            body: this.state.question.body,
+            image: imagePath
+          }).then(res => {
+            this.setState({
               loading: false,
               errors: {}
+            });
+            // update the redux state
+            this.props.addQuestion(res.data);
+            window.location.href = `/question/${res.data.slug}`;
+          }).catch(err => {
+            this.setState({loading: false, errors: {}})
+            if(err.response) {
+              this.setState({errors: err.response.data});
+            }
+            //display toast error
+            console.log(err)
           })
-          // update the redux state
-          this.props.addQuestion(res.data);
-          console.log(res.data);
       })
       .catch(err => {
-          if(err.response.data) {
-              this.displayError(err.response.data);
+        this.setState({loading: false, errors: {}})
+          if(err.response) {
+          this.setState({errors: err.response.data});
           }
+          //display toast error
+          console.log(err);
       })
-      .finally(() => {
-          this.setState({
-              loading: false
-          });
-      });
     }
 
     render(){
@@ -93,6 +136,7 @@ class AskQuestion extends Component{
         return (
             <div className="ask-question-outer">
                 <div className="ask-question-wrap">
+                  <form onSubmit={this.validateInput}>
                     <div className="ask-question-top">
                         <p className="ask-question-top-item ask-question-top-item-active"><span>Ask a Question</span></p>
                         <button onClick={ () => toggleDropDown('ask')} className="ask-question-x">
@@ -114,16 +158,30 @@ class AskQuestion extends Component{
                         <textarea onChange={(e) => this.handleChange(e, 'body')} className="ask-question-input-text" placeholder="This is optional...You can add some explanation if you want to..."/>
                     </div>
                     <div className="ask-question-section">
-                        <p className="title">Add an Image</p>
-                        <input type="file" />
+                      <p className="title">Category</p>
+                      <select onChange={(e) => this.handleChange(e, 'category')}>
+                        <option>Programming</option>
+                        <option>Technology</option>
+                        <option>Education</option>
+                      </select>
                     </div>
+                    <div className="ask-question-section">
+                        <p className="title">Add an Image</p>
+                        <input onChange={(e) => this.handleChange(e, 'image')} type="file" accept="image/*" />
+                        { this.state.imagePreviewURL && 
+                          <div className="image-upload-preview">
+                            <img src={this.state.imagePreviewURL} alt="upload preview" />
+                          </div>
+                        }
+                    </div>
+                    <div className="whitespace"></div>
                     <div className="ask-question-bottom">
-                      <button onClick={ () => toggleDropDown('ask')}>close</button>
-                      <button onClick={ () => this.validateInput()}>
-                        {this.state.loading? <BtnLoaderSmall /> : 'Submit'}
+                      <button className="ask-question-bottom-close" onClick={ () => toggleDropDown('ask')}>close</button>
+                      <button className="ask-question-bottom-submit" type="submit">
+                        {this.state.loading? <BtnLoaderSmallWhite /> : 'Submit'}
                       </button>
                     </div>
-
+                  </form>
                 </div>
             </div>
         )
