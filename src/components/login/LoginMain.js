@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import server from '../../config/config'
 import jwt_decode from 'jwt-decode'
+import {connect} from 'react-redux'
 
+import { displayToast } from '../../actions'
 import validateLoginInput from '../../validation/loginValidator'
 
 import LogoMain from '../../assets/logo-main.png'
@@ -39,7 +41,8 @@ class LoginMain extends Component {
         })
     }
 
-    validateInput(){
+    validateInput(e){
+        if(e) e.preventDefault();
         const data = {email: this.state.email, password: this.state.password};
         const {errors, isValid} = validateLoginInput(data);
         if (!isValid) {
@@ -68,11 +71,11 @@ class LoginMain extends Component {
             this.props.logIn(user); //send the action to redux
         })
         .catch(err => {
-            if(err.response.data) {
-                this.displayError(err.response.data);
+            if(err.response) {
+                return this.displayError(err.response.data);
+            } else {
+                this.props.displayToast({type: 'error', message: 'Network Error'});
             }
-            console.log(this.state)
-            //this.displayError(err.response.data);
         })
         .finally(() => {
             this.setState({
@@ -104,24 +107,32 @@ class LoginMain extends Component {
                     </div>
 
                 </div>
-                    <p className="seperator"><span className="or">OR</span></p>
-                <div>
-                    {email && <span className="error-msg">{email}</span>}
-                    <input type="email" onChange={(e) => this.updateValue(e, 'email')} placeholder="Email Address" className={ email ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' }/>
-                </div>
-                <div>
-                    {password && <span className="error-msg">{password}</span>}
-                    <input type="password" onChange={(e) => this.updateValue(e, 'password')} placeholder="Password" className={ password ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' }/>
-                </div>
-                <div>
-                    <button type="submit" onClick={() => this.validateInput()} value="Log In" className="sign-up-home-submit-btn" >
-                        {this.state.loading? <BtnLoader /> : 'Log In'}
-                    </button>
-                </div>
+                <p className="seperator"><span className="or">OR</span></p>
+                <form onSubmit={(e) => this.validateInput(e)}>
+                    <div>
+                        {email && <span className="error-msg">{email}</span>}
+                        <input type="text" onChange={(e) => this.updateValue(e, 'email')} placeholder="Email Address" className={ email ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' } autocomplete/>
+                    </div>
+                    <div>
+                        {password && <span className="error-msg">{password}</span>}
+                        <input type="password" onChange={(e) => this.updateValue(e, 'password')} placeholder="Password" className={ password ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' } autocomplete/>
+                    </div>
+                    <div>
+                        <button type="submit" onClick={() => this.validateInput()} value="Log In" className="sign-up-home-submit-btn" >
+                            {this.state.loading? <BtnLoader /> : 'Log In'}
+                        </button>
+                    </div>
+                </form>
                 <p className="already">Dont have an Account? <Link to="/signup">Sign up Here</Link></p>
             </div>
         )
     }
 }
 
-export default LoginMain
+const mapDispatchToProps = (dispatch) => {
+    return {
+        displayToast: (payload) => { dispatch(displayToast(payload)) }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(LoginMain);

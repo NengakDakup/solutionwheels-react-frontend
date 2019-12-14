@@ -14,7 +14,7 @@ class MainContent extends Component {
         super(props)
         this.state = {
             loading: true,
-            networkError: true,
+            networkError: false,
             activeCategory: 'Recent Questions',
             filteredFeed: []
         }
@@ -100,16 +100,13 @@ class MainContent extends Component {
             default:
                 break;
         }
-
-
     }
 
-
     render(){
-
         const {activeCategory, filteredFeed} = this.state;
-        const items = filteredFeed.map((it, key) => {
-            return <MainContentItem data={it} key={key} />
+        const { feed } = this.props.data;
+        const items = feed.map((it, key) => {
+            return <MainContentItem data={it} key={it._id} />
         })
 
         return (

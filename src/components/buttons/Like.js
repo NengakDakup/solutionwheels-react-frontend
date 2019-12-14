@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
+import { connect } from 'react-redux'
 
 import server from '../../config/config'
-import { connect } from 'react-redux'
 import { likeQuestion, displayToast } from '../../actions'
 
 import { LikeIcon, LikedIcon } from '../icons'
@@ -14,6 +14,7 @@ class LikeBtn extends Component {
         this.state = {
             liked: false,
             loading: false,
+            clicked: false,
             likes: this.props.likes.length
         }
 
@@ -22,14 +23,12 @@ class LikeBtn extends Component {
     }
 
     componentWillMount(){
-        if(localStorage.getItem('user_token')) {
-            const { id } = jwt_decode(localStorage.getItem('user_token'));
-            const liked = this.props.likes.find(like => like.user === id);
-            if (liked) {
-                this.setState({
-                    liked: true
-                })
-            }
+        const id = this.props.data.userDetails.userId;
+        const liked = this.props.likes.find(like => like.user === id);
+        if (liked) {
+            this.setState({
+                liked: true
+            })
         }
     }
 
@@ -42,13 +41,12 @@ class LikeBtn extends Component {
 
     sendToBackend(){
         const { ques_id } = this.props;
+        this.setState({clicked: true, liked: !this.state.liked})
         axios.post(server + '/api/question/like/' + ques_id, {})
-            .then(response => {
+            .then(response => {                
                 if(response.status === 200) {
                     this.setState({
-                        loading: false,
-                        likes: this.state.liked? this.state.likes - 1 : this.state.likes + 1,
-                        liked: !this.state.liked,
+                        likes: response.data.likes.length
                     });
                     // dispatch the action to redux
                     this.props.likeQuestion(response.data);
@@ -56,37 +54,30 @@ class LikeBtn extends Component {
             })
             .catch(err => {
                 this.setState({
-                    loading: false
+                    liked: false
                 })
                 if (err.response) return this.props.displayToast({type: 'error', message: err.response.data})
                 console.log(err);
-                //if its unauthorized
-                //revert the changes
-                //inform the user he must be logged in
-                //clear the localstorage
-                //redirect to the login page
-                localStorage.removeItem('user_token');
             })
     }
     //check if current users id is in the array of likes
     render(){
-        const {liked, likes, loading} = this.state;
-        const text = loading? <span>...</span> : <span>{liked? <LikedIcon /> : <LikeIcon />} {liked? 'Liked': 'Like'} . {likes}</span>;
+        const {liked, likes, clicked } = this.state;
         return (
             <div className={liked? 'bottom-actions-like liked' : 'bottom-actions-like'} onClick={() => this.likeQuestion()}>
-                {text}
+                <span>{liked? LikedIcon(clicked) : <LikeIcon />} {liked? 'Liked': 'Like'} . {likes}</span>
             </div>
 
         )
     }
 }
 
-// //fetch what you want from the store
-// const mapStateToProps = (state) => {
-//     return {
-//         data: state
-//     }
-// }
+//fetch what you want from the store
+const mapStateToProps = (state) => {
+    return {
+        data: state
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -95,4 +86,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(LikeBtn);
+export default connect(mapStateToProps, mapDispatchToProps)(LikeBtn);

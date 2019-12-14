@@ -1,5 +1,5 @@
-const server = "http://localhost:5000";
-//const g = 'https://solutionwheels.herokuapp.com';
+const server = "https://solutionwheels.herokuapp.com";
+//const g = 'http://localhost:5000';
 
 
 export default server;

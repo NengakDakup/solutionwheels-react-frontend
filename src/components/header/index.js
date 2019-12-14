@@ -13,6 +13,8 @@ import LogoMain from '../../assets/logo-main.png'
 import DownArrow from '../../assets/icons/chevron-arrow-down.svg'
 import AskQuestion from '../content/AskQuestion'
 import DisplayToast from '../loaders/DisplayToast'
+import BackTop from '../buttons/BackTop'
+import ImageViewer from '../content/ImageViewer'
 // import TopHorizontalLoader from '../../components/loaders/TopHorizontalLoader'
 
 
@@ -92,6 +94,8 @@ class Header extends Component {
         }
         return(
             <div className="header">
+                <BackTop />
+                { this.props.data.imageViewer.display && <ImageViewer /> }
                 { this.props.data.toast.display && <DisplayToast type={this.props.data.toast.type} message={this.props.data.toast.message} /> }
                 { this.state.AskQuestionActive && <AskQuestion data={data} toggleDropDown={this.toggleDropDown} />}
                 <div className="header-logo">

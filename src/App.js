@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter, Route} from 'react-router-dom'
 // import jwt_decode from 'jwt-decode'
 
+import Admin from './pages/Admin'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/Signup'
@@ -24,6 +25,7 @@ function App() {
       <Route path="/notifications" component={Notifications} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={SignUp} />
+      <Route path="/admin" component={Admin} />
       {/* <Route path="/profile" component={Profile} />
       <Route path="/ask" component={Ask} /> 
       <Route path="/category/:cat" component={Category} /> */}

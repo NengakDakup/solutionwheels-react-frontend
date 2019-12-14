@@ -7,6 +7,13 @@ export const addQuestion = (payload) => {
     };
 }
 
+export const deletePost = (payload) => {
+    return {
+        type: types.DELETE_POST,
+        payload: payload
+    }
+}
+
 export const displayToast = (payload) => {
     return {
         type: types.DISPLAY_TOAST,
@@ -17,6 +24,20 @@ export const displayToast = (payload) => {
 export const hideToast = (payload) => {
     return {
         type: types.HIDE_TOAST,
+        payload: payload
+    }
+}
+
+export const displayImageViewer = (payload) => {
+    return {
+        type: types.DISPLAY_IMAGE_VIEWER,
+        payload: payload
+    }
+}
+ 
+export const hideImageViewer = (payload) => {
+    return {
+        type: types.HIDE_IMAGE_VIEWER,
         payload: payload
     }
 }
@@ -45,6 +66,13 @@ export const loadQuestions = (payload) => {
 export const likeQuestion = (payload) => {
     return {
         type: types.LIKE_QUESTION,
+        payload: payload
+    }
+}
+
+export const loadSingleQuestion = (payload) => {
+    return {
+        type: types.LOAD_SINGLE_QUESTION,
         payload: payload
     }
 }

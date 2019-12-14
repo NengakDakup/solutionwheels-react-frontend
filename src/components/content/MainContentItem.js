@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 
 import AddAnswer from './AddAnswer'
-import Answers from './Answers'
 
 import ProfileImage from '../../assets/icons/boy.svg'
-import { ProgressIcon, AnsweredIcon, ThreeDotsIcon } from '../icons'
+import { ErrorIconAnswer, SuccessIconAnswer, ThreeDotsIcon } from '../icons'
 import LikeBtn from '../buttons/Like'
 import AnswerBtn from '../buttons/Answer'
 import ShareBtn from '../buttons/Share'
 import PostDropdown from '../dropdowns/postDropdown'
+import ZoomableImage from './ZoomableImage'
 
 
 class MainContentItem extends Component {
@@ -24,12 +24,6 @@ class MainContentItem extends Component {
         this.addAnswer = this.addAnswer.bind(this)
         this.sharePost = this.sharePost.bind(this)
         this.displayPostDropdown = this.displayPostDropdown.bind(this)
-    }
-
-    componentDidMount(){
-        this.setState({
-            displayAnswerBox: false
-        })
     }
 
     addAnswer(){
@@ -51,17 +45,18 @@ class MainContentItem extends Component {
 
     render(){
         const { data } = this.props;
+        
         return (
             <div className="main-content-item">
                 <div className="top-actions">
                     <button className="top-action-btn" onClick={() => this.displayPostDropdown()}>
                         <ThreeDotsIcon />
                     </button>
-                    {this.state.displayPostDropdown && <PostDropdown id={data._id} displayPostDropdown={this.displayPostDropdown} /> }
+                    {this.state.displayPostDropdown && <PostDropdown user={data.user._id} id={data._id} displayPostDropdown={this.displayPostDropdown} /> }
                 </div>
                 <div className="user-details">
                     <div className="question-type">
-                        <p>Question  .  <Link to={`/category/${data.category}`}>{data.category}</Link></p>
+                        <p>Question  .  <Link to={`/category/${data.category_id}`}>{data.category_id}</Link></p>
                     </div>
                     <div className="question-title">
                         <span>
@@ -91,7 +86,7 @@ class MainContentItem extends Component {
                     (data.image && data.image !== 'null')  && 
 
                     <div className="question-image">
-                        <img src={data.image} alt={data.question_title} />
+                        <ZoomableImage src={data.image} alt={data.question_title} />
                     </div>
                 }
                 <div className="qestion-details">
@@ -100,12 +95,12 @@ class MainContentItem extends Component {
                     }
                     <div className="question-stats">
                         <span className={data.best_answer? 'answered-question' : 'in-progress'}>
-                            {data.best_answer ? <span><AnsweredIcon /> Solved</span> : <span><ProgressIcon /> In Progress</span>}
+                            {data.best_answer ? <span><SuccessIconAnswer /> Solved</span> : <span><ErrorIconAnswer /> In Progress</span>}
                             
                         </span>
                         <span className="dot-seperator">.</span>
                         <span className="answer-count">
-                            {data.answers.length === 0? 'No' : data.answers.length} {data.answers.length >= 2 ? 'Answers' : 'Answer Yet'}
+                            {data.answers.length === 0? 'No' : data.answers.length} {data.answers.length >= 2 ? 'Answers' : 'Answer'}
                         </span>
                     </div>
                 </div>
@@ -114,7 +109,7 @@ class MainContentItem extends Component {
                     <LikeBtn likes={data.likes} ques_id={data._id} />
                     <ShareBtn data={data} />
                 </div>
-                { this.state.displayAnswerBox && <AddAnswer /> }
+                { this.state.displayAnswerBox && <AddAnswer addAnswer={this.addAnswer} ques_id={data._id} /> }
             </div>
         )
     }

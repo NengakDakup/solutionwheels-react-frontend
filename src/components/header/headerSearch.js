@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import {connect} from 'react-redux'
 
 import server from '../../config/config'
+import {displayToast} from '../../actions'
 
 import SearchDropdown from '../dropdowns/searchDropdown'
 import { SearchIcon } from '../icons'
@@ -50,7 +52,10 @@ class HeaderSearch extends Component {
                 this.setState({
                     results: response.data
                 })
-            }).catch(err => console.log(err))
+            }).catch(err => {
+                if(err.response) return null;
+                this.props.displayToast({type: 'error', message: 'Network Error'});
+            })
     }
     render(){
         return(
@@ -65,4 +70,10 @@ class HeaderSearch extends Component {
     }
 }
 
-export default HeaderSearch
+const mapDispatchToProps = (dispatch) => {
+    return {
+        displayToast: (payload) => { dispatch(displayToast(payload)) }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(HeaderSearch) 

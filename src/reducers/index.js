@@ -18,7 +18,17 @@ const initState = {
         message: null,
         type: null
     },
-    feed: []
+    imageViewer: {
+        display: false,
+        image: null
+    },
+    singleQuestion: {
+        loading: true,
+        errors: {},
+        question: {}
+    },
+    feed: [],
+    filteredFeed: []
 }
 
 const rootReducer = (state = initState, action) => {
@@ -31,6 +41,11 @@ const rootReducer = (state = initState, action) => {
               ...state.feed
             ]
           }
+        case 'DELETE_POST':
+            return {
+                ...state,
+                feed: state.feed.filter(feed => feed._id !== action.payload.id)
+            }
         case 'DISPLAY_TOAST':
             return {
                 ...state,
@@ -47,6 +62,22 @@ const rootReducer = (state = initState, action) => {
                     display: false,
                     message: null,
                     type: null
+                }
+            }
+        case 'DISPLAY_IMAGE_VIEWER':
+            return {
+                ...state,
+                imageViewer: {
+                    display: true,
+                    image: action.payload.image
+                }
+            }
+        case 'HIDE_IMAGE_VIEWER':
+            return {
+                ...state,
+                imageViewer: {
+                    display: false,
+                    image: null
                 }
             }
         case 'LOG_IN':
@@ -75,14 +106,16 @@ const rootReducer = (state = initState, action) => {
                     ...action.payload
                 ]
             }
+        case 'LOAD_SINGLE_QUESTION':
+            return {
+                ...state,
+                singleQuestion: action.payload
+            }
         case 'LIKE_QUESTION':
+            if(state.feed.length < 1) return state;
             const index = state.feed.findIndex(it => it._id === action.payload._id);
-            console.log(state.feed[index]);
             const old = state.feed[index];
             old.likes = action.payload.likes;
-            console.log(old);
-
-
             return {
                 ...state,
                 feed: [

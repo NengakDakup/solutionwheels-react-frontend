@@ -13,6 +13,7 @@ class Profile extends Component {
 
     render(){
         const {data} = this.props;
+        const {userId} = data.userDetails;
         const {id} = this.props.match.params;
 
         return(
@@ -22,10 +23,10 @@ class Profile extends Component {
                 <div className="content">
                     <LeftSide />
                     <div className="main-content">
-                        <ProfileDetails id={id} />
-                        <div class="post-filter profile-filter">
+                        <ProfileDetails id={id} currentUser={userId} />
+                        <div className="post-filter profile-filter">
                             <ul>
-                                <li class="active-filter">Recent</li>
+                                <li className="active-filter">Recent</li>
                                 <li>Top</li>
                             </ul>
                         </div>

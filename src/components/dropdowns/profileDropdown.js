@@ -25,7 +25,7 @@ class ProfileDropDown extends Component {
     logOut = () => {
         localStorage.removeItem('user_token');
         this.props.logOut();
-        //console.log(this.props)//.history.push('/login');
+        window.location.href = '/login';
     }
 
     render(){

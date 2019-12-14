@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import axios from 'axios'
 
 import { connect } from 'react-redux'
-import { addQuestion } from '../../actions'
+import { addQuestion, displayToast } from '../../actions'
 import server from '../../config/config'
 import validateQuestionInput from '../../validation/questionValidator'
 
@@ -91,8 +91,12 @@ class AskQuestion extends Component{
           }
       }
       // first of all, upload the image
-      axios.post(server + '/api/upload/question', formData, config)
+      fetch('http://localhost:8080/upload.php', {
+        method: 'POST',
+        body: formData
+      })
       .then(res => {
+        return(console.log(res.text()));
           let imagePath = null;
           //image is succesfully uploaded
           if (res.data.upload) {
@@ -108,6 +112,8 @@ class AskQuestion extends Component{
               loading: false,
               errors: {}
             });
+            // display toast
+            this.props.displayToast({type: 'success', message: 'Question Successfully Asked'})
             // update the redux state
             this.props.addQuestion(res.data);
             window.location.href = `/question/${res.data.slug}`;
@@ -117,7 +123,7 @@ class AskQuestion extends Component{
               this.setState({errors: err.response.data});
             }
             //display toast error
-            console.log(err)
+            this.props.displayToast({type: 'error', message: 'Network Error'})
           })
       })
       .catch(err => {
@@ -126,7 +132,7 @@ class AskQuestion extends Component{
           this.setState({errors: err.response.data});
           }
           //display toast error
-          console.log(err);
+          this.props.displayToast({type: 'error', message: 'Network Error'})
       })
     }
 
@@ -149,12 +155,12 @@ class AskQuestion extends Component{
                     </div>
                     <div className="ask-question-section">
                         <p className="title">Question Title</p>
-                        {title && <span className="error-msg">{title}</span>}
+                        {title && <span className="danger-text">{title}</span>}
                         <input onChange={(e) => this.handleChange(e, 'title')} type="text" className="ask-question-input-title" placeholder="start your question with what, how, why, etc"/>
                     </div>
                     <div className="ask-question-section">
                         <p className="title">Explain More?</p>
-                        {body && <span className="error-msg">{body}</span>}
+                        {body && <span className="danger-text">{body}</span>}
                         <textarea onChange={(e) => this.handleChange(e, 'body')} className="ask-question-input-text" placeholder="This is optional...You can add some explanation if you want to..."/>
                     </div>
                     <div className="ask-question-section">
@@ -191,6 +197,7 @@ class AskQuestion extends Component{
 const mapDispatchToProps = (dispatch) => {
     return {
         addQuestion: (payload) => { dispatch(addQuestion(payload)) },
+        displayToast: (payload) => { dispatch(displayToast(payload)) }
     }
 }
 

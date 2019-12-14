@@ -10,36 +10,53 @@ class ProfileDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-            userDetails: {},
+            status: 'loading',
+            errors: {},
+            userDetails: {
+                name: '----- / ----',
+                email: '--/--',
+                avatar: '--/--',
+                bio: null,
+                followers: [],
+                questions: [],
+                answers: [],
+                points: 0,
+                socials: {
+                    facebook: null,
+                    twitter: null,
+                    instagram: null,
+                    google: null,
+                }   
+            },
             userPosts: {}
         }
     }
 
     componentWillMount(){
         const {id} = this.props;
-        // axios.get(server + '/api/profile/' + id)
-        this.setState({
-            userDetails: {
-                name: 'David Jones',
-                email: 'davidjones@gmail.com',
-                avatar: 'link/to/image',
-                bio: 'My name is David Jones and i\'m a dummy user',
-                followers: 10,
-                questions: 5,
-                answers: 15,
-                points: 89,
-                socials: {
-                    facebook: 'link to facebook',
-                    twitter: 'link to twitter',
-                    instagram: 'link to instagram',
-                    google: 'link to gmail',
-                }   
-            }
-        })
+        axios.get(server + '/api/profile/user/' + id)
+            .then(res => {
+                // check if the user profile was returned or the user details
+                const {bio, country, date, followers, gender, social, telephone, username, user} = res.data;
+                this.setState({
+                    status: 'loaded',
+                    errors: {},
+                    userDetails: {
+                        ...user,
+                        bio: bio,
+                        followers: followers,
+                        socials: {...social}
+                    }
+                })
+            })
+            .catch(err => {
+                if(err.response) this.setState({errors: err.response.data}, () => console.log(this.state))
+            })
     }
 
     render(){
-        const { userDetails } = this.state;
+        const {status, errors } = this.state;
+        const { name, _id, followers, bio, socials } = this.state.userDetails;
         return(
             <div className="profile-outer">
                 <div className="profile-image-top" >
@@ -48,20 +65,21 @@ class ProfileDetails extends Component {
                     </div>
                 </div>
                 <div className="profile-details">
-                    <p className="profile-username">{userDetails.name}<FollowBtn /></p>
-                    <p className="profile-bio">{userDetails.bio}</p>
+                    <p className="profile-username">{name}<FollowBtn id={_id} currentUser={this.props.currentUser} followers={followers} /></p>
+                    {bio && <p className="profile-bio">{bio}</p>}
                     <p className="profile-stats">
-                        <span className="profile-points">100 Points </span>
-                        <span className="profile-questions">5 Questions </span>
-                        <span className="profile-answers">13 Answers</span>
+                        <span className="profile-points">n Points </span>
+                        <span className="profile-questions">n Questions </span>
+                        <span className="profile-answers">n Answers</span>
                     </p>
                 </div>
                 <div className="profile-bottom">
-                    <a className="facebook-icon" href={userDetails.socials.facebook}><FacebookIcon /></a>
-                    <a className="twitter-icon" href={userDetails.socials.twitter}><TwitterIcon /></a>
-                    <a className="instagram-icon" href={userDetails.socials.instagram}><InstagramIcon /></a>
-                    <a className="google-icon" href={userDetails.socials.google}><GoogleIcon /></a>
+                    {socials.facebook && <a className="facebook-icon" href={socials.facebook}><FacebookIcon /></a>}
+                    {socials.twitter && <a className="twitter-icon" href={socials.twitter}><TwitterIcon /></a>}
+                    {socials.instagram && <a className="instagram-icon" href={socials.instagram}><InstagramIcon /></a>}
+                    {socials.google && <a className="google-icon" href={socials.google}><GoogleIcon /></a>}
                 </div>
+                {errors.noprofile && <p className="error">User Profile Not Found</p> }
             </div>
         )
     }

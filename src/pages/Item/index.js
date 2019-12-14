@@ -8,17 +8,16 @@ import { logOut } from '../../actions'
 import Header from '../../components/header'
 import LeftSide from '../../components/content/LeftSide'
 import RightSide from '../../components/content/RightSide'
-// import MainContent from '../../components/content/MainContent'
-// import SingleItem from '../../components/content/SingleItem'
 import MainContentItem from '../../components/content/MainContentItem'
 import MainContentLoader from '../../components/loaders/MainContentLoader'
+import Answers from '../../components/content/Answers'
 
 class Item extends Component{
     constructor(){
         super()
         this.state = {
             loading: true,
-            question: []
+            question: {}
         }
     }
 
@@ -28,11 +27,9 @@ class Item extends Component{
         if(data.feed.length < 1) {
             axios.get(server + '/api/question/slug/' + title)
                 .then(response => {
-                    console.log(response);
-                    
                     this.setState({
-                        loading: false,
-                        question: response.data
+                        question: response.data,
+                        loading: false
                     })
                 })
                 .catch(err => console.log(err))
@@ -49,6 +46,7 @@ class Item extends Component{
     render(){ 
         const {data} = this.props;
         const {question} = this.state;
+        
         return(
             <div className="body">
                 <Header data={data} />
@@ -56,6 +54,7 @@ class Item extends Component{
                     <LeftSide />
                     <div className="main-content">
                         {this.state.loading? <MainContentLoader /> : <MainContentItem data={question} />}
+                        {!this.state.loading && <Answers bestId={question.best_answer} questionOwner={question.user._id} id={question._id} />}
                     </div>
                     <RightSide />
                 </div>

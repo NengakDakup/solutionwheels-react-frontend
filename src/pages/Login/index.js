@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { logIn } from '../../actions'
 
 import LoginMain from '../../components/login/LoginMain'
+import DisplayToast from '../../components/loaders/DisplayToast';
 
 class Login extends Component {
 
@@ -17,6 +18,7 @@ class Login extends Component {
         return (
             
             <div className="signup-body">
+                { this.props.data.toast.display && <DisplayToast type={this.props.data.toast.type} message={this.props.data.toast.message} /> }
                 <div className="signup-wrap">
                     <LoginMain logIn={this.logIn} />
                 </div>

@@ -6,7 +6,7 @@ import server from '../../config/config'
 import { displayToast, deletePost } from '../../actions'
 import { BtnLoaderSmall } from '../icons';
 
-class PostDropdown extends Component {
+class AnswerDropdown extends Component {
     container = React.createRef();
     constructor(props){
         super(props);
@@ -81,10 +81,10 @@ class PostDropdown extends Component {
         return (
             <div className="post-dropdown animated linear fadeIn faster" ref={this.container}>
                 <ul>
-                    <li onClick={() => deletePost({id})} >Hide Post</li>
+                    <li onClick={() => deletePost({id})} >Hide Answer</li>
                     <li onClick={() => this.reportPost()}>
                         <span>
-                            Report Post 
+                            Report Answer 
                         </span>
                         <span className="loader-right">
                             {this.state.reporting && <BtnLoaderSmall /> } 
@@ -124,4 +124,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostDropdown);
+export default connect(mapStateToProps, mapDispatchToProps)(AnswerDropdown);

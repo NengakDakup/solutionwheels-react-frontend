@@ -1,8 +1,12 @@
 export const ADD_QUESTION = 'ADD_QUESTION';
+export const DELETE_POST = 'DELETE_POST';
+export const DISPLAY_IMAGE_VIEWER = 'DISPLAY_IMAGE_VIEWER';
 export const DISPLAY_TOAST = 'DISPLAY_TOAST';
+export const HIDE_IMAGE_VIEWER = 'HIDE_IMAGE_VIEWER';
 export const HIDE_TOAST = 'HIDE_TOAST';
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
 export const LOAD_QUESTIONS = 'LOAD_QUESTIONS';
 export const LIKE_QUESTION = 'LIKE_QUESTION';
 export const SIGN_UP = 'SIGN_UP';
+export const LOAD_SINGLE_QUESTION = 'LOAD_SINGLE_QUESTION';

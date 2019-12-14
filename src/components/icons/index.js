@@ -139,12 +139,13 @@ export function LikeIcon(){
     )
 }
 
-export function LikedIcon(){
+export function LikedIcon(clicked){
     const styles = {
-        fill: '#D75A4A'
+        fill: '#D75A4A',
+        animationDuration: '3s'
     }
     return (
-        <svg version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
+        <svg className={clicked && 'animated heartBeat'} id="Capa_1" x="0px" y="0px" viewBox="0 0 50 50" width="18px" height="18px">
             <path style={styles} d="M24.85,10.126c2.018-4.783,6.628-8.125,11.99-8.125c7.223,0,12.425,6.179,13.079,13.543
             c0,0,0.353,1.828-0.424,5.119c-1.058,4.482-3.545,8.464-6.898,11.503L24.85,48L7.402,32.165c-3.353-3.038-5.84-7.021-6.898-11.503
             c-0.777-3.291-0.424-5.119-0.424-5.119C0.734,8.179,5.936,2,13.159,2C18.522,2,22.832,5.343,24.85,10.126z"/>
@@ -212,7 +213,7 @@ export function AnsweredIcon(){
 export function AddCommentIcon(){
     return (
         <svg version="1.1" id="Capa_1" x="0px" y="0px"
-        width="20px" height="20px" viewBox="0 0 612 612" fill="#3061AD">
+        width="18px" height="18px" viewBox="0 0 612 612" fill="#3061AD">
             <g>
                 <g id="_x32__26_">
                     <g>
@@ -228,6 +229,48 @@ export function AddCommentIcon(){
             </g>
         </svg>
 
+    )
+}
+
+export function UpvoteAnswerIcon(upvoted, clicked){
+    const fill = upvoted? '#3061ad' : 'none';
+    const stroke = upvoted? '#3061ad' : '#666';
+    return (
+        <svg className={clicked && 'animated fadeInUp'} width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+            <g id="upvote" className="icon_svg-stroke icon_svg-fill" strokeWidth="1.5" stroke={stroke} fill={fill} fillRule="evenodd" strokeLinejoin="round">
+                <polygon points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
+            </g>
+        </svg>
+    )
+}
+
+export function BackTopIcon(){
+    return (
+        <svg width="26px" height="26px" viewBox="0 0 24 24" version="1.1">
+            <g id="upvote" className="icon_svg-stroke icon_svg-fill" strokeWidth="1.5" fill="none" fillRule="evenodd" strokeLinejoin="round">
+                <polygon points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
+            </g>
+        </svg>
+    )
+}
+
+export function DownvoteAnswerIcon(upvoted, clicked){
+    const fill = upvoted? '#3061ad' : 'none';
+    const stroke = upvoted? '#3061ad' : '#666';
+    return (
+        <svg className={clicked && 'animated fadeInDown'} id="svg5" viewBox="0 0 24 24" height="24px" width="24px">
+            <defs
+                id="defs9" />
+            <g
+                strokeWidth="1.5" stroke={stroke} fill={fill} fillRule="evenodd" strokeLinejoin="round"
+                transform="rotate(180,12,12)"
+                class="icon_svg-stroke icon_svg-fill"
+                id="upvote">
+                <polygon
+                id="polygon2"
+                points="9,15 9,20 15,20 15,15 21,15 12,4 3,15 " />
+            </g>
+        </svg>
     )
 }
 
@@ -355,6 +398,16 @@ export function SuccessIcon(){
   )
 }
 
+export function SuccessIconAnswer(){
+    return (
+      <svg height="16px" id="Capa_1" x="0px" y="0px"viewBox="0 0 50 50" style={{marginRight: '5px', enableBackground:'new 0 0 50 50'}} >
+        <circle style={{fill:'#25AE88'}} cx="25" cy="25" r="25"/>
+        <polyline style={{fill:'none',stroke:'#FFFFFF',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round',strokeMiterlimit:10}} points="38,15 22,33 12,25 "/>
+      </svg>
+  
+    )
+  }
+
 export function ErrorIcon(){
   return (
     <svg height="80%" version="1.1" id="Capa_1" y="0px" viewBox="0 0 50 50" style={{enableBackground:'new 0 0 50 50', marginRight: '5px'}}>
@@ -365,3 +418,14 @@ export function ErrorIcon(){
 
   );
 }
+
+export function ErrorIconAnswer(){
+    return (
+      <svg height="16px" version="1.1" id="Capa_1" y="0px" viewBox="0 0 50 50" style={{enableBackground:'new 0 0 50 50', marginRight: '5px'}}>
+        <circle style={{fill:'#D75A4A'}} cx="25" cy="25" r="25"/>
+        <polyline style={{fill:'none',stroke:'#FFFFFF',strokeWidth:2,strokeLinecap:'round',strokeMiterlimit:10}} points="16,34 25,25 34,16"/>
+        <polyline style={{fill:'none',stroke:'#FFFFFF',strokeWidth:2,strokeLinecap:'round',strokeMiterlimit:10}} points="16,16 25,25 34,34"/>
+      </svg>
+  
+    );
+  }

@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 
 import SignUpMain from '../../components/login/SignUpMain'
+import DisplayToast from '../../components/loaders/DisplayToast';
 
 class SignUp extends Component {
     constructor(props){
@@ -12,10 +14,6 @@ class SignUp extends Component {
     }
 
     redirectToLoginPage(){
-        //show a successfully signed up toast
-        this.setState({
-            msg: true
-        })
         //display toast
         setTimeout(() => {
             this.props.history.push('/login');
@@ -24,6 +22,7 @@ class SignUp extends Component {
     render(){
         return (            
             <div className="signup-body">
+                { this.props.data.toast.display && <DisplayToast type={this.props.data.toast.type} message={this.props.data.toast.message} /> }
                 <div className="signup-wrap">
                     <SignUpMain signUp={this.redirectToLoginPage} />
                 </div>
@@ -32,4 +31,11 @@ class SignUp extends Component {
     }
 }
 
-export default SignUp
+//fetch what you want from the store
+const mapStateToProps = (state) => {
+    return {
+        data: state
+    }
+}
+
+export default connect(mapStateToProps, null)(SignUp);

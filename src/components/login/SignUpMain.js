@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import {connect} from 'react-redux'
 
+import { displayToast } from '../../actions'
 import server from '../../config/config'
 import validateLoginInput from '../../validation/registerValidator'
 
@@ -41,7 +43,8 @@ class SignUpMain extends Component {
         })
     }
 
-    validateInput(){
+    validateInput(e){
+        if(e) e.preventDefault();
         const data = {name: this.state.name, email: this.state.email, password: this.state.password};
         const {errors, isValid} = validateLoginInput(data);
         if (!isValid) {
@@ -68,12 +71,10 @@ class SignUpMain extends Component {
                 status: 'success',
                 errors: {}
             })
-            //console.log(data);
-            //this.props.signUp(); //send the action to redux / handle redirections and toasts
-        }) // set the data to local storage and redux, then load home page
+        })
         .catch(err => {
-            if (err.response) this.displayError(err.response.data);
-            console.log(err);
+            if (err.response) return this.displayError(err.response.data);
+            this.props.displayToast({type: 'error', message: 'Network Error'});
         })
         .finally(() => {
             this.setState({
@@ -105,27 +106,35 @@ class SignUpMain extends Component {
                 </div>
                     <p className="seperator"><span className="or">OR</span></p>
                     {this.state.status === 'success' && <AlertSuccess />}
-                <div>
-                    {name && <span className="error-msg">{name}</span>}
-                    <input type="text" onChange={(e) => this.updateValue(e, 'name')} placeholder="Full Name" className={ name ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' }/>
-                </div>
-                <div>
-                    {email && <span className="error-msg">{email}</span>}
-                    <input type="email" onChange={(e) => this.updateValue(e, 'email')} placeholder="Email Address" className={ email ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' }/>
-                </div>
-                <div>
-                    {password && <span className="error-msg">{password}</span>}
-                    <input type="password" onChange={(e) => this.updateValue(e, 'password')} placeholder="Password" className={ password ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' }/>
-                </div>
-                <div>
-                    <button type="submit" onClick={() => this.validateInput()} value="Sign Up" className="sign-up-home-submit-btn" >
-                        {this.state.loading? <BtnLoader /> : 'Sign Up'}
-                    </button>
-                </div>
+                <form onSubmit={(e) => this.validateInput(e)}>
+                    <div>
+                        {name && <span className="error-msg">{name}</span>}
+                        <input type="text" onChange={(e) => this.updateValue(e, 'name')} placeholder="Full Name" className={ name ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' } autocomplete/>
+                    </div>
+                    <div>
+                        {email && <span className="error-msg">{email}</span>}
+                        <input type="email" onChange={(e) => this.updateValue(e, 'email')} placeholder="Email Address" className={ email ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' } autocomplete/>
+                    </div>
+                    <div>
+                        {password && <span className="error-msg">{password}</span>}
+                        <input type="password" onChange={(e) => this.updateValue(e, 'password')} placeholder="Password" className={ password ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' } autocomplete/>
+                    </div>
+                    <div>
+                        <button type="submit" onClick={() => this.validateInput()} value="Sign Up" className="sign-up-home-submit-btn" >
+                            {this.state.loading? <BtnLoader /> : 'Sign Up'}
+                        </button>
+                    </div>
+                </form>
                 <p className="already">Already have an Account? <Link to="/login">Log in Here</Link></p>
             </div>
         )
     }
 }
 
-export default SignUpMain
+const mapDispatchToProps = (dispatch) => {
+    return {
+        displayToast: (payload) => { dispatch(displayToast(payload)) }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SignUpMain);
