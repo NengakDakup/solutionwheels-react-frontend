@@ -4,7 +4,7 @@ import axios from 'axios';
 import server from '../../config/config'
 import ProfileImage from '../../assets/icons/145841-avatar-set/png/man-2.png'
 import FollowBtn from '../buttons/Follow';
-import { FacebookIcon, GoogleIcon, TwitterIcon, InstagramIcon } from '../icons';
+import { FacebookIcon, GoogleIcon, TwitterIcon, InstagramIcon, ErrorIconAnswer } from '../icons';
 
 class ProfileDetails extends Component {
     constructor(props){
@@ -18,8 +18,8 @@ class ProfileDetails extends Component {
                 avatar: '--/--',
                 bio: null,
                 followers: [],
-                questions: [],
-                answers: [],
+                questions: 0,
+                answers: 0,
                 points: 0,
                 socials: {
                     facebook: null,
@@ -36,14 +36,19 @@ class ProfileDetails extends Component {
         const {id} = this.props;
         axios.get(server + '/api/profile/user/' + id)
             .then(res => {
+                console.log(res.data);
                 // check if the user profile was returned or the user details
-                const {bio, country, date, followers, gender, social, telephone, username, user} = res.data;
+                const {questions, answers} = res.data;
+                const {bio, country, date, followers, gender, social, telephone, username, user, points} = res.data.profile;
                 this.setState({
                     status: 'loaded',
                     errors: {},
                     userDetails: {
                         ...user,
                         bio: bio,
+                        questions: questions,
+                        answers: answers,
+                        points: points,
                         followers: followers,
                         socials: {...social}
                     }
@@ -56,7 +61,7 @@ class ProfileDetails extends Component {
 
     render(){
         const {status, errors } = this.state;
-        const { name, _id, followers, bio, socials } = this.state.userDetails;
+        const { name, _id, followers, bio, socials, questions, answers, points } = this.state.userDetails;
         return(
             <div className="profile-outer">
                 <div className="profile-image-top" >
@@ -65,12 +70,12 @@ class ProfileDetails extends Component {
                     </div>
                 </div>
                 <div className="profile-details">
-                    <p className="profile-username">{name}<FollowBtn id={_id} currentUser={this.props.currentUser} followers={followers} /></p>
+                    <p className="profile-username">{name}{!errors.noprofile && <FollowBtn id={_id} currentUser={this.props.currentUser} followers={followers} /> }</p>
                     {bio && <p className="profile-bio">{bio}</p>}
                     <p className="profile-stats">
-                        <span className="profile-points">n Points </span>
-                        <span className="profile-questions">n Questions </span>
-                        <span className="profile-answers">n Answers</span>
+                        <span className="profile-points">{points} {points > 1? ' Points' : ' Point'} </span>
+                        <span className="profile-questions">{questions} {questions > 1? ' Questions' : ' Question'} </span>
+                        <span className="profile-answers">{answers} {answers > 1? ' Answers' : ' Answer'}</span>
                     </p>
                 </div>
                 <div className="profile-bottom">
@@ -79,7 +84,7 @@ class ProfileDetails extends Component {
                     {socials.instagram && <a className="instagram-icon" href={socials.instagram}><InstagramIcon /></a>}
                     {socials.google && <a className="google-icon" href={socials.google}><GoogleIcon /></a>}
                 </div>
-                {errors.noprofile && <p className="error">User Profile Not Found</p> }
+                {errors.noprofile && <p className="profile-not-found"><ErrorIconAnswer /> User Profile Not Found</p> }
             </div>
         )
     }

@@ -6,6 +6,8 @@ import ReactHtmlParser from 'react-html-parser';
 import {connect} from 'react-redux'
 import jwt_decode from 'jwt-decode'
 
+import AddComment from './AddComment'
+import Comments from './Comments'
 import ProfileImage from '../../assets/icons/boy.svg'
 import UpvoteBtn from '../buttons/Upvote';
 import DownvoteBtn from '../buttons/Downvote';
@@ -18,24 +20,18 @@ class SingleAnswer extends Component {
         super(props);
         this.state = {
             displayPostDropdown: false,
+            displayCommentBox: true,
             answerUpvoted: false,
             answerDownvoted: false,
             ...this.props.data
         }
 
         this.displayPostDropdown = this.displayPostDropdown.bind(this);
-        this.updateData = this.updateData.bind(this);
     }
 
     displayPostDropdown(){
         this.setState({
             displayPostDropdown: !this.state.displayPostDropdown
-        })
-    }
-
-    updateData(data){
-        this.setState({
-            ...data
         })
     }
 
@@ -48,6 +44,7 @@ class SingleAnswer extends Component {
     // }
 
     render(){
+        
         let currentUser = {};
         if (localStorage.getItem('user_token')) {
             currentUser = jwt_decode(localStorage.getItem('user_token'));
@@ -55,14 +52,16 @@ class SingleAnswer extends Component {
 
         const {questionOwner, questionId} = this.props;
         
-        const {body, comments, date, downvotes, question, upvotes, user, _id} = this.state;
+        const {body, comments, date, downvotes, question, upvotes, user, _id} = this.props.data.answer;
+        
+        
         return (
             <div className="main-content-item">
                 <div className="top-actions">
                     <button className="top-action-btn" onClick={() => this.displayPostDropdown()}>
                         <ThreeDotsIcon />
                     </button>
-                    {this.state.displayPostDropdown && <AnswerDropdown user={user._id} id={_id} displayPostDropdown={this.displayPostDropdown} /> }
+                    {this.state.displayPostDropdown && <AnswerDropdown user={user._id} id={_id} updateData={this.props.updateData} deleteAnswer={this.props.deleteAnswer} displayPostDropdown={this.displayPostDropdown} /> }
                 </div>
                 <div className="user-details">
                     <div className="question-type">
@@ -94,15 +93,14 @@ class SingleAnswer extends Component {
                     }
                 </div>
                 <div className="bottom-actions">
-                    <UpvoteBtn upvotes={upvotes} answerId={_id} />
-                    <DownvoteBtn downvotes={downvotes} answerId={_id} updateData={this.updateData} />
+                    <UpvoteBtn upvotes={upvotes} answerId={_id} updateData={this.props.updateData} />
+                    <DownvoteBtn downvotes={downvotes} answerId={_id} updateData={this.props.updateData} />
                     {
                         (questionOwner === currentUser.id && _id !== this.props.bestId) && 
-                        <MarkBestBtn answerId={_id} questionId={questionId} updateData={this.updateData} />
+                        <MarkBestBtn answerId={_id} questionId={questionId} updateData={this.props.updateData} />
                     }
-                    {/* <CommentBtn /> */}
                 </div>
-                {/* { this.state.displayCommentBox && <AddComment /> } */}
+                <Comments comments={comments} answerId={_id} updateData={this.props.updateData} />
             </div>
         )
     }

@@ -23,8 +23,9 @@ class MarkBestBtn extends Component {
             answerId
         }).then(res => {
             this.props.displayToast({type: 'success', message: 'Answer Successfully Approved'})
+            console.log(res.data);
+            
             this.props.updateData(res.data);
-            console.log(res)
         }).catch(err => {
             console.log(err)
         })

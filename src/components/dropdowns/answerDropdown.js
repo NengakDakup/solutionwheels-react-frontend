@@ -40,11 +40,11 @@ class AnswerDropdown extends Component {
             reporting: true
         })
         const { id } =this.props;
-        axios.post(server + '/api/question/report/' + id).then(response => {
+        axios.post(server + '/api/answer/report/' + id).then(response => {
             this.setState({
                 reporting: false
             });
-            if(response.status === 200) return this.props.displayToast({type: 'success', message: 'Post Successfully Reported'});
+            if(response.status === 200) return this.props.displayToast({type: 'success', message: 'Answer Successfully Reported'});
         }).catch(err => {
             this.setState({
                 reporting: false
@@ -59,17 +59,20 @@ class AnswerDropdown extends Component {
         this.setState({
             deleting: true
         })
-        const { id, deletePost } = this.props;
-        axios.delete(server + '/api/question/delete/' + id).then(response => {
+        const { id, deleteAnswer } = this.props;
+        
+        axios.delete(server + '/api/answer/delete/' + id).then(response => {
             this.setState({
                 deleting: false
             });
-            deletePost({id})
-            if(response.status === 200) return this.props.displayToast({type: 'success', message: 'Post Successfully Deleted'});
+
+            deleteAnswer(id);
+            if(response.status === 200) return this.props.displayToast({type: 'success', message: 'Answer Successfully Deleted'});
         }).catch(err => {
             this.setState({
                 deleting: false
             })
+            
             if(err.response) return this.props.displayToast({type: 'error', message: err.response.data.unauthorized});
             return this.props.displayToast({type: 'error', message: 'Network Error!'});
         })
@@ -77,14 +80,15 @@ class AnswerDropdown extends Component {
 
     render(){
         const {loggedIn, userId} = this.props.data;
-        const {user, deletePost, id} = this.props;
+        const {user, deleteAnswer, id} = this.props;
+        
         return (
             <div className="post-dropdown animated linear fadeIn faster" ref={this.container}>
                 <ul>
-                    <li onClick={() => deletePost({id})} >Hide Answer</li>
+                    <li onClick={() => deleteAnswer(id)} >Hide Answer</li>
                     <li onClick={() => this.reportPost()}>
                         <span>
-                            Report Answer 
+                            Report 
                         </span>
                         <span className="loader-right">
                             {this.state.reporting && <BtnLoaderSmall /> } 

@@ -12,6 +12,7 @@ class FollowBtn extends Component {
     constructor(props){
         super(props);
         this.state = {
+            loading: false,
             recieved: false,
             following: false,
             followers: this.props.followers
@@ -38,16 +39,19 @@ class FollowBtn extends Component {
     followUser(){
         const { id } = this.props;
         this.setState({
+            loading: true,
             following: !this.state.following
         })
         axios.get(server + '/api/profile/follow/' + id)
             .then(res => {
                 // display toast
                 this.setState({
+                    loading: false,
                     followers: res.data.followers
                 })
             }).catch(err => {
                 this.setState({
+                    loading: false,
                     following: !this.state.following
                 })
                 // display toast
@@ -58,7 +62,7 @@ class FollowBtn extends Component {
 
     render(){
         return (
-            <button className={this.state.following? 'follow-btn following' : 'follow-btn'} onClick={() => this.followUser()}>
+            <button className={this.state.following? 'follow-btn following' : 'follow-btn'} onClick={() => this.followUser()} disabled={this.state.loading}>
                 <FollowIcon />
                 <span className="follow-text">{this.state.following? 'Unfollow' : 'Follow'}</span> 
                 <span className="follow-count">{this.state.followers.length}</span>

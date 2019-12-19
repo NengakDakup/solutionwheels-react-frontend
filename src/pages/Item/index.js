@@ -17,8 +17,13 @@ class Item extends Component{
         super()
         this.state = {
             loading: true,
+            noquestion: false,
+            errors: {},
             question: {}
         }
+
+        this.updateData = this.updateData.bind(this);
+        this.deleteAnswer = this.deleteAnswer.bind(this);
     }
 
     componentWillMount(){
@@ -31,8 +36,11 @@ class Item extends Component{
                         question: response.data,
                         loading: false
                     })
+                    
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    if(err.response) this.setState({loading: false, noquestion: true })
+                })
         } else {
             const item = data.feed.find(question => question.slug === title);
             this.setState({
@@ -41,6 +49,23 @@ class Item extends Component{
             })
         }
         
+    }
+
+    updateData(data){
+        this.setState({
+            question: data
+        })
+    }
+
+    deleteAnswer(id){
+        const {answers} = this.state.question;
+        const newAnswers = [...answers.filter(answer => answer.answer._id !== id)]
+        this.setState({
+            question: {
+                ...this.state.question,
+                answers: newAnswers
+            }
+        })
     }
 
     render(){ 
@@ -53,8 +78,17 @@ class Item extends Component{
                 <div className="content">
                     <LeftSide />
                     <div className="main-content">
-                        {this.state.loading? <MainContentLoader /> : <MainContentItem data={question} />}
-                        {!this.state.loading && <Answers bestId={question.best_answer} questionOwner={question.user._id} id={question._id} />}
+                        {this.state.loading? <MainContentLoader /> : <MainContentItem data={question} updateData={this.updateData}/>}
+                        {
+                            (!this.state.loading && !this.state.noquestion) && 
+                                <Answers
+                                    updateData={this.updateData}
+                                    deleteAnswer={this.deleteAnswer}
+                                    data={question.answers} 
+                                    bestId={question.best_answer} 
+                                    questionOwner={question.user._id} 
+                                    id={question._id} />
+                        }
                     </div>
                     <RightSide />
                 </div>

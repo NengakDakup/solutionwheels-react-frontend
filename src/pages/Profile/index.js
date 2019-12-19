@@ -1,16 +1,35 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import axios from 'axios'
+
+import server from '../../config/config'
 import { logOut, loadQuestions } from '../../actions'
 
 import Header from '../../components/header'
 import LeftSide from '../../components/content/LeftSide'
 import RightSide from '../../components/content/RightSide'
-import MainContent from '../../components/content/MainContent'
+import MainContentItem from '../../components/content/MainContentItem'
 
 import ProfileDetails from '../../components/content/ProfileDetails'
 
 class Profile extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            loading: true,
+            questions: []
+        }
+    }
 
+    componentWillMount(){
+        const {id} = this.props.match.params;
+        axios.get(server + '/api/question/for/' + id)
+            .then(res => {
+                this.setState({
+                    questions: res.data
+                })
+            })
+    }
     render(){
         const {data} = this.props;
         const {userId} = data.userDetails;
@@ -26,11 +45,14 @@ class Profile extends Component {
                         <ProfileDetails id={id} currentUser={userId} />
                         <div className="post-filter profile-filter">
                             <ul>
-                                <li className="active-filter">Recent</li>
-                                <li>Top</li>
+                                <li className="active-filter">User Questions</li>
                             </ul>
                         </div>
-                        {/* loop through anbd render maincontentitem */}
+                        {
+                            this.state.questions.length >= 1 && this.state.questions.map((question, key) => {
+                                return <MainContentItem data={question} key={question._id + Date.now() + key} />
+                            })
+                        }
                     </div>
                     <RightSide />
                 </div>

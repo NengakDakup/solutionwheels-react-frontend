@@ -29,7 +29,7 @@ class Home extends Component {
                 { !data.userDetails.loggedIn && <WelcomeDiv />}
                 <div className="content">
                     <LeftSide />
-                    <MainContent data={data} loadQuestions={this.loadQuestions} />
+                    <MainContent loadQuestions={this.loadQuestions} />
                     <RightSide />
                 </div>
             </div>

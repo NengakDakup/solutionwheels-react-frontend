@@ -22,7 +22,6 @@ class MainContentItem extends Component {
         }
 
         this.addAnswer = this.addAnswer.bind(this)
-        this.sharePost = this.sharePost.bind(this)
         this.displayPostDropdown = this.displayPostDropdown.bind(this)
     }
 
@@ -30,11 +29,6 @@ class MainContentItem extends Component {
         this.setState({
             displayAnswerBox: !this.state.displayAnswerBox
         })
-    }
-
-    sharePost(id){
-        //navigator share or modal 
-        alert(`SHARE_POST_ID ${id}`);
     }
 
     displayPostDropdown(){
@@ -109,7 +103,7 @@ class MainContentItem extends Component {
                     <LikeBtn likes={data.likes} ques_id={data._id} />
                     <ShareBtn data={data} />
                 </div>
-                { this.state.displayAnswerBox && <AddAnswer addAnswer={this.addAnswer} ques_id={data._id} /> }
+                { this.state.displayAnswerBox && <AddAnswer addAnswer={this.addAnswer} ques_id={data._id} updateData={this.props.updateData} /> }
             </div>
         )
     }

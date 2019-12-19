@@ -95,10 +95,10 @@ class SignUpMain extends Component {
                     <h3>SIGN UP HERE</h3>
                     <div className="social-buttons">
                         <span className="sign-with">SIGN UP WITH</span>
-                        <a href="/" className="sign-up-facebook">
+                        <a href={server + '/api/auth/facebook'} className="sign-up-facebook">
                             <img src={Facebook} alt="facebook" width="20px" />
                         </a>
-                        <a href="/" className="sign-up-google">
+                        <a href={server + '/api/auth/google'} className="sign-up-google">
                             <img src={Google} alt="google" width="20px" />
                         </a>
                     </div>
@@ -120,7 +120,7 @@ class SignUpMain extends Component {
                         <input type="password" onChange={(e) => this.updateValue(e, 'password')} placeholder="Password" className={ password ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' } autocomplete/>
                     </div>
                     <div>
-                        <button type="submit" onClick={() => this.validateInput()} value="Sign Up" className="sign-up-home-submit-btn" >
+                        <button type="submit" onClick={() => this.validateInput()} value="Sign Up" className={this.state.loading ? "sign-up-home-submit-btn loading-btn" : "sign-up-home-submit-btn" } disabled={this.state.loading} >
                             {this.state.loading? <BtnLoader /> : 'Sign Up'}
                         </button>
                     </div>

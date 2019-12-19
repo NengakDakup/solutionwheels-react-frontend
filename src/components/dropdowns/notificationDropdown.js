@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import {connect} from 'react-redux'
+
 import NotificationItem from '../notificationItem'
 
 import { RightArrow, MarkRead } from '../icons'
@@ -25,6 +27,7 @@ class NotificationDropdown extends Component {
     
 
     render(){
+        
         if(this.props.active){
             return (
                 <div className="header-notification-drop active-display" ref={this.container}>
@@ -32,15 +35,12 @@ class NotificationDropdown extends Component {
                         <p>
                             <Link to="/notifications">See All Notifications <RightArrow /> </Link>
                         </p>
-                        <p>
-                            <Link to="/"><MarkRead /> Mark All as Read</Link>
-                        </p>
                     </div>
                     <ul>
-                        <NotificationItem />
-                        <NotificationItem />
-                        <NotificationItem />
-                        <NotificationItem />
+                        {this.props.data.length >= 1 ? this.props.data.map(notification => {
+                            return <NotificationItem data={notification} key={notification._id} />
+                        }) : <center><span>No Notifications</span></center>}
+                        
                     </ul>
                 </div>
             )
@@ -52,4 +52,11 @@ class NotificationDropdown extends Component {
     }
 }
 
-export default NotificationDropdown
+//fetch what you want from the store
+const mapStateToProps = (state) => {
+    return {
+        data: state.notifications
+    }
+}
+  
+export default connect(mapStateToProps, null)(NotificationDropdown);

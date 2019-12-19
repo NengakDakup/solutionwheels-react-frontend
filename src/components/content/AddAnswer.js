@@ -45,6 +45,7 @@ class AddAnswer extends Component {
             .then(res => {
                 this.setState({loading: false, errors: {}})
                 this.props.displayToast({type: 'success', message: 'Answer Added!'})
+                this.props.updateData && this.props.updateData(res.data);
                 this.props.addAnswer();
             }).catch(err => {
                 this.setState({loading: false})

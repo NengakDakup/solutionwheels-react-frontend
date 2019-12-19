@@ -82,63 +82,53 @@ class AskQuestion extends Component{
       }
     }
 
-    sendToBackend(){
-      const formData = new FormData();
-      formData.append('image', this.state.question.image);
-      const config = {
-          headers: {
-              'content-type': 'multipart/form-data'
-          }
+    async sendToBackend(){
+      let file;
+      this.setState({loading: true});
+      if(this.state.question.image) {
+        const formData = new FormData();
+        formData.append('image', this.state.question.image);
+        //send the image to thw backend
+        await fetch('http://localhost:8080/upload.php', {method: 'POST', body: formData })
+        .then(body => body.json())
+        .then(json => {
+          file = json;
+        })
+        .catch(err => this.props.displayToast({type: 'error', message: 'Unknown Error'}))
       }
-      // first of all, upload the image
-      fetch('http://localhost:8080/upload.php', {
-        method: 'POST',
-        body: formData
-      })
-      .then(res => {
-        return(console.log(res.text()));
-          let imagePath = null;
-          //image is succesfully uploaded
-          if (res.data.upload) {
-            imagePath = server + '/uploads/' + res.data.upload.filename;
-          }
-          //upload the details now
-          axios.post(server + '/api/question/create', {
-            question_title: this.state.question.title,
-            body: this.state.question.body,
-            image: imagePath
-          }).then(res => {
-            this.setState({
-              loading: false,
-              errors: {}
-            });
-            // display toast
-            this.props.displayToast({type: 'success', message: 'Question Successfully Asked'})
-            // update the redux state
-            this.props.addQuestion(res.data);
-            window.location.href = `/question/${res.data.slug}`;
-          }).catch(err => {
-            this.setState({loading: false, errors: {}})
-            if(err.response) {
-              this.setState({errors: err.response.data});
-            }
-            //display toast error
-            this.props.displayToast({type: 'error', message: 'Network Error'})
-          })
-      })
-      .catch(err => {
-        this.setState({loading: false, errors: {}})
-          if(err.response) {
-          this.setState({errors: err.response.data});
-          }
-          //display toast error
-          this.props.displayToast({type: 'error', message: 'Network Error'})
-      })
+      
+      //upload the details now
+      // axios.post(server + '/api/question/create', {
+      //   question_title: this.state.question.title,
+      //   body: this.state.question.body,
+      //   image: file
+      // }).then(res => {
+      //   this.setState({
+      //     loading: false,
+      //     errors: {}
+      //   });
+      //   // display toast
+      //   this.props.displayToast({type: 'success', message: 'Question Successfully Asked'})
+      //   // update the redux state
+      //   this.props.addQuestion(res.data);
+      //   this.props.toggleDropDown('ask');
+      //   //window.location.href = `/question/${res.data.slug}`;
+      // }).catch(err => {
+      //   this.setState({loading: false, errors: {}})
+      //   if(err.response) {
+      //     this.setState({errors: err.response.data});
+      //     if(!err.response.data.alreadyexists) this.props.displayToast({type: 'error', message: err.response.data})
+      //   } else {
+      //     this.props.displayToast({type: 'error', message: 'Network Error'})
+      //   }
+      //   //display toast error
+      // })
+
     }
 
     render(){
         const { toggleDropDown, data } = this.props;
-        const { title, body } = this.state.errors;
+        const { title, body, alreadyexists } = this.state.errors;
         return (
             <div className="ask-question-outer">
                 <div className="ask-question-wrap">
@@ -156,6 +146,7 @@ class AskQuestion extends Component{
                     <div className="ask-question-section">
                         <p className="title">Question Title</p>
                         {title && <span className="danger-text">{title}</span>}
+                        {alreadyexists && <span className="danger-text">{alreadyexists}</span>}
                         <input onChange={(e) => this.handleChange(e, 'title')} type="text" className="ask-question-input-title" placeholder="start your question with what, how, why, etc"/>
                     </div>
                     <div className="ask-question-section">

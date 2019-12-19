@@ -12,7 +12,7 @@ class PostFilter extends Component {
                     <li onClick={ () => filterCategory('Recent Questions')} className={ activeCategory === 'Recent Questions' ? "active-filter" : null } >Recent Questions</li>
                     <li onClick={ () => filterCategory('No Answers')} className={ activeCategory === 'No Answers' ? "active-filter" : null } >No Answers</li>
                     <li onClick={ () => filterCategory('Most Answers')} className={ activeCategory === 'Most Answers' ? "active-filter" : null } >Most Answers</li>
-                    <li onClick={ () => filterCategory('Hottest')} className={ activeCategory === 'Hottest' ? "active-filter" : null } >Hottest</li>
+                    <li onClick={ () => filterCategory('Approved Answers')} className={ activeCategory === 'Approved Answers' ? "active-filter" : null } >Approved Answers</li>
                 </ul>
             </div>
         )

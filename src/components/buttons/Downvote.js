@@ -25,30 +25,27 @@ class DownvoteBtn extends Component {
         this.setState({downvoted: true, clicked: true})
         axios.get(server + '/api/answer/downvote/' + answerId)
             .then(res => {
-                this.setState({downvotes: [...res.data.downvotes]})
+                this.props.updateData(res.data)
                 this.props.displayToast({type: 'success', message: 'Answer Successfully Downvoted'})
             }).catch(err => {
                 this.setState({clicked: false, downvoted: false})
-                if(err.response && err.response.data.alreadydownvoted) return this.props.displayToast({type: 'error', message: err.response.data.alreadydownvoted})
+                if(err.response && err.response.data.alreadydownvoted) {
+                    this.setState({downvoted: !this.state.downvoted})
+                    return this.props.displayToast({type: 'error', message: err.response.data.alreadydownvoted})
+                }
                 if(err.response) return this.props.displayToast({type: 'error', message: err.response.data})
                 this.props.displayToast({type: 'error', message: 'Unknown Error'})
             })
     }
-
-    componentWillMount(){
-        const {downvotes, currentUser} = this.props;
-        this.setState({
-            downvoted: downvotes.filter(user => user.user === currentUser).length >= 1,
-            downvotes: [...downvotes]
-        })
-    }
     
-    render(){ 
+    render(){
+        const {downvotes} = this.props; 
+        const downvoted = downvotes.filter(user => user.user === this.props.currentUser).length >= 1;
         return (
-            <div className={this.state.downvoted? 'bottom-actions-answer vote voted' : 'bottom-actions-answer vote'} onClick={() => this.downvoteAnswer()}>
-                <span>{DownvoteAnswerIcon(this.state.downvoted, this.state.clicked) }</span>
-                <span>{this.state.downvoted? 'Downvoted' : 'Downvote'} </span>
-                <span className="count">{this.state.downvotes.length}</span>
+            <div className={downvoted || this.state.downvoted? 'bottom-actions-answer vote voted' : 'bottom-actions-answer vote'} onClick={() => this.downvoteAnswer()}>
+                <span>{DownvoteAnswerIcon(downvoted || this.state.downvoted, this.state.clicked) }</span>
+                <span>{downvoted? 'Downvoted' : 'Downvote'} </span>
+                <span className="count">{downvotes.length}</span>
             </div>
         )
     }

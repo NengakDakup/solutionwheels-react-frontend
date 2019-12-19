@@ -27,6 +27,11 @@ const initState = {
         errors: {},
         question: {}
     },
+    shareQuestion: {
+        display: false,
+        question: {}
+    },
+    notifications: [],
     feed: [],
     filteredFeed: []
 }
@@ -37,14 +42,19 @@ const rootReducer = (state = initState, action) => {
           return {
             ...state,
             feed: [
-              action.payload,
-              ...state.feed
+                action.payload,
+                ...state.feed
+            ],
+            filteredFeed: [
+                action.payload,
+                ...state.feed
             ]
           }
         case 'DELETE_POST':
             return {
                 ...state,
-                feed: state.feed.filter(feed => feed._id !== action.payload.id)
+                feed: state.feed.filter(feed => feed._id !== action.payload.id),
+                filteredFeed: state.filteredFeed.filter(feed => feed._id !== action.payload.id)
             }
         case 'DISPLAY_TOAST':
             return {
@@ -113,15 +123,76 @@ const rootReducer = (state = initState, action) => {
             }
         case 'LIKE_QUESTION':
             if(state.feed.length < 1) return state;
-            const index = state.feed.findIndex(it => it._id === action.payload._id);
+            const index = state.feed.findIndex(it => it._id === action.payload._id);  
             const old = state.feed[index];
             old.likes = action.payload.likes;
+            
             return {
                 ...state,
-                feed: [
-                    ...state.feed,
-                    state.feed[index] = action.payload
-                ]
+                feed: state.feed.map(item => {
+                    if (item._id === action.payload._id) return action.payload;
+                    if (item._id !== action.payload._id) return item; 
+                }),
+                filteredFeed: state.feed.map(item => {
+                    if (item._id === action.payload._id) return action.payload;
+                    if (item._id !== action.payload._id) return item; 
+                })
+            }
+        case 'LOAD_NOTIFICATIONS':
+            return {
+                ...state,
+                notifications: action.payload
+            }
+        case 'MARK_SEEN_NOTIFICATION':
+            return {
+                ...state,
+                notifications: state.notifications.map(notify => {
+                    notify.seen = true;
+                    return notify;
+                })
+            }
+        case 'MARK_ALL_READ':
+            return {
+                ...state,
+                notifications: state.notifications.map(notify => {
+                    notify.read = true;
+                    return notify;
+                })
+            }
+        case 'SHARE_POST':
+            return {
+                ...state,
+                shareQuestion: {
+                    display: true,
+                    ...action.payload
+                }
+            }
+        case 'HIDE_SHARE_POST':
+            return {
+                ...state,
+                shareQuestion: {
+                    display: false
+                }
+            }
+        case 'RECENT_QUESTIONS':
+            return {
+                ...state,
+                filteredFeed: action.payload
+            }
+        case 'NO_ANSWERS':
+            return {
+                ...state,
+                filteredFeed: action.payload
+            }
+        case 'MOST_ANSWERS':
+            return {
+                ...state,
+                filteredFeed: action.payload
+            }
+        case 'SOLVED_QUESTIONS':
+            return {
+                ...state,
+                filteredFeed: action.payload
             }
         default:
             return state;

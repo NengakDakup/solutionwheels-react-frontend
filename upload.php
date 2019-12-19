@@ -1,54 +1,116 @@
 <?php
+
+/**
+*
+* Author: CodexWorld
+* Function Name: cwUpload()
+* $field_name => Input file field name.
+* $target_folder => Folder path where the image will be uploaded.
+* $file_name => Custom thumbnail image name. Leave blank for default image name.
+* $thumb => TRUE for create thumbnail. FALSE for only upload image.
+* $thumb_folder => Folder path where the thumbnail will be stored.
+* $thumb_width => Thumbnail width.
+* $thumb_height => Thumbnail height.
+*
+**/
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if (isset($_FILES['image'])) {
-    $errors = [];
-    $extensions = ['jpg', 'jpeg', 'png', 'gif', 'mp4'];
+function cwUpload($field_name = '', $target_folder = '', $file_name = '', $thumb = FALSE, $thumb_folder = '', $thumb_width = '', $thumb_height = ''){
 
-    //get the number of files being uploaded
-    $all_files = count($_FILES['image']['tmp_name']);
-    for ($i=0; $i < $all_files; $i++) {
-      //get the file details
-      $file_name = $_FILES['image']['name'];
-      $file_tmp = $_FILES['image']['tmp_name'];
-      $file_type = $_FILES['image']['type'];
-      $file_size = $_FILES['image']['size'];
-      $file_ext = strtolower(end(explode('.', $_FILES['image']['name'])));
-
-      //check to see the media type so the appropriate path can be set
-      $path = 'assets/images/uploads/';
-      $name = time();
-      $file = $path . $name;
-
-      //check the file if they are fit for uploading
-      if (!in_array($file_ext, $extensions)) {
-        $errors[] = 'Extension not allowed: ' . $file_name . ' ' . $file_type;
-        http_response_code(400);
-        exit('Extension not allowed: ' . $file_name . ' ' . $file_type);
-      }
-
-      if ($file_size > 5097152) {
-        $errors[] = 'File size exceeds limit ' . $file_name . ' ' . $file_size;
-        http_response_code(400);
-        exit('File size exceeds limit ' . $file_name . ' ' . $file_size);
-      }
-
-      //upload the file if there are no errors
-      if (empty($errors)) {
-        if ( move_uploaded_file($file_tmp, $file) ) {
-          //aray to be pushed to the json file
-          http_response_code(200);
-          exit($file);
-        } else {
-          exit('invalid file');
-        }
-      }
-
+    //folder path setup
+    $target_path = $target_folder;
+    $thumb_path = $thumb_folder;
+    
+    //file name setup
+    $filename_err = explode(".",$_FILES[$field_name]['name']);
+    $filename_err_count = count($filename_err);
+    $file_ext = $filename_err[$filename_err_count-1];
+    if($file_name != ''){
+        $fileName = $file_name.'.'.$file_ext;
+    }else{
+        $fileName = $_FILES[$field_name]['name'];
     }
-  }
+    
+    //upload image path
+    $upload_image = $target_path.basename($fileName);
+    
+    //upload image
+    if(move_uploaded_file($_FILES[$field_name]['tmp_name'],$upload_image))
+    {
+        //thumbnail creation
+        if($thumb == TRUE)
+        {
+            $thumbnail = $thumb_path.$fileName;
+            list($width,$height) = getimagesize($upload_image);
+            $thumb_create = imagecreatetruecolor($thumb_width,$thumb_height);
+            switch($file_ext){
+                case 'jpg':
+                    $source = imagecreatefromjpeg($upload_image);
+                    break;
+                case 'jpeg':
+                    $source = imagecreatefromjpeg($upload_image);
+                    break;
+
+                case 'png':
+                    $source = imagecreatefrompng($upload_image);
+                    break;
+                case 'gif':
+                    $source = imagecreatefromgif($upload_image);
+                    break;
+                default:
+                    $source = imagecreatefromjpeg($upload_image);
+            }
+
+            imagecopyresized($thumb_create,$source,0,0,0,0,$thumb_width,$thumb_height,$width,$height);
+            switch($file_ext){
+                case 'jpg' || 'jpeg':
+                    imagejpeg($thumb_create,$thumbnail,100);
+                    break;
+                case 'png':
+                    imagepng($thumb_create,$thumbnail,100);
+                    break;
+
+                case 'gif':
+                    imagegif($thumb_create,$thumbnail,100);
+                    break;
+                default:
+                    imagejpeg($thumb_create,$thumbnail,100);
+            }
+
+        }
+
+        return $fileName;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+if(!empty($_FILES['image']['name'])){
+    
+    //call thumbnail creation function and store thumbnail name
+    $upload_img = cwUpload('image','uploads/', time(),TRUE,'uploads/thumbs/','200','160');
+    
+    //full path of the thumbnail image
+    $thumb_src = 'uploads/thumbs/'.$upload_img;
+    
+    //set success and error messages
+    if($upload_img){
+      http_response_code(200);
+      echo json_encode($upload_img);
+    } else {
+      http_response_code(200);
+      echo json_encode('error');
+    }
+    
+}else{
+    
+    //if form is not submitted, below variable should be blank
+    $thumb_src = '';
+    $message = '';
 }
 
 ?>
-

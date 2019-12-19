@@ -12,34 +12,26 @@ class Answers extends Component {
     constructor(props){
         super(props);
         this.state = {
-            loading: true,
+            loading: false,
             errors: {},
-            answers: []
+            answers: this.props.data
         }
     }
 
-    componentWillMount(){
-        const {id} = this.props;
-        axios.get(server + '/api/answer/for/' + id)
-            .then(res => {
-                this.setState({
-                    loading: false,
-                    errors: {},
-                    answers: res.data
-                })
-            }).catch(err => {
-                if(err.response) this.setState({loading: false, errors: err.response.data});
-                console.log(err);
-            })
-    }
     render(){
-        
         return (
             <div className="answers-wrapper">
                 {this.state.loading && <p>Loading Answers...</p>}
                 {this.state.errors.noanswers && <p>{this.state.errors.noanswers}</p>}
-                {this.state.answers.map((answer, index) => {
-                    return <SingleAnswer data={answer} questionOwner={this.props.questionOwner} questionId={this.props.id} bestId={this.props.bestId} key={answer._id} />
+                {this.props.data.map((answer, index) => {
+                    return <SingleAnswer 
+                                data={answer} 
+                                questionOwner={this.props.questionOwner} 
+                                questionId={this.props.id} 
+                                bestId={this.props.bestId} 
+                                key={answer._id + Date.now()} 
+                                updateData={this.props.updateData}
+                                deleteAnswer={this.props.deleteAnswer} />
                 })}
             </div>
         )

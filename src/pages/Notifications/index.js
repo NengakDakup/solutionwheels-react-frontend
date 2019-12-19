@@ -2,21 +2,28 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { logOut, loadQuestions } from '../../actions'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+
+import server from '../../config/config'
+import {markAllRead} from '../../actions'
 
 import Header from '../../components/header'
 import LeftSide from '../../components/content/LeftSide'
 import RightSide from '../../components/content/RightSide'
 import { MarkRead, RightArrow } from '../../components/icons'
-import NotificationMainItem from '../../components/notificationItem/NotificationMainItem'
+import NotificationItem from '../../components/notificationItem'
 
 class Notifications extends Component {
-
-    logOut = () => {
-        this.props.logOut();
+    constructor(props){
+        super(props);
+        this.markRead = this.markRead.bind(this);
     }
 
-    loadQuestions = (payload) => {
-        this.props.loadQuestions(payload);
+    markRead(){
+        axios.get(server + '/api/notification/markallread')
+            .then(res => {
+                this.props.markAllRead();
+            })
     }
 
     render(){
@@ -32,19 +39,18 @@ class Notifications extends Component {
                         <div className="header-notification-drop notification-main" >
                             <div className="header-notification-drop-top">
                                 <p>
-                                    <Link to="/notifications">All Notifications <RightArrow /></Link>
+                                    All Notifications <RightArrow />
                                 </p>
                                 <p>
-                                    <Link to="/notifications"><MarkRead /> Mark All as Read</Link>
+                                    <button className="mark-all-btn" onClick={() => this.markRead()}><MarkRead /> Mark All as Read</button>
                                 </p>
                             </div>
                             <ul className="notification-main-ul">
-                                <NotificationMainItem />
-                                <NotificationMainItem />
-                                <NotificationMainItem />
-                                <NotificationMainItem />
-                                <NotificationMainItem />
-                                <NotificationMainItem />
+                                {
+                                    this.props.data.notifications.length >= 1 ? this.props.data.notifications.map(notification => {
+                                        return <NotificationItem data={notification} key={notification._id} />
+                                    }) : <span>Loading...</span>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -64,8 +70,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logOut: () => { dispatch(logOut(null)) },
-        loadQuestions: (payload) => { dispatch(loadQuestions(payload)) } 
+        markAllRead: (payload) => { dispatch(markAllRead(payload)) } 
     }
 }
 
