@@ -11,6 +11,7 @@ class ShareQuestion extends Component {
         document.addEventListener("mousedown", this.handleClickOutside);
 
     }
+
     componentWillUnmount() {
       document.removeEventListener("mousedown", this.handleClickOutside);
 
@@ -21,6 +22,41 @@ class ShareQuestion extends Component {
             this.props.hideSharePost();
           }
     }
+
+    openWindow(url){
+        var left = (window.screen.width - 570) / 2;
+        var top = (window.screen.height - 570) / 2;
+        var params = "menubar=no,toolbar=no,status=no,width=570,height=570,top=" + top + ",left=" + left;
+        window.open(url,"NewWindow",params);
+    }
+
+    openShare(provider){
+        const {question} = this.props.data;
+        
+        switch (provider) {
+            case 'facebook':
+                let facebook_article = `https://solutionwheels.com/question/${question.slug}`;
+                let facebook_encodedArticle = encodeURI(facebook_article);
+                let facebook_url = `https://www.facebook.com/sharer.php?u=${facebook_encodedArticle}`;
+                this.openWindow(facebook_url);
+                this.props.hideSharePost();
+                break;
+            case 'twitter':
+                let twitter_article = `https://solutionwheels.com/question/${question.slug}`;
+                let body = question.body? question.body: 'Help Answer this Question on Solution Wheels';
+                let hashTags = `solutionwheels,question,${question.category_id? question.category_id : 'general'}`;
+                let twitter_encodedArticle = encodeURI(twitter_article);
+                let twitter_encodedBody = encodeURI(body);
+                let twitter_encodedHashTags = encodeURI(hashTags);
+                let twitter_url = `https://twitter.com/intent/tweet?url=${twitter_encodedArticle}&text=${twitter_encodedBody}&hashtags=${twitter_encodedHashTags}`;
+                this.openWindow(twitter_url);
+                this.props.hideSharePost();
+                break;
+            default:
+                break;
+        }
+    }
+    
     render(){
         return (
             <div className="share-question-wrap zoomInUp" ref={this.container}>
@@ -28,9 +64,11 @@ class ShareQuestion extends Component {
                     <p>Share On</p>
                 </div>
                 <ul>
-                    <li><FacebookIcon /> Facebook</li>
+                    <li onClick={() => this.openShare('facebook')}>                       
+                        <FacebookIcon /> Facebook
+                    </li>
                     <li><InstagramIcon /> Instagram</li>
-                    <li><TwitterIcon /> Twitter</li>
+                    <li onClick={() => this.openShare('twitter')}><TwitterIcon /> Twitter</li>
                     <li><WhatsappIcon /> Whatsapp</li>
                     <li className="share-question-cancel" onClick={() => this.props.hideSharePost()}>Cancel</li>
                 </ul>

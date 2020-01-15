@@ -66,7 +66,7 @@ class AskQuestion extends Component{
     }
 
     validateInput(e){
-      e.preventDefault();
+      if(e) e.preventDefault();
       this.setState({
         loading: true
       });
@@ -97,32 +97,32 @@ class AskQuestion extends Component{
         .catch(err => this.props.displayToast({type: 'error', message: 'Unknown Error'}))
       }
       
-      //upload the details now
-      // axios.post(server + '/api/question/create', {
-      //   question_title: this.state.question.title,
-      //   body: this.state.question.body,
-      //   image: file
-      // }).then(res => {
-      //   this.setState({
-      //     loading: false,
-      //     errors: {}
-      //   });
-      //   // display toast
-      //   this.props.displayToast({type: 'success', message: 'Question Successfully Asked'})
-      //   // update the redux state
-      //   this.props.addQuestion(res.data);
-      //   this.props.toggleDropDown('ask');
-      //   //window.location.href = `/question/${res.data.slug}`;
-      // }).catch(err => {
-      //   this.setState({loading: false, errors: {}})
-      //   if(err.response) {
-      //     this.setState({errors: err.response.data});
-      //     if(!err.response.data.alreadyexists) this.props.displayToast({type: 'error', message: err.response.data})
-      //   } else {
-      //     this.props.displayToast({type: 'error', message: 'Network Error'})
-      //   }
-      //   //display toast error
-      // })
+      // upload the details now
+      axios.post(server + '/api/question/create', {
+        question_title: this.state.question.title,
+        body: this.state.question.body,
+        image: file
+      }).then(res => {
+        this.setState({
+          loading: false,
+          errors: {}
+        });
+        // display toast
+        this.props.displayToast({type: 'success', message: 'Question Successfully Asked'})
+        // update the redux state
+        this.props.addQuestion(res.data);
+        this.props.toggleDropDown('ask');
+        //window.location.href = `/question/${res.data.slug}`;
+      }).catch(err => {
+        this.setState({loading: false, errors: {}})
+        if(err.response) {
+          this.setState({errors: err.response.data});
+          if(!err.response.data.alreadyexists) this.props.displayToast({type: 'error', message: err.response.data})
+        } else {
+          this.props.displayToast({type: 'error', message: 'Network Error'})
+        }
+        //display toast error
+      })
 
     }
 
@@ -174,7 +174,7 @@ class AskQuestion extends Component{
                     <div className="whitespace"></div>
                     <div className="ask-question-bottom">
                       <button className="ask-question-bottom-close" onClick={ () => toggleDropDown('ask')}>close</button>
-                      <button className="ask-question-bottom-submit" type="submit">
+                      <button className={this.state.loading ? "ask-question-bottom-submit loading-btn" : "ask-question-bottom-submit" } disabled={this.state.loading} type="submit">
                         {this.state.loading? <BtnLoaderSmallWhite /> : 'Submit'}
                       </button>
                     </div>

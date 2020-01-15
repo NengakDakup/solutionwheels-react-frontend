@@ -20,7 +20,8 @@ class Comments extends Component {
     }
 
     render(){
-        const {comments, answerId, updateData} = this.props;
+        const {comments, answerId, updateData, currentUser} = this.props;
+        
         
         return (
             <div className="single-comment-wrap">
@@ -34,11 +35,11 @@ class Comments extends Component {
                             {
                                 comments.length >= 1 ?
                                     <div>
-                                        {comments.map(comment => <SingleComment key={comment._id + Date.now()} comment={comment} answerId={answerId} updateData={updateData}/>)}
+                                        {comments.map(comment => <SingleComment key={comment._id + Date.now()} comment={comment} currentUser={currentUser} answerId={answerId} updateData={updateData}/>)}
                                     </div> :
                                     <span>No Comments</span>
                             }
-                            <AddComment answerId={answerId} updateData={updateData} />  
+                            <AddComment answerId={answerId} updateData={updateData} toggleComments={this.toggleComments}/>  
                         </div>
                 } 
             </div>

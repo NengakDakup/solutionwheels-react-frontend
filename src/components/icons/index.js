@@ -10,6 +10,32 @@ export function AddIcon() {
     )
 }
 
+export function ViewIcon(){
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20px" viewBox="0 0 576 512">
+            <path d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z"/>
+        </svg>
+    )
+}
+
+export function MenuIcon() {
+    return (
+        <svg version="1.1" id="Capa_1" width="24px" height="24px" x="0px" y="0px" viewBox="0 0 384.97 384.97" style={{enableBackground:'new 0 0 384.97 384.97'}}>
+            <g>
+                <g id="Menu_1_">
+                    <path d="M12.03,120.303h360.909c6.641,0,12.03-5.39,12.03-12.03c0-6.641-5.39-12.03-12.03-12.03H12.03
+                        c-6.641,0-12.03,5.39-12.03,12.03C0,114.913,5.39,120.303,12.03,120.303z"/>
+                    <path d="M372.939,180.455H12.03c-6.641,0-12.03,5.39-12.03,12.03s5.39,12.03,12.03,12.03h360.909c6.641,0,12.03-5.39,12.03-12.03
+                        S379.58,180.455,372.939,180.455z"/>
+                    <path d="M372.939,264.667H132.333c-6.641,0-12.03,5.39-12.03,12.03c0,6.641,5.39,12.03,12.03,12.03h240.606
+                        c6.641,0,12.03-5.39,12.03-12.03C384.97,270.056,379.58,264.667,372.939,264.667z"/>
+                </g>
+            </g>
+        </svg>
+
+    )
+}
+
 export function NotificationIcon(){
     return (
         <svg version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" width="32px" height="32px" className="read-all">
@@ -45,14 +71,12 @@ export function NotificationIcon(){
 
 export function SearchIcon(){
   return (
-      <svg id="Capa_1" x="0px" y="0px" width="20px" height="20px" viewBox="0 0 451 451" style={{enableBackground: 'new 0 0 451 451', fill: '#fff'}}>
+    <svg viewBox="0 0 24 24" width="20px" fill="#fff" class="r-1re7ezh r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-18qmn74 r-1hfyk0a r-bnwqim r-1plcrui r-lrvibr">
         <g>
-        	<path d="M447.05,428l-109.6-109.6c29.4-33.8,47.2-77.9,47.2-126.1C384.65,86.2,298.35,0,192.35,0C86.25,0,0.05,86.3,0.05,192.3
-        		s86.3,192.3,192.3,192.3c48.2,0,92.3-17.8,126.1-47.2L428.05,447c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4
-        		C452.25,441.8,452.25,433.2,447.05,428z M26.95,192.3c0-91.2,74.2-165.3,165.3-165.3c91.2,0,165.3,74.2,165.3,165.3
-        		s-74.1,165.4-165.3,165.4C101.15,357.7,26.95,283.5,26.95,192.3z"/>
+            <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
+            </path>
         </g>
-      </svg>
+    </svg>
   )
 }
 
@@ -161,6 +185,40 @@ export function DeleteIcon(){
     )
 }
 
+export function DeleteIconBig(){
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 448 512">
+            <path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/>
+        </svg>
+    )
+}
+
+export function RetryIcon(){
+    return (
+        <svg version="1.1" id="Capa_1" x="0px" y="0px" width="22px" height="22px" viewBox="0 0 561 561" style={{enableBackground: 'new 0 0 561 561'}}>
+            <g>
+                <g id="loop">
+                    <path d="M280.5,76.5V0l-102,102l102,102v-76.5c84.15,0,153,68.85,153,153c0,25.5-7.65,51-17.85,71.4l38.25,38.25
+                        C471.75,357,484.5,321.3,484.5,280.5C484.5,168.3,392.7,76.5,280.5,76.5z M280.5,433.5c-84.15,0-153-68.85-153-153
+                        c0-25.5,7.65-51,17.85-71.4l-38.25-38.25C89.25,204,76.5,239.7,76.5,280.5c0,112.2,91.8,204,204,204V561l102-102l-102-102V433.5z"
+                        />
+                </g>
+            </g>
+        </svg>
+    )
+}
+
+export function DisconnectedIcon(){
+    return (
+        <svg viewBox="0 0 24 24" height="40px" fill="#657786" class="r-1re7ezh r-4qtqp9 r-yyyyoo r-1ra0lkn r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr">
+            <g>
+                <path d="M1.626 17.87c.125 0 .253-.03.37-.098.36-.205.485-.663.28-1.023-.355-.627-.544-1.343-.544-2.07 0-2.218 1.732-4.02 3.913-4.172.018.282.046.564.096.84.067.36.383.614.738.614.045 0 .09-.004.136-.012.407-.074.678-.465.604-.873-.062-.34-.094-.69-.094-1.04 0-3.204 2.606-5.81 5.81-5.81.58 0 1.15.085 1.702.253.394.123.814-.103.937-.498.12-.396-.103-.815-.5-.937-.69-.21-1.41-.318-2.14-.318-3.673 0-6.714 2.727-7.225 6.262-3.04.118-5.475 2.62-5.475 5.69 0 .986.256 1.958.74 2.81.138.243.39.38.653.38zm18.554-6.802c.03-.312.063-.78.063-1.032 0-.59-.07-1.177-.21-1.745-.1-.4-.503-.645-.907-.55-.402.1-.648.506-.55.908.11.45.167.92.167 1.388 0 .203-.03.615-.055.888-2.067.132-3.816 1.567-4.306 3.603-.097.402.15.808.555.904.397.094.808-.15.904-.554.352-1.46 1.647-2.48 3.15-2.48 1.788 0 3.242 1.455 3.242 3.242s-1.454 3.24-3.24 3.24H8.454c-.414 0-.75.336-.75.75s.336.75.75.75H18.99c2.615 0 4.742-2.126 4.742-4.74 0-2.2-1.514-4.038-3.55-4.57zm.878-8.848c-.293-.293-.768-.293-1.06 0l-19 19c-.294.293-.294.768 0 1.06.145.147.337.22.53.22s.383-.072.53-.22l19-19c.293-.293.293-.767 0-1.06z">
+                </path>
+            </g>
+        </svg>
+    )
+}
+
 export function ShareIcon(){
     return (
         <svg version="1.1" id="Capa_1" x="0px" y="0px"
@@ -260,7 +318,7 @@ export function UpvoteAnswerIcon(upvoted, clicked){
     const fill = upvoted? '#3061ad' : 'none';
     const stroke = upvoted? '#3061ad' : '#666';
     return (
-        <svg className={clicked && 'animated fadeInUp'} width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+        <svg className={clicked? 'animated fadeInUp': 'false'} width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
             <g id="upvote" className="icon_svg-stroke icon_svg-fill" strokeWidth="1.5" stroke={stroke} fill={fill} fillRule="evenodd" strokeLinejoin="round">
                 <polygon points="12 4 3 15 9 15 9 20 15 20 15 15 21 15"></polygon>
             </g>
@@ -282,7 +340,7 @@ export function DownvoteAnswerIcon(upvoted, clicked){
     const fill = upvoted? '#3061ad' : 'none';
     const stroke = upvoted? '#3061ad' : '#666';
     return (
-        <svg className={clicked && 'animated fadeInDown'} id="svg5" viewBox="0 0 24 24" height="24px" width="24px">
+        <svg className={clicked ? 'animated fadeInDown' : 'false'} id="svg5" viewBox="0 0 24 24" height="24px" width="24px">
             <defs
                 id="defs9" />
             <g
@@ -355,6 +413,15 @@ export function BtnLoader(){
     )
 }
 
+export function BlueLoader(){
+    const styles = { fill: '#265399' };
+    return (
+        <svg height="20px" width="20px" style={styles} className="rotate-load right-loader" viewBox="0 0 512 512">
+            <path d="M288 39.056v16.659c0 10.804 7.281 20.159 17.686 23.066C383.204 100.434 440 171.518 440 256c0 101.689-82.295 184-184 184-101.689 0-184-82.295-184-184 0-84.47 56.786-155.564 134.312-177.219C216.719 75.874 224 66.517 224 55.712V39.064c0-15.709-14.834-27.153-30.046-23.234C86.603 43.482 7.394 141.206 8.003 257.332c.72 137.052 111.477 246.956 248.531 246.667C393.255 503.711 504 392.788 504 256c0-115.633-79.14-212.779-186.211-240.236C302.678 11.889 288 23.456 288 39.056z"/>
+        </svg>
+    )
+}
+
 export function BtnLoaderSmall(){
     const styles = { fill: '#adadad' };
     return (
@@ -373,9 +440,9 @@ export function BtnLoaderSmallWhite(){
     )
 }
 
-export function CloseBtn(){
+export function CloseBtn(fill){
     return(
-        <svg width="20px" height="20px" viewBox="0 0 352 512" fill="#333333">
+        <svg width="20px" height="20px" viewBox="0 0 352 512" fill={fill? fill : '#333333'}>
             <path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/>
         </svg>
     )

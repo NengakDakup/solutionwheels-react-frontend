@@ -56,6 +56,9 @@ class PostDropdown extends Component {
     }
 
     deletePost(){
+        // eslint-disable-next-line no-restricted-globals
+        let confirmed = confirm('Are you sure?\nThis action cannot be undone!');
+        if(!confirmed) return;
         this.setState({
             deleting: true
         })
@@ -76,8 +79,8 @@ class PostDropdown extends Component {
     }
 
     render(){
-        const {loggedIn, userId} = this.props.data;
-        const {user, deletePost, id} = this.props;
+        const {loggedIn, userId, status} = this.props.data;
+        const {user, deletePost, id } = this.props;
         return (
             <div className="post-dropdown animated linear fadeIn faster" ref={this.container}>
                 <ul>
@@ -91,13 +94,13 @@ class PostDropdown extends Component {
                         </span>
                     </li>
                     {
-                        (loggedIn && userId === user) && 
+                        (((loggedIn && userId === user) || status === 7)) && 
                             <li>
                                 <span>Edit</span>
                             </li>
                     }
                     {
-                        (loggedIn && userId === user) && 
+                        (((loggedIn && userId === user) || status === 7)) && 
                             <li onClick={() => this.deletePost()}>
                                 <span>Delete</span>
                                 <span className="loader-right">

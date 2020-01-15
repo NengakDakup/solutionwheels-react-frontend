@@ -17,7 +17,7 @@ class ShareBtn extends Component {
                 // maybe log some data for analytics
               this.props.hideSharePost();
             })
-            .catch(console.error);
+            .catch(err => console.log(err));
           } else {
             this.props.shareQuestion(data);
           }

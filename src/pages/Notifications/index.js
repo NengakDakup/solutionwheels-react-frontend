@@ -6,6 +6,7 @@ import axios from 'axios'
 
 import server from '../../config/config'
 import {markAllRead} from '../../actions'
+import Meta from '../../components/header/Meta'
 
 import Header from '../../components/header'
 import LeftSide from '../../components/content/LeftSide'
@@ -31,6 +32,12 @@ class Notifications extends Component {
         
         return(
             <div className="body">
+                <Meta 
+                    title='Notifications'
+                    description='Notifications'
+                    image={'/test/for/now'}
+                    url={`https://solutionwheels.com/notifications`}
+                />
                 <Header data={data} />
                 {/* <WelcomeDiv /> */}
                 <div className="content">

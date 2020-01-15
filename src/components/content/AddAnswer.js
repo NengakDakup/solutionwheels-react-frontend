@@ -71,7 +71,7 @@ class AddAnswer extends Component {
                 <TextEditor handleChange={this.handleChange} />
                 {this.state.errors && <p className="danger-text">{this.state.errors.error}</p>}
                 <div className="add-answer-bottom">
-                    <button onClick={() => this.validateInput()} className="add-answer-btn">
+                    <button onClick={() => this.validateInput()} className={this.state.loading ? "add-answer-btn loading-btn" : "add-answer-btn" } disabled={this.state.loading} >
                         {this.state.loading? <BtnLoaderSmallWhite /> : 'Submit'}
                     </button>
                     <button onClick={() => addAnswer()} className="add-answer-cancel-btn">cancel</button>

@@ -44,19 +44,16 @@ class SingleAnswer extends Component {
     // }
 
     render(){
-        
-        let currentUser = {};
-        if (localStorage.getItem('user_token')) {
-            currentUser = jwt_decode(localStorage.getItem('user_token'));
-        }
+        const { currentUser } = this.props;
 
         const {questionOwner, questionId} = this.props;
         
         const {body, comments, date, downvotes, question, upvotes, user, _id} = this.props.data.answer;
+        if(!user) return null;
         
         
         return (
-            <div className="main-content-item">
+            <div className="main-content-item" id={_id}>
                 <div className="top-actions">
                     <button className="top-action-btn" onClick={() => this.displayPostDropdown()}>
                         <ThreeDotsIcon />
@@ -96,11 +93,15 @@ class SingleAnswer extends Component {
                     <UpvoteBtn upvotes={upvotes} answerId={_id} updateData={this.props.updateData} />
                     <DownvoteBtn downvotes={downvotes} answerId={_id} updateData={this.props.updateData} />
                     {
-                        (questionOwner === currentUser.id && _id !== this.props.bestId) && 
+                        (questionOwner === currentUser.userId && _id !== this.props.bestId) && 
                         <MarkBestBtn answerId={_id} questionId={questionId} updateData={this.props.updateData} />
                     }
                 </div>
-                <Comments comments={comments} answerId={_id} updateData={this.props.updateData} />
+                <Comments 
+                    comments={comments} 
+                    answerId={_id} 
+                    updateData={this.props.updateData} 
+                    currentUser={currentUser} />
             </div>
         )
     }

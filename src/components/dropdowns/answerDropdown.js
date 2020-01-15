@@ -56,6 +56,9 @@ class AnswerDropdown extends Component {
     }
 
     deletePost(){
+        // eslint-disable-next-line no-restricted-globals
+        let confirmed = confirm('Are you sure?\nThis action cannot be undone!');
+        if(!confirmed) return;
         this.setState({
             deleting: true
         })
@@ -79,7 +82,7 @@ class AnswerDropdown extends Component {
     }
 
     render(){
-        const {loggedIn, userId} = this.props.data;
+        const {loggedIn, userId, status} = this.props.data;
         const {user, deleteAnswer, id} = this.props;
         
         return (
@@ -95,13 +98,13 @@ class AnswerDropdown extends Component {
                         </span>
                     </li>
                     {
-                        (loggedIn && userId === user) && 
+                        ((loggedIn && userId === user) || status === 7) && 
                             <li>
                                 <span>Edit</span>
                             </li>
                     }
                     {
-                        (loggedIn && userId === user) && 
+                        ((loggedIn && userId === user) || status === 7) && 
                             <li onClick={() => this.deletePost()}>
                                 <span>Delete</span>
                                 <span className="loader-right">

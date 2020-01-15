@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import SignUp from './pages/Signup'
 import Search from './pages/Search'
 import Item from './pages/Item'
+import Category from './pages/Category';
 import Profile from './pages/Profile'
 import Notifications from './pages/Notifications';
 import Reset from './pages/Reset';
@@ -26,6 +27,7 @@ function App() {
         <Route path="/search/:query" component={Search} />
         <Route path="/question/:title" component={Item} />
         <Route path="/user/:id" component={Profile} />
+        <Route path="/category/:category" component={Category} />
         <Route path="/notifications" component={Notifications} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />

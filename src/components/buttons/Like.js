@@ -65,7 +65,7 @@ class LikeBtn extends Component {
         const {liked, likes, clicked } = this.state;
         return (
             <div className={liked? 'bottom-actions-like liked' : 'bottom-actions-like'} onClick={() => this.likeQuestion()}>
-                <span>{liked? LikedIcon(clicked) : <LikeIcon />} {liked? 'Liked': 'Like'} . {likes}</span>
+                <span>{liked? LikedIcon(clicked) : <LikeIcon />} <span className="liked-text">{liked? 'Liked': 'Like'}</span> . {likes}</span>
             </div>
 
         )

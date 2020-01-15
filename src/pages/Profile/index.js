@@ -11,11 +11,13 @@ import RightSide from '../../components/content/RightSide'
 import MainContentItem from '../../components/content/MainContentItem'
 
 import ProfileDetails from '../../components/content/ProfileDetails'
+import MinimizedMainContentItem from '../../components/content/MinimizedMainContentItem'
 
 class Profile extends Component {
     constructor(props){
         super(props);
         this.state = {
+            id: this.props.match.params.id,
             loading: true,
             questions: []
         }
@@ -30,10 +32,28 @@ class Profile extends Component {
                 })
             })
     }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.match.params.id !== this.props.match.params.id){
+            this.setState({
+                id: nextProps.match.params.id,
+                loading: true,
+                questions: []
+            })
+            const {id} = nextProps.match.params;
+            axios.get(server + '/api/question/for/' + id)
+            .then(res => {
+                this.setState({
+                    questions: res.data
+                })
+            })
+
+        }
+    }
+
     render(){
         const {data} = this.props;
         const {userId} = data.userDetails;
-        const {id} = this.props.match.params;
 
         return(
             <div className="body">
@@ -42,7 +62,7 @@ class Profile extends Component {
                 <div className="content">
                     <LeftSide />
                     <div className="main-content">
-                        <ProfileDetails id={id} currentUser={userId} />
+                        <ProfileDetails id={this.state.id} currentUser={userId} />
                         <div className="post-filter profile-filter">
                             <ul>
                                 <li className="active-filter">User Questions</li>
@@ -50,7 +70,7 @@ class Profile extends Component {
                         </div>
                         {
                             this.state.questions.length >= 1 && this.state.questions.map((question, key) => {
-                                return <MainContentItem data={question} key={question._id + Date.now() + key} />
+                                return <MinimizedMainContentItem data={question} key={question._id + Date.now() + key} />
                             })
                         }
                     </div>

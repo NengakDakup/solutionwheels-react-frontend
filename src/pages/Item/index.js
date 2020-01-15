@@ -11,6 +11,8 @@ import RightSide from '../../components/content/RightSide'
 import MainContentItem from '../../components/content/MainContentItem'
 import MainContentLoader from '../../components/loaders/MainContentLoader'
 import Answers from '../../components/content/Answers'
+import QuestionNotFound from '../../components/content/QuestionNotFound'
+import Meta from '../../components/header/Meta'
 
 class Item extends Component{
     constructor(){
@@ -43,12 +45,48 @@ class Item extends Component{
                 })
         } else {
             const item = data.feed.find(question => question.slug === title);
+            if(!item) return this.setState({loading: false, noquestion: true })
             this.setState({
                 loading: false,
                 question: item
             })
         }
         
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.match.params.title !== this.props.match.params.title){
+            const {data} = this.props;
+            this.setState({
+                loading: true,
+                question: {}
+            })
+            const {title} = nextProps.match.params;
+            if(data.feed.length < 1) {
+                axios.get(server + '/api/question/slug/' + title)
+                    .then(response => {
+                        this.setState({
+                            question: response.data,
+                            loading: false
+                        })
+                        
+                    })
+                    .catch(err => {
+                        if(err.response) this.setState({loading: false, noquestion: true })
+                    })
+            } else {
+                const item = data.feed.find(question => question.slug === title);
+                if(item){
+                    this.setState({
+                    loading: false,
+                    question: item
+                    })
+                } else {
+                    this.setState({loading: false, noquestion: true })
+                }
+            }
+
+        }
     }
 
     updateData(data){
@@ -74,6 +112,12 @@ class Item extends Component{
         
         return(
             <div className="body">
+                <Meta 
+                    title={question.question_title? question.question_title + ' | Solutionwheels' : 'Solutionwheels'}
+                    description={question.question_title ? question.question_title : 'Question on Solutionwheels...'}
+                    image={'/test/for/now'}
+                    url={`https://solutionwheels.com/question/${question.slug}`}
+                />
                 <Header data={data} />
                 <div className="content">
                     <LeftSide />
@@ -88,6 +132,10 @@ class Item extends Component{
                                     bestId={question.best_answer} 
                                     questionOwner={question.user._id} 
                                     id={question._id} />
+                        }
+                        {
+                            (!this.state.loading && this.state.noquestion) &&
+                                <QuestionNotFound />
                         }
                     </div>
                     <RightSide />

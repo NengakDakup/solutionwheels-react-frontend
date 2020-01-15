@@ -7,6 +7,7 @@ import WelcomeDiv from '../../components/welcome'
 import LeftSide from '../../components/content/LeftSide'
 import RightSide from '../../components/content/RightSide'
 import MainContent from '../../components/content/MainContent'
+import Meta from '../../components/header/Meta'
 
 class Home extends Component {
 
@@ -25,7 +26,13 @@ class Home extends Component {
         
         return(
             <div className="body">
-                <Header data={data} />
+                <Meta 
+                    title='Solution Wheels'
+                    description='Ask Questions and get wonderful answers...'
+                    image={'/test/for/now'}
+                    url={`https://solutionwheels.com/`}
+                />
+                <Header data={data} history={this.props.history} />
                 { !data.userDetails.loggedIn && <WelcomeDiv />}
                 <div className="content">
                     <LeftSide />

@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import axios from 'axios';
-import jwt_decode from 'jwt-decode'
 import { Link } from 'react-router-dom'
 
-import { DeleteIcon } from '../icons';
 import server from '../../config/config'
 
 class SingleComment extends Component {
@@ -25,19 +23,16 @@ class SingleComment extends Component {
         }).then(res => {
             this.setState({deleting: false})
             this.props.updateData(res.data);
-            console.log(res.data)
         }).catch(err => {
             this.setState({deleting: false})
-            console.log(err)
         })
     }
 
     render(){
-        let currentUser = {};
-        if (localStorage.getItem('user_token')) {
-            currentUser = jwt_decode(localStorage.getItem('user_token'));
-        }
+        const {currentUser} = this.props;
         const {avatar, body, date, user} = this.props.comment;
+        
+        
         
         return (
             <div className="single-comment">
@@ -50,7 +45,7 @@ class SingleComment extends Component {
                     </span>
                     <span> {moment(date).fromNow()} .</span>
                     {
-                        currentUser.id === user._id && 
+                        (currentUser.userId === user._id || currentUser.status === 7) && 
                             <button className="delete-comment-btn" onClick={() => this.deleteComment()}>
                                 {this.state.deleting ? '...' : 'Delete'}
                             </button>

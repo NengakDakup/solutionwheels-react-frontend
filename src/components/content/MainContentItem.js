@@ -40,6 +40,8 @@ class MainContentItem extends Component {
     render(){
         const { data } = this.props;
         
+        if(!data.user) return null;
+        
         return (
             <div className="main-content-item">
                 <div className="top-actions">
@@ -50,7 +52,7 @@ class MainContentItem extends Component {
                 </div>
                 <div className="user-details">
                     <div className="question-type">
-                        <p>Question  .  <Link to={`/category/${data.category_id}`}>{data.category_id}</Link></p>
+                        <p>Question  .  <Link to={`/category/${data.category}`}>{data.category}</Link></p>
                     </div>
                     <div className="question-title">
                         <span>

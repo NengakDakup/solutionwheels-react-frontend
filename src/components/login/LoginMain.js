@@ -62,6 +62,7 @@ class LoginMain extends Component {
         })
         .then(res => {
             this.setState({
+                loading: false,
                 errors: {}
             })
             //jwt-decode module to decode the token
@@ -71,6 +72,7 @@ class LoginMain extends Component {
             this.props.logIn(user); //send the action to redux
         })
         .catch(err => {
+            this.setState({loading: false})
             if(err.response) {
                 return this.displayError(err.response.data);
             } else {

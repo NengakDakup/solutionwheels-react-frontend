@@ -9,7 +9,8 @@ import PostFilter from './PostFilter'
 import MainContentItem from './MainContentItem'
 import MainContentLoader from '../loaders/MainContentLoader';
 
-import {NetworkErrorIcon} from '../icons'
+import {NetworkErrorIcon, DisconnectedIcon} from '../icons'
+import Retry from '../buttons/Retry'
 
 class MainContent extends Component {
     constructor(props){
@@ -110,7 +111,14 @@ class MainContent extends Component {
                 { items }
                 <center>
                     {this.state.loading && <MainContentLoader />}
-                    {this.state.networkError && <NetworkErrorIcon />}
+                    {
+                        this.state.networkError && 
+                        <div className="network-error">
+                            <DisconnectedIcon />
+                            <p>Looks like you lost your connection</p>
+                            <Retry />
+                        </div>
+                    }
                 </center>
 
             </div>

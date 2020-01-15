@@ -66,7 +66,7 @@ class Header extends Component {
 
     render(){
         const { NotificationDropdownActive, ProfileDropDownActive } = this.state;
-        const { data } = this.props;
+        const { data, history } = this.props;
         
         
         const Nav = () => {
@@ -95,7 +95,7 @@ class Header extends Component {
                                 </span>
                             </p>
                         </li>
-                        <ProfileDropDown active={ProfileDropDownActive} toggleDropDown={this.toggleDropDown} />
+                        <ProfileDropDown history={history} active={ProfileDropDownActive} toggleDropDown={this.toggleDropDown} />
                     </ul>
                 )
             } else {
@@ -115,9 +115,9 @@ class Header extends Component {
                 { this.props.data.toast.display && <DisplayToast type={this.props.data.toast.type} message={this.props.data.toast.message} /> }
                 { this.state.AskQuestionActive && <AskQuestion data={data} toggleDropDown={this.toggleDropDown} />}
                 <div className="header-logo">
-                    <a href="/" className="header-logo-link">
+                    <Link to="/" className="header-logo-link">
                         <img src={LogoMain} alt="solution wheels" />
-                    </a>
+                    </Link>
                 </div>
                 <HeaderSearch />
                 <div className="header-navigation">

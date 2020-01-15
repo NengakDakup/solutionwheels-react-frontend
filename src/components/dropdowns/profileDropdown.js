@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logOut } from '../../actions'
@@ -24,8 +25,13 @@ class ProfileDropDown extends Component {
 
     logOut = () => {
         localStorage.removeItem('user_token');
+        delete axios.defaults.headers.common['Authorization'];
         this.props.logOut();
-        window.location.href = '/login';
+        try {
+            this.props.history.push('/login');   
+        } catch (error) {
+            window.location.href = '/login';
+        }
     }
 
     render(){

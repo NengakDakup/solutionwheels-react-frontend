@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import SendReset from '../../components/login/SendReset';
 import ConfirmReset from '../../components/login/ConfirmReset';
 import MakeReset from '../../components/login/MakeReset';
+import Meta from '../../components/header/Meta';
 
 class Reset extends Component{
     constructor(props){
@@ -39,6 +40,12 @@ class Reset extends Component{
     render(){
         return (
             <div className="signup-body">
+                <Meta 
+                    title='Reset Password | Solutionwheels'
+                    description='Reset your password'
+                    image={'/test/for/now'}
+                    url={`https://solutionwheels.com/reset`}
+                />
                 <div className="signup-wrap">
                     {this.state.stage === 1 && <SendReset updateStage={this.updateStage} updateEmail={this.updateEmail} /> }
                     {this.state.stage === 2 && <ConfirmReset email={this.state.email} updateStage={this.updateStage} updatePin={this.updatePin} /> }

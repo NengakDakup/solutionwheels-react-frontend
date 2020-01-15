@@ -26,6 +26,8 @@ class AddComment extends Component {
             body: this.state.comment,
             answer_id: this.state.answerId
         }).then(res => {
+            console.log(res.data);
+            
             this.setState({loading: false})
             this.props.updateData(res.data);
         }).catch(err => {

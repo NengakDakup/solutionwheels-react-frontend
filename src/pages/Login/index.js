@@ -5,6 +5,7 @@ import { logIn } from '../../actions'
 
 import LoginMain from '../../components/login/LoginMain'
 import DisplayToast from '../../components/loaders/DisplayToast';
+import Meta from '../../components/header/Meta';
 
 class Login extends Component {
 
@@ -18,6 +19,12 @@ class Login extends Component {
         return (
             
             <div className="signup-body">
+                <Meta 
+                    title='Login | Solutionwheels'
+                    description='Login to Solutionwheels...'
+                    image={'/test/for/now'}
+                    url={`https://solutionwheels.com/login`}
+                />
                 { this.props.data.toast.display && <DisplayToast type={this.props.data.toast.type} message={this.props.data.toast.message} /> }
                 <div className="signup-wrap">
                     <LoginMain logIn={this.logIn} />

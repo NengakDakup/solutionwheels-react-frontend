@@ -5,6 +5,7 @@ import { logOut } from '../../actions'
 import Header from '../../components/header'
 import LeftSide from '../../components/content/LeftSide'
 import SearchContent from '../../components/content/SearchContent'
+import Meta from '../../components/header/Meta'
 
 class Search extends Component{
     render(){
@@ -14,6 +15,12 @@ class Search extends Component{
         return(
             <div className="body">
                 <Header data={data} />
+                <Meta 
+                    title='Search | Solutionwheels'
+                    description='Search for Questions and Users on Solutionwheels'
+                    image={'/test/for/now'}
+                    url={`https://solutionwheels.com/search`}
+                />
                 <div className="content">
                     <LeftSide />
                     <SearchContent query={query} />

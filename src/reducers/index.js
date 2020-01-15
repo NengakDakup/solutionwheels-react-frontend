@@ -2,16 +2,21 @@ import jwt_decode from 'jwt-decode'
 
 let user = {};
 if (localStorage.getItem('user_token')) {
-    user = jwt_decode(localStorage.getItem('user_token'));
+    try {
+        user = jwt_decode(localStorage.getItem('user_token'));   
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 
 const initState = {
     userDetails: {
-        loggedIn: localStorage.getItem('user_token')? true : false,
+        loggedIn: user.name? true: false,
         username: user.name,
         userAvatar: user.avatar,
-        userId: user.id
+        userId: user.id,
+        status: user.status
     },
     toast: {
         display: false,
@@ -98,6 +103,7 @@ const rootReducer = (state = initState, action) => {
                     username: action.payload.name,
                     userAvatar: action.payload.avatar,
                     userId: action.payload.id,
+                    status: action.payload.status
                     // userToken: action.payload.token
                 }
             }
@@ -164,7 +170,7 @@ const rootReducer = (state = initState, action) => {
                 ...state,
                 shareQuestion: {
                     display: true,
-                    ...action.payload
+                    question: {...action.payload}
                 }
             }
         case 'HIDE_SHARE_POST':
