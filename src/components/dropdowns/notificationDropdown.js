@@ -38,7 +38,7 @@ class NotificationDropdown extends Component {
                     </div>
                     <ul>
                         {this.props.data.length >= 1 ? this.props.data.map(notification => {
-                            return <NotificationItem data={notification} key={notification._id} />
+                            return <NotificationItem data={notification} key={notification._id} toggleDropDown={this.props.toggleDropDown}/>
                         }) : <center><span>No Notifications</span></center>}
                         
                     </ul>

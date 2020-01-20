@@ -1,4 +1,4 @@
-const server = "https://solutionwheels.herokuapp.com";
+const server = "http://localhost:4000";
 //const g = 'https://solutionwheels.herokuapp.com';
 
 

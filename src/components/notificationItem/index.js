@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 import axios from 'axios'
 
+
+
 import server from '../../config/config'
 
 import ProfileImage from '../../assets/icons/boy.svg'
@@ -17,6 +19,7 @@ import {    LikedIcon,
         } 
     from '../icons'
 
+
 class NotificationItem extends Component {
     constructor(props){
         super(props);
@@ -30,9 +33,11 @@ class NotificationItem extends Component {
 
     render(){
         const {read, seen, date, reaction, link, title, user, _id, triggeredBy} = this.props.data;
+        console.log(link);
+        
         return (
-            <li className={read? 'notification-item read-notification-item' : 'notification-item'} onClick={() => this.markAsRead()}>
-                <Link to={link}>
+            <li className={read? 'notification-item read-notification-item' : 'notification-item'} onClick={() => {this.markAsRead(); this.props.toggleDropDown('notification')}}>
+                <Link to={'/' + link}>
                     <div className="notification-item-left">
                         {reaction === 'Liked' && LikedIcon(false)}
                         {reaction === 'Answered' && <AddCommentIcon />}

@@ -147,7 +147,7 @@ class AskQuestion extends Component{
                         <p className="title">Question Title</p>
                         {title && <span className="danger-text">{title}</span>}
                         {alreadyexists && <span className="danger-text">{alreadyexists}</span>}
-                        <input onChange={(e) => this.handleChange(e, 'title')} type="text" className="ask-question-input-title" placeholder="start your question with what, how, why, etc"/>
+                        <input onChange={(e) => this.handleChange(e, 'title')} type="text" className="ask-question-input-title" autoFocus={true} placeholder="start your question with what, how, why, etc"/>
                     </div>
                     <div className="ask-question-section">
                         <p className="title">Explain More?</p>

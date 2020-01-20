@@ -23,9 +23,11 @@ class MainContent extends Component {
         }
         this.filterCategory = this.filterCategory.bind(this)
         this.filterFeed = this.filterFeed.bind(this)
+        this.fetchData = this.fetchData.bind(this)
     }
 
-    componentWillMount(){
+    fetchData(){
+        this.setState({loading: true, networkError: false})
         axios.get(server + '/api/question')
         .then((response) => {
             this.props.loadQuestions(response.data);
@@ -43,6 +45,10 @@ class MainContent extends Component {
             })
           }
         })
+    }
+
+    componentWillMount(){
+        this.fetchData();
     }
 
     filterCategory = (category) => {
@@ -116,7 +122,7 @@ class MainContent extends Component {
                         <div className="network-error">
                             <DisconnectedIcon />
                             <p>Looks like you lost your connection</p>
-                            <Retry />
+                            <Retry tryAgain={this.fetchData} />
                         </div>
                     }
                 </center>

@@ -23,7 +23,7 @@ class Answers extends Component {
     render(){
         let localeFeed = this.props.data;
         let newFeed = [];
-        if(localeFeed.length < 1) return;
+        if(localeFeed.length < 1) return <p>No Answers Yet</p>;
         //loop through each item in the localefeed array
         for (let i = 0; i <= localeFeed.length; i++) {
             //get the element with the highest number of answers

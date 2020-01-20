@@ -54,7 +54,7 @@ class Category extends Component {
             <div className="body">
                 <Header data={data} />
                 <Meta 
-                    title={category + ' | Solutionwheels'}
+                    title={category.charAt(0).toUpperCase() + category.slice(1) + ' | Solutionwheels'}
                     description={category + ' questions on solutionwheels...'}
                     image={'/test/for/now'}
                     url={`https://solutionwheels.com/category/${category}`}
@@ -66,7 +66,7 @@ class Category extends Component {
                         {/* <ProfileDetails id={id} currentUser={userId} /> */}
                         <div className="post-filter profile-filter">
                             <ul>
-                                <li className="active-filter">{category}</li>
+                                <li className="active-filter">{category.charAt(0).toUpperCase() + category.slice(1)}</li>
                             </ul>
                         </div>
                         {

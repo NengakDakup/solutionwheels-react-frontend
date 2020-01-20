@@ -1,7 +1,35 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 
+import server from '../../config/config'
+
 class LeftSide extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            loading: true,
+            categories: []
+        }
+
+        this.fetchData = this.fetchData.bind(this)
+    }
+
+    componentWillMount(){
+        this.fetchData();
+    }
+
+    fetchData(){
+        axios.get(server + '/api/category/all')
+
+        
+            .then(res => {
+                this.setState({
+                    loading: false,
+                    categories: [...res.data]
+                })
+            })
+    }
 
 
     render(){
@@ -15,7 +43,19 @@ class LeftSide extends Component {
                           General
                       </Link>
                     </li>
-                    <li className={active === 'programming' ? 'is-active' : 'false'}>
+                    {
+                        !this.state.loading && this.state.categories.map((category, index) => {
+                        const {title} = category;
+                        return (
+                            <li className={active === title ? 'is-active' : 'false'} key={index}>
+                                <Link to={`/category/${title}`}>
+                                    {title[0].toUpperCase() + title.slice(1)}
+                                </Link>
+                            </li>
+                            )
+                        })
+                    }
+                    {/* <li className={active === 'programming' ? 'is-active' : 'false'}>
                       <Link to="/category/programming">
                           Programming
                       </Link>
@@ -64,7 +104,7 @@ class LeftSide extends Component {
                         <Link to="/category/forex">
                             Forex
                         </Link>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         )
