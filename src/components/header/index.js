@@ -10,7 +10,7 @@ import addTokenToHeader from '../../utils/addTokenToHeader'
 import HeaderSearch from './headerSearch'
 import NotificationDropdown from '../dropdowns/notificationDropdown'
 import ProfileDropDown from '../dropdowns/profileDropdown'
-import { AddIcon, NotificationIcon, DownArrow } from '../icons'
+import { AddIcon, NotificationIcon, DownArrow, SearchIcon } from '../icons'
 import ProfileImage from '../../assets/icons/boy.svg'
 import LogoMain from '../../assets/logo-main.png'
 // import DownArrow from '../../assets/icons/chevron-arrow-down.svg'
@@ -51,7 +51,7 @@ class Header extends Component {
             if(this.props.data.notifications.filter(notification => !notification.seen).length >= 1){
                 axios.get(server + '/api/notification/markseen')
                 .then(res => this.props.markSeenNotifications())
-            } else { return null;}
+            } else { return null}
         } else if(type === 'profile') {
             this.setState({
                 ProfileDropDownActive: !this.state.ProfileDropDownActive
@@ -74,6 +74,9 @@ class Header extends Component {
                 return (
                     <ul className="header-nav-ul">
                         {/* <TopHorizontalLoader /> */}
+                        <li className="header-nav-item sm-search" onClick={ () => this.toggleDropDown('ask')}>
+                            <SearchIcon />
+                        </li>
                         <li className="header-nav-item" onClick={ () => this.toggleDropDown('ask')}>
                             <AddIcon />
                         </li>
@@ -83,11 +86,14 @@ class Header extends Component {
                         </li>
                         <NotificationDropdown active={NotificationDropdownActive} toggleDropDown={this.toggleDropDown} />
                         <li className="header-nav-item" onClick={() => {this.toggleDropDown('profile')}}>
-                            <img src={ProfileImage} alt={data.userDetails.username} />
+                            <img className="profile-rounded-image" src={ProfileImage} alt={data.userDetails.username} />
                             <p className="header-display-name">
                                 <span className="header-name-text">
                                     {
-                                        data.userDetails.username.slice(data.userDetails.username.lastIndexOf(' '), data.userDetails.username.length)
+                                        data.userDetails.username.includes(' ') && data.userDetails.username.slice(data.userDetails.username.lastIndexOf(' '), data.userDetails.username.length)
+                                    }
+                                    {
+                                        !data.userDetails.username.includes(' ') && data.userDetails.username
                                     }
                                 </span>
                                 <span className="header-down-arrow">

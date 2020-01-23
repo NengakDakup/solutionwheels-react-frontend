@@ -491,6 +491,24 @@ li.header-nav-item {
   position: relative;
 }
 
+.header-navigation ul.header-nav-ul li.header-nav-item > svg {
+  height: 25px;
+  width: auto;
+}
+
+li.sm-search {
+  display: none;
+}
+
+li.sm-search > svg {
+  fill: #111;
+}
+
+img.profile-rounded-image {
+  max-width: 25px;
+  border-radius: 50%;
+}
+
 li.header-nav-item:hover {
   background-color: #F8F8F8;
 }
@@ -2625,6 +2643,10 @@ tr td {
 @media(max-width: 708px){
   .header-search {
     display: none;
+  }
+
+  li.sm-search {
+    display: flex;
   }
 }
 

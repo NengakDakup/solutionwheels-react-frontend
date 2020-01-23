@@ -40,6 +40,9 @@ class ProfileDropDown extends Component {
             return (
                 <div className="header-profile-drop active-display" ref={this.container}>
                     <ul>
+                        <li>
+                            <a href="">Dakup Nengak</a>
+                        </li>
                         <li onClick={ () => {
                             this.props.toggleDropDown('profile')
                             this.props.toggleDropDown('ask');
@@ -48,6 +51,9 @@ class ProfileDropDown extends Component {
                         </li>
                         <li>
                             <Link to="/profile">View Profile</Link>
+                        </li>
+                        <li>
+                            <a>Profile Settings</a>
                         </li>
                         <li onClick={ () => this.logOut()}>
                             <a href="#">Log Out</a>

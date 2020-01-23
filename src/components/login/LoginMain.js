@@ -113,7 +113,7 @@ class LoginMain extends Component {
                 <form onSubmit={(e) => this.validateInput(e)}>
                     <div>
                         {email && <span className="error-msg">{email}</span>}
-                        <input type="text" onChange={(e) => this.updateValue(e, 'email')} placeholder="Email Address" className={ email ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' } autocomplete/>
+                        <input type="text" onChange={(e) => this.updateValue(e, 'email')} placeholder="Email Address" className={ email ? 'sign-up-home-full-name input-error' : 'sign-up-home-full-name' } autofocus="true" autocomplete="true" />
                     </div>
                     <div>
                         {password && <span className="error-msg">{password}</span>}
