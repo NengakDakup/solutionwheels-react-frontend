@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logOut } from '../../actions'
+import { SettingsIcons, DummyUserImage, LogoutIcon, SmallAddIcon } from '../icons'
 
 class ProfileDropDown extends Component {
 
@@ -35,28 +36,42 @@ class ProfileDropDown extends Component {
     }
 
     render(){
+        const { status, userAvatar, userId, username } = this.props.data;
+        
         //const className = `header-notification-drop header-profile-drop ${this.props.active && "active-display"}`;
         if(this.props.active){
             return (
                 <div className="header-profile-drop active-display" ref={this.container}>
                     <ul>
                         <li>
-                            <a href="">Dakup Nengak</a>
+                            <a href="">{username}</a>
                         </li>
                         <li onClick={ () => {
                             this.props.toggleDropDown('profile')
                             this.props.toggleDropDown('ask');
                         }} >
-                            <a href="#">Ask Question</a>
+                            <a href="#">
+                                <SmallAddIcon />
+                                Ask Question
+                            </a>
                         </li>
                         <li>
-                            <Link to="/profile">View Profile</Link>
+                            <Link to={`/user/${userId}`}>
+                                <DummyUserImage />
+                                View Profile
+                            </Link>
                         </li>
                         <li>
-                            <a>Profile Settings</a>
+                            <Link to={`/settings`}>
+                                <SettingsIcons />
+                                Account Settings
+                            </Link>
                         </li>
                         <li onClick={ () => this.logOut()}>
-                            <a href="#">Log Out</a>
+                            <a href="#">
+                                <LogoutIcon />
+                                Log Out
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -68,11 +83,17 @@ class ProfileDropDown extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        data: state.userDetails
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         logOut: () => { dispatch(logOut(null)) },
     }
 }
 
-export default connect(null, mapDispatchToProps)(ProfileDropDown)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileDropDown)
 

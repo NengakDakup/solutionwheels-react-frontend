@@ -11,6 +11,7 @@ import Item from './pages/Item'
 import Category from './pages/Category';
 import Profile from './pages/Profile'
 import Notifications from './pages/Notifications';
+import Settings from './pages/Settings';
 import Reset from './pages/Reset';
 import SetToken from './components/content/SetToken';
 import _404 from './components/content/404'
@@ -29,6 +30,7 @@ function App() {
         <Route path="/user/:id" component={Profile} />
         <Route path="/category/:category" component={Category} />
         <Route path="/notifications" component={Notifications} />
+        <Route path="/settings" component={Settings} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
         <Route path="/admin" component={Admin} />

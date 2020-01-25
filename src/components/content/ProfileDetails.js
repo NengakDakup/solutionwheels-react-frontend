@@ -10,9 +10,9 @@ import Meta from '../header/Meta';
 const initialState = {
     errors: {},
     userDetails: {
-        name: '----- / -----',
-        email: '--/--',
-        avatar: '--/--',
+        name: '',
+        email: '',
+        avatar: '',
         bio: null,
         followers: [],
         questions: 0,
