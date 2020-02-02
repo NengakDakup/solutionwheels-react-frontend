@@ -82,7 +82,7 @@ class MainContentItem extends Component {
                     (data.image && data.image !== 'null')  && 
 
                     <div className="question-image">
-                        <ZoomableImage src={data.image} alt={data.question_title} />
+                        <ZoomableImage src={'/uploads/' + data.image} alt={data.question_title} />
                     </div>
                 }
                 <div className="qestion-details">

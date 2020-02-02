@@ -33,7 +33,9 @@ class NotificationItem extends Component {
 
     render(){
         const {read, seen, date, reaction, link, title, user, _id, triggeredBy} = this.props.data;
-        console.log(link);
+        const {toggleDropDown} = this.props;
+        console.log(toggleDropDown);
+        
         
         return (
             <li className={read? 'notification-item read-notification-item' : 'notification-item'} onClick={() => {this.markAsRead(); this.props.toggleDropDown('notification')}}>

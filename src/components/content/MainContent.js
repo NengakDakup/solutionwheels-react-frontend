@@ -11,6 +11,7 @@ import MainContentLoader from '../loaders/MainContentLoader';
 
 import {NetworkErrorIcon, DisconnectedIcon} from '../icons'
 import Retry from '../buttons/Retry'
+import QuickAskQuestion from './QuickAskQuestion'
 
 class MainContent extends Component {
     constructor(props){
@@ -114,6 +115,7 @@ class MainContent extends Component {
         return (
             <div className="main-content">
                 <PostFilter activeCategory={activeCategory} filterCategory={this.filterCategory} />
+                <QuickAskQuestion />
                 { items }
                 <center>
                     {this.state.loading && <MainContentLoader />}

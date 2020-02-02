@@ -89,7 +89,7 @@ class AskQuestion extends Component{
         const formData = new FormData();
         formData.append('image', this.state.question.image);
         //send the image to thw backend
-        await fetch('http://localhost:8080/upload.php', {method: 'POST', body: formData })
+        await fetch('/upload.php', {method: 'POST', body: formData })
         .then(body => body.json())
         .then(json => {
           file = json;

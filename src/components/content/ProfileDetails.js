@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom'
 
 import server from '../../config/config'
 import ProfileImage from '../../assets/icons/145841-avatar-set/png/man-2.png'
 import FollowBtn from '../buttons/Follow';
-import { FacebookIcon, GoogleIcon, TwitterIcon, InstagramIcon, ErrorIconAnswer } from '../icons';
+import { FacebookIcon, GoogleIcon, TwitterIcon, InstagramIcon, ErrorIconAnswer, EditPencilIcon } from '../icons';
 import Meta from '../header/Meta';
 
 const initialState = {
@@ -107,6 +108,10 @@ class ProfileDetails extends Component {
                 />
                 
                 <div className="profile-image-top" >
+                    <Link to="/settings" className="edit-profile-btn">
+                        <EditPencilIcon />
+                        Edit Profile
+                    </Link>
                     <div className="profile-image-circle">
                         <img src={ProfileImage} alt="" />
                     </div>

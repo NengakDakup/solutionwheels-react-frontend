@@ -5,17 +5,19 @@ import { connect } from 'react-redux'
 import { logOut } from '../../actions'
 import { SettingsIcons, DummyUserImage, LogoutIcon, SmallAddIcon } from '../icons'
 
+import ProfileImage from '../../assets/icons/boy.svg'
+
+
 class ProfileDropDown extends Component {
 
     container = React.createRef();
 
     componentDidMount() {
         document.addEventListener("mousedown", this.handleClickOutside);
-
     }
+
     componentWillUnmount() {
       document.removeEventListener("mousedown", this.handleClickOutside);
-
     }
 
     handleClickOutside = (event) => {
@@ -44,7 +46,10 @@ class ProfileDropDown extends Component {
                 <div className="header-profile-drop active-display" ref={this.container}>
                     <ul>
                         <li>
-                            <a href="">{username}</a>
+                            <Link to={`/user/${userId}`}>
+                                <img src={ProfileImage} />
+                            </Link>
+                            <Link to={`/user/${userId}`}>{username}</Link>
                         </li>
                         <li onClick={ () => {
                             this.props.toggleDropDown('profile')

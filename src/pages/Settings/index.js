@@ -5,10 +5,31 @@ import Header from '../../components/header'
 import Meta from '../../components/header/Meta'
 import LeftSide from '../../components/content/LeftSide'
 import RightSide from '../../components/content/RightSide'
+import { RandomuserImage } from '../../components/icons'
+import SettingsFilterTabs from '../../components/content/SettingsFilterTabs'
+import ProfileSettings from '../../components/content/ProfileSettings'
+import NotificationSettings from '../../components/content/NotificationSettings'
+import SecuritySettings from '../../components/content/SecuritySettings'
 
 class Settings extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            activeTab: 'profile'
+        }
+
+        this.setActiveTab = this.setActiveTab.bind(this)
+    }
+
+    setActiveTab(tab){
+        this.setState({
+            activeTab: tab
+        })
+    }
+
     render(){
         const {data} = this.props;
+        const {activeTab} = this.state;
         return (
             <div className="body">
                 <Meta 
@@ -22,7 +43,21 @@ class Settings extends Component {
                 <div className="content">
                     <LeftSide />
                     <div className="main-content">
-                        <h3>Profile Settings</h3>
+                        <div className="main-content-item profile-content-item">
+                            <div className="settings-top">
+                                <div className="settings-top-left">
+                                    <RandomuserImage />
+                                </div>
+                                <div>
+                                    <h2>Account Settings</h2>
+                                    <p>Manage your Profile, Notification and Security settings</p>
+                                </div>
+                            </div>
+                            <SettingsFilterTabs setActiveTab={this.setActiveTab} activeTab={activeTab} />
+                        </div>
+                        {activeTab === 'profile' && <ProfileSettings /> }
+                        {activeTab === 'notification' && <NotificationSettings /> }
+                        {activeTab === 'security' && <SecuritySettings /> }
                     </div>
                     <RightSide />
                 </div>

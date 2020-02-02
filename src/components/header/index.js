@@ -24,8 +24,8 @@ import NotifiableCount from '../dropdowns/NotifiableCount'
 
 
 class Header extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             NotificationDropdownActive: false,
             ProfileDropDownActive: false,
@@ -113,6 +113,7 @@ class Header extends Component {
                 )
             }
         }
+        
         return(
             <div className="header">
                 <BackTop />
