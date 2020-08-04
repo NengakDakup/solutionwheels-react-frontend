@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import axios from 'axios'
 
-import {loadNotifications, markSeenNotifications} from '../../actions'
+import {loadNotifications, markSeenNotifications, displayMobileSearch, hideMobileSearch} from '../../actions'
 import server from '../../config/config'
 import addTokenToHeader from '../../utils/addTokenToHeader'
 
@@ -20,6 +20,7 @@ import BackTop from '../buttons/BackTop'
 import ImageViewer from '../content/ImageViewer'
 import ShareQuestion from '../dropdowns/ShareQuestion'
 import NotifiableCount from '../dropdowns/NotifiableCount'
+import MobileSearch from '../content/MobileSearch'
 // import TopHorizontalLoader from '../../components/loaders/TopHorizontalLoader'
 
 
@@ -74,7 +75,7 @@ class Header extends Component {
                 return (
                     <ul className="header-nav-ul">
                         {/* <TopHorizontalLoader /> */}
-                        <li className="header-nav-item sm-search" onClick={ () => this.toggleDropDown('ask')}>
+                        <li className="header-nav-item sm-search" onClick={ () => this.props.displayMobileSearch()}>
                             <SearchIcon />
                         </li>
                         <li className="header-nav-item" onClick={ () => this.toggleDropDown('ask')}>
@@ -119,6 +120,7 @@ class Header extends Component {
                 <BackTop />
                 { this.props.data.imageViewer.display && <ImageViewer /> }
                 { this.props.data.shareQuestion.display && <ShareQuestion /> }
+                { this.props.data.mobileSearch.display && <MobileSearch hideMobileSearch={this.props.hideMobileSearch} /> }
                 { this.props.data.toast.display && <DisplayToast type={this.props.data.toast.type} message={this.props.data.toast.message} /> }
                 { this.state.AskQuestionActive && <AskQuestion data={data} toggleDropDown={this.toggleDropDown} />}
                 <div className="header-logo">
@@ -145,7 +147,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         loadNotifications: (payload) => { dispatch(loadNotifications(payload)) },
-        markSeenNotifications: (payload) => { dispatch(markSeenNotifications(payload)) }
+        markSeenNotifications: (payload) => { dispatch(markSeenNotifications(payload)) },
+        displayMobileSearch: (payload) => { dispatch(displayMobileSearch(payload)) },
+        hideMobileSearch: (payload) => { dispatch(hideMobileSearch(payload)) }
       
     }
 }

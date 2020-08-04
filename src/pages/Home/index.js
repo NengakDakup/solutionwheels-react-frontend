@@ -8,6 +8,7 @@ import LeftSide from '../../components/content/LeftSide'
 import RightSide from '../../components/content/RightSide'
 import MainContent from '../../components/content/MainContent'
 import Meta from '../../components/header/Meta'
+import Footer from '../../components/footer'
 
 class Home extends Component {
 
@@ -39,6 +40,7 @@ class Home extends Component {
                     <MainContent loadQuestions={this.loadQuestions} />
                     <RightSide />
                 </div>
+                <Footer />
             </div>
         )
     }

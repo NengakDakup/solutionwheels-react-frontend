@@ -33,7 +33,7 @@ class Settings extends Component {
         return (
             <div className="body">
                 <Meta 
-                    title='Settings | Solution Wheels'
+                    title='Account Settings | Solution Wheels'
                     description='Ask Questions and get wonderful answers...'
                     image={'/test/for/now'}
                     url={`https://solutionwheels.com/settings`}

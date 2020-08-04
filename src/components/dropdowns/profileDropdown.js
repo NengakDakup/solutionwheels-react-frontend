@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logOut } from '../../actions'
-import { SettingsIcons, DummyUserImage, LogoutIcon, SmallAddIcon } from '../icons'
+import { SettingsIcons, DummyUserImage, LogoutIcon, SmallAddIcon, BanIcon } from '../icons'
 
 import ProfileImage from '../../assets/icons/boy.svg'
 
@@ -72,6 +72,16 @@ class ProfileDropDown extends Component {
                                 Account Settings
                             </Link>
                         </li>
+                        {
+                            status === 7 && 
+                            <li>
+                                <Link to={`/admin`}>
+                                    <BanIcon />
+                                    Admin Panel
+                                </Link>
+                            </li>
+                        
+                        }
                         <li onClick={ () => this.logOut()}>
                             <a href="#">
                                 <LogoutIcon />

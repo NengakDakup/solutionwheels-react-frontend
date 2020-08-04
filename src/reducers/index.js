@@ -23,6 +23,10 @@ const initState = {
         message: null,
         type: null
     },
+    mobileSearch: {
+        display: false,
+        query: null
+    },
     imageViewer: {
         display: false,
         image: null
@@ -77,6 +81,20 @@ const rootReducer = (state = initState, action) => {
                     display: false,
                     message: null,
                     type: null
+                }
+            }
+        case 'DISPLAY_MOBILE_SEARCH':
+            return {
+                ...state,
+                mobileSearch: {
+                    display: true
+                }
+            }
+        case 'HIDE_MOBILE_SEARCH':
+            return {
+                ...state, 
+                mobileSearch: {
+                    display: false
                 }
             }
         case 'DISPLAY_IMAGE_VIEWER':

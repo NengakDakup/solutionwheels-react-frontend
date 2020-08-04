@@ -115,7 +115,7 @@ class Admin extends Component{
                 </div>
                 
                 <div className="content">
-                    <Navigation activeTab={this.state.activeTab} setActiveTab={this.setActiveTab} />
+                    <Navigation activeTab={this.state.activeTab} setActiveTab={this.setActiveTab} toggleSideBar={this.toggleSideBar} />
                     {!this.state.loading && this.state.activeTab === 'overview' && <Overview data={this.state.data} setActiveTab={this.setActiveTab} />}
                     {!this.state.loading && this.state.activeTab === 'messages' && <Messages /> }
                     {/* {!this.state.loading && this.state.activeTab === 'mailing' && <Mailing /> } */}

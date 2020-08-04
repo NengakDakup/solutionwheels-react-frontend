@@ -28,6 +28,20 @@ export const hideToast = (payload) => {
     }
 }
 
+export const displayMobileSearch = (payload) => {
+    return {
+        type: types.DISPLAY_MOBILE_SEARCH,
+        payload: payload
+    }
+}
+
+export const hideMobileSearch = (payload) => {
+    return {
+        type: types.HIDE_MOBILE_SEARCH,
+        payload: payload
+    }
+}
+
 export const displayImageViewer = (payload) => {
     return {
         type: types.DISPLAY_IMAGE_VIEWER,

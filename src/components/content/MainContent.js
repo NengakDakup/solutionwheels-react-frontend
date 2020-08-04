@@ -12,6 +12,7 @@ import MainContentLoader from '../loaders/MainContentLoader';
 import {NetworkErrorIcon, DisconnectedIcon} from '../icons'
 import Retry from '../buttons/Retry'
 import QuickAskQuestion from './QuickAskQuestion'
+import AskQuestion from './AskQuestion'
 
 class MainContent extends Component {
     constructor(props){
@@ -20,11 +21,13 @@ class MainContent extends Component {
             loading: true,
             networkError: false,
             activeCategory: 'Recent Questions',
+            displayAskQuestion: false,
             filteredFeed: []
         }
         this.filterCategory = this.filterCategory.bind(this)
         this.filterFeed = this.filterFeed.bind(this)
         this.fetchData = this.fetchData.bind(this)
+        this.askQuestion = this.askQuestion.bind(this)
     }
 
     fetchData(){
@@ -50,6 +53,12 @@ class MainContent extends Component {
 
     componentWillMount(){
         this.fetchData();
+    }
+
+    askQuestion(){
+        this.setState({
+            displayAskQuestion: !this.state.displayAskQuestion
+        })
     }
 
     filterCategory = (category) => {
@@ -106,16 +115,17 @@ class MainContent extends Component {
     }
 
     render(){
-        const {activeCategory} = this.state;
-        const { filteredFeed } = this.props.data;
+        const {activeCategory, displayAskQuestion} = this.state;
+        const { filteredFeed, userDetails } = this.props.data;
         const items = filteredFeed.map((it, key) => {
             return <MainContentItem data={it} key={it._id + Date.now() + key} />
         })
 
         return (
             <div className="main-content">
+                {displayAskQuestion && <AskQuestion data={this.props.data} toggleDropDown={this.askQuestion} />}
                 <PostFilter activeCategory={activeCategory} filterCategory={this.filterCategory} />
-                <QuickAskQuestion />
+                {userDetails.loggedIn && <QuickAskQuestion userDetails={userDetails} askQuestion={this.askQuestion} />}
                 { items }
                 <center>
                     {this.state.loading && <MainContentLoader />}

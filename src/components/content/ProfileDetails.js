@@ -108,16 +108,23 @@ class ProfileDetails extends Component {
                 />
                 
                 <div className="profile-image-top" >
-                    <Link to="/settings" className="edit-profile-btn">
-                        <EditPencilIcon />
-                        Edit Profile
-                    </Link>
+                    {
+                        _id === this.props.currentUser &&
+                        <Link to="/settings" className="edit-profile-btn">
+                            <EditPencilIcon />
+                            Edit Profile
+                        </Link>
+                    }
+                    
                     <div className="profile-image-circle">
                         <img src={ProfileImage} alt="" />
                     </div>
                 </div>
                 <div className="profile-details">
-                    <p className="profile-username">{name}{!errors.noprofile && <FollowBtn id={_id} currentUser={this.props.currentUser} followers={followers} /> }</p>
+                    <p className="profile-username">
+                        {name}
+                        {(!errors.noprofile && !(_id === this.props.currentUser)) && <FollowBtn id={_id} currentUser={this.props.currentUser} followers={followers} /> }
+                    </p>
                     {bio && <p className="profile-bio">{bio}</p>}
                     <p className="profile-stats">
                         <span className="profile-points">{points} {points > 1? ' Points' : ' Point'} </span>

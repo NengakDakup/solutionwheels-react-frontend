@@ -135,6 +135,7 @@ class AskQuestion extends Component{
                   <form onSubmit={this.validateInput}>
                     <div className="ask-question-top">
                         <p className="ask-question-top-item ask-question-top-item-active"><span>Ask a Question</span></p>
+                        <p className="ask-question-top-item"><span>Create a Poll</span></p>
                         <button onClick={ () => toggleDropDown('ask')} className="ask-question-x">
                             <CloseBtn />
                         </button>
